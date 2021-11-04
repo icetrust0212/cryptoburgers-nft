@@ -1,5 +1,6 @@
 import {Button, Modal} from 'react-bootstrap';
 import styled from 'styled-components';
+import "../assets/scss/modal.scss";
 
 function CustomModal({show, handleClose, data}) {
   
@@ -7,7 +8,6 @@ function CustomModal({show, handleClose, data}) {
         <Modal
           show={show}
           onHide={handleClose}
-          size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
@@ -40,6 +40,9 @@ function CustomModal({show, handleClose, data}) {
                     }
                     
                 </FLEXDIV>
+                <SPAN>#{data.tokenId}</SPAN>
+                <CLOSE onClick={handleClose}>x</CLOSE>
+                <CookButton>lets cook!</CookButton>
             </DIV>
           </Modal.Body>
         </Modal>
@@ -53,10 +56,11 @@ function CustomModal({show, handleClose, data}) {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    position: relative
   `;
 
   const Img = styled.img`
-    width: 250px;
+    width: 140px;
     display: block;
   `;
 
@@ -75,11 +79,13 @@ function CustomModal({show, handleClose, data}) {
         color: #27dc27;
         margin: 0;
         font-size: 24px;
+        font-weight: bold;
     }
     h3 {
         color: black;
         margin: 0;
         font-size: 24px;
+        font-weight: bold;
     }
   `;
   const INFO_BUTTON = styled.button`
@@ -109,8 +115,10 @@ function CustomModal({show, handleClose, data}) {
     }
     div {
         display: flex;
-        width: 140px;
+        width: 160px;
         flex-direction: column;
+        text-transform: uppercase;
+        font-weight: bold;
         label {
             font-size: 16px;
             color: black;
@@ -123,6 +131,41 @@ function CustomModal({show, handleClose, data}) {
         }
 
     }
+  `;
+  const SPAN = styled.span`
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    font-size: 16px;
+    color: black;
+    font-weight: 500;
   `
+
+  const CLOSE = styled.span`
+    position: absolute;
+    top: -15px;
+    right: 0px;
+    font-size: 24px;
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+  `;
+
+  const CookButton = styled.button`
+    width: 100%;
+    height: 36px;
+    color: #1245c5b5;
+    border-radius: 6px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 3px 0px blue;
+    text-transform: uppercase;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #4e97e9;
+    font-weight: 900;
+  `;
   
   export default CustomModal;
