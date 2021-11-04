@@ -1,0 +1,55 @@
+
+{
+    "contractUri":
+    {
+      "description": "URI for the API for NFTs. TMI!",
+      "external_link": "https://github.com/alto-io/nft-minter",
+      "image": "rabbit0.jpg",
+      "name": "Tokens created by nft-minter",
+      "symbol": "NFT"
+    },
+    "metadata": [
+        {
+          "id": "0",
+          "name": "rabbit0",
+          "icon": "🤖",
+          "description": "Just an emoji: 🤖",
+          "image": "rabbit0.jpg"
+        },      
+        {
+          "id": "1",
+          "name": "rabbit1",
+          "icon": "🤡",
+          "description": "Just an emoji: 🤡",
+          "image": "rabbit1.jpg"
+        },
+        {
+          "id": "2",
+          "name": "rabbit3",
+          "icon": "💩",
+          "description": "Just an emoji: 💩",
+          "image": "rabbit3.jpg"
+        },
+        {
+          "id": "3",
+          "name": "rabbit4",
+          "icon": "👻",
+          "description": "Just an emoji: 👻",
+          "image": "rabbit4.jpg"
+        },                        
+        {
+          "id": "4",
+          "name": "rabbit6",
+          "icon": "🎃",
+          "description": "Just an emoji: 🎃",
+          "image": "rabbit6.jpg"
+        },
+        {
+          "id": "5",
+          "name": "rabbit5",
+          "icon": "👽",
+          "description": "Just an emoji: 👽",
+          "image": "rabbit5.jpg"
+        }
+    ]    
+}
