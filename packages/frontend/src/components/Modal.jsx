@@ -25,8 +25,8 @@ function CustomModal({show, handleClose, data}) {
                 </INFO>
                 <FLEXDIV>
                     {
-                        data.attributes && data.attributes.map(attr => (
-                            <ITEM>
+                        data.attributes && data.attributes.map((attr, index) => (
+                            <ITEM key={index}>
                                 <img src={`/images/ingredients/${attr.trait_type.toLowerCase()}/${attr.rarity_id}.png`} alt="img" />
                                 <div className="rarity-info">
                                     <label htmlFor="">{attr.name}</label>

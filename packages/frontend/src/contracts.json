@@ -1,9 +1,9 @@
 {
-  "name": "rinkeby",
-  "chainId": "4",
+  "name": "testnet",
+  "chainId": "97",
   "contracts": {
     "Burger": {
-      "address": "0x473A49C610f6E7D5648f64D6F92Df5Ecffb56263",
+      "address": "0xa1bBA08dFa9eC087B9bBdAEf7368133c1609429E",
       "abi": [
         {
           "inputs": [],

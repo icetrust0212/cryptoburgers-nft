@@ -4,7 +4,6 @@ import 'react-notifications/lib/notifications.css';
 import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MintPage from './pages/Mint';
 import Home from './pages/Home';
 import {
   BrowserRouter as Router,
@@ -44,9 +43,6 @@ const App = () => {
           <Switch>
             <Route path="/" exact={true}>
               <Home handleNotification={handleNotification}/>
-            </Route>
-            <Route path="/mint">
-              <MintPage handleNotification={handleNotification}/>
             </Route>
           </Switch>
         </Container>

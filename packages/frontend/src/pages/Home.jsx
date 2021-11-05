@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import CustomButton from '../components/CustomButton'
 import MintHeader from '../components/MintHeader'
 import { apiAction } from '../store/actions'
-import { getAddress, getNFTContractInstance, getWeb3Instance, getWSSNFTContractInstance } from '../store/reducers'
+import { getAddress, getNFTContractInstance, getWeb3Instance } from '../store/reducers'
 import { getMetadata, mintNFT } from '../lib/nftutils';
 import CustomModal from '../components/Modal'
 function Home({handleNotification}) {
@@ -15,13 +15,8 @@ function Home({handleNotification}) {
     const address = useSelector(state => getAddress(state));
     const web3Instance = useSelector(state => getWeb3Instance(state));
     const nftContractInstance = useSelector(state => getNFTContractInstance(state));
-    const wssNFTContractInstance = useSelector(state => getWSSNFTContractInstance(state));
     
-    //subscribe event
-
-    useEffect(() => {
-        wssNFTContractInstance.events.NFTMintEvent({filter: { _to: address }})
-      .on('data', async (event) => {
+    const onMintSuccess = async (event) => {
         handleNotification('success', `NFT #${event.returnValues.id} is minted successfully `);
         setIsMinting(false);
         let metadata = await getMetadata(event.returnValues.tokenURI);
@@ -29,16 +24,16 @@ function Home({handleNotification}) {
         setNftData(metadata);
         setModalShow(true);
         console.log('token data: ', metadata);
-      }).on("error", (error) => {
+    }
+    const onMintFail = (error) => {
         console.error("Mint Failed", error);
         setIsMinting(false)
         handleNotification("error", 'NFT Mint is failed');
-      });
-    }, []);
+    }
     //Mint NFT
     const mint = async (metadata) => {
         setIsMinting(true);
-        await mintNFT(web3Instance, nftContractInstance, address, metadata);
+        mintNFT(web3Instance, nftContractInstance, address, metadata, onMintSuccess, onMintFail);
     };
 
     const onRequestMetadataSuccess = (metadata) => {

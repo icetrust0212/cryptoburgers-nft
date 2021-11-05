@@ -29,16 +29,8 @@ module.exports = {
       url: process.env.API_URL_MAINNET,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
     },
-    ropsten: {
-      url: process.env.API_URL_ROPSTEN,
-      accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
-    },
-    kovan: {
-      url: process.env.API_URL_KOVAN,
-      accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
-    },
-    rinkeby: {
-      url: process.env.API_URL_RINKBY,
+  testnet: {
+      url: process.env.API_URL_TESTNET,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
     }
   }
