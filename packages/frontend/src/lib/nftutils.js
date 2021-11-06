@@ -3,9 +3,9 @@ import axios from 'axios';
 
 export function mintNFT(web3, nftContractInstance,  address, metadata, onMintSuccess, onMintFail) {
   const priceWei = web3.utils.toWei("0.000001", "ether"); // Convert to wei value;
-  console.log('mint data: ', address, metadata.message, metadata.messageHash, metadata.signature, priceWei);
-
-  return nftContractInstance.methods.mint(address, metadata.message, metadata.messageHash, metadata.signature).send({value: priceWei, from: address}).on("receipt", function(res) {
+  let messageHash = web3.eth.accounts.hashMessage(metadata.message);
+  console.log('messageHash: ', messageHash);
+  return nftContractInstance.methods.mint(address, metadata.message, messageHash,  metadata.signature).send({value: priceWei, from: address}).on("receipt", function(res) {
     console.log('mint result: ', res);
     onMintSuccess(res.events.NFTMintEvent);
   }).on('error', err => {

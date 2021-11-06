@@ -57,7 +57,10 @@ exports.getMetadata = async (req, res) => {
     console.log('metadata request: ', metadata_url);
 
     res.status(200).send({
-        metadata: finalResult,
+        metadata: {
+            message: finalResult.message,
+            signature: finalResult.signature
+        },
         success: true
     });
     return;
@@ -135,3 +138,4 @@ function getBurgerPrice(ingredientsWithRarity) {
     }
     return sum;
 }
+

@@ -19,9 +19,8 @@ contract Burger is ERC721URIStorage, Ownable {
 
     constructor() ERC721("Burger", "BURGER") {}
 
-    modifier verified (string memory tokenUri, bytes32 tokenUriHash, bytes memory signature) {
+    modifier verified (bytes32 tokenUriHash,  bytes memory signature) {
         require(_verify(tokenUriHash, signature), "Denied!");
-        // require(keccak256(abi.encodePacked(tokenUri)) == tokenUriHash, "Denied!");
         _;
     }
 
@@ -33,8 +32,8 @@ contract Burger is ERC721URIStorage, Ownable {
         return VERIFIED_ADDRESS;
     }
 
-    function mint(address _to, string memory tokenUri, bytes32 tokenURIHash, bytes memory signature) public payable verified(tokenUri, tokenURIHash, signature) {
-        mintNFT(_to, tokenUri);
+    function mint(address _to, string memory tokenUri, bytes32 tokenUriHash, bytes memory signature) public payable verified(tokenUriHash, signature) returns(uint){
+        return mintNFT(_to, tokenUri);
     }
     function mintNFT(address recipient, string memory tokenURI)
         public payable
@@ -52,8 +51,7 @@ contract Burger is ERC721URIStorage, Ownable {
         return newItemId;
     }
 
-    function _verify(bytes32 data, bytes memory signature) public view returns (bool) {
-        return data.recover(signature) == VERIFIED_ADDRESS;
+    function _verify(bytes32 messageHash, bytes memory signature) public view returns (bool) {
+        return messageHash.recover(signature) == VERIFIED_ADDRESS;
     }
-
 }

@@ -70,8 +70,11 @@ describe("NFT contract", function () {
     it("sign", async function () {
       await hardhatToken.setVerifiedAddress(process.env.ACCOUNT_PUBLIC_KEY);
       const data = "This is test data";
+
       let signature =web3.eth.accounts.sign(data, process.env.ACCOUNT_PRIVATE_KEY);
-      const verified = await hardhatToken._verify(signature.messageHash, signature.signature);      
+      let messageHash = web3.eth.accounts.hashMessage(data);
+
+      const verified = await hardhatToken._verify(messageHash, signature.signature);      
       expect(verified).to.equal(true);
     });
 
@@ -82,5 +85,21 @@ describe("NFT contract", function () {
       // expect(await hardhatToken.verifyMessage(data, signature.messageHash)).to.equal(true);
     })
   });
+  describe("mint nft: ", function() {
+    it('mint: ', async function() {
+      await hardhatToken.setVerifiedAddress(process.env.ACCOUNT_PUBLIC_KEY);
+      const data = "This is test data";
+
+      let signature =web3.eth.accounts.sign(data, process.env.ACCOUNT_PRIVATE_KEY);
+      let messageHash = web3.eth.accounts.hashMessage(data);
+
+      let tx = await hardhatToken.mint(owner.address, data, messageHash, signature.signature, {from: owner.address, value: web3.utils.toWei('0.5', 'ether')});
+      console.log('tx: ', tx)
+      const {logs} = tx;
+      const log = logs[0];
+      expect(log.event).to.equal('NFTMintEvent');
+      expect(log.args.newItemId).to.equal(1);
+    })
+  })
 
 });

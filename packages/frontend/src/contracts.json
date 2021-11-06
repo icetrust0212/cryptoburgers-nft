@@ -3,7 +3,7 @@
   "chainId": "97",
   "contracts": {
     "Burger": {
-      "address": "0xa1bBA08dFa9eC087B9bBdAEf7368133c1609429E",
+      "address": "0xFE0cC8201334840c3E0EbD96DB96A9ce5Cf0739d",
       "abi": [
         {
           "inputs": [],
@@ -133,7 +133,7 @@
           "inputs": [
             {
               "internalType": "bytes32",
-              "name": "data",
+              "name": "messageHash",
               "type": "bytes32"
             },
             {
@@ -260,7 +260,7 @@
             },
             {
               "internalType": "bytes32",
-              "name": "tokenURIHash",
+              "name": "tokenUriHash",
               "type": "bytes32"
             },
             {
@@ -270,7 +270,13 @@
             }
           ],
           "name": "mint",
-          "outputs": [],
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
           "stateMutability": "payable",
           "type": "function"
         },
