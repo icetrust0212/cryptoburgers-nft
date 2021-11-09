@@ -1,7 +1,10 @@
 
 .modal-dialog {
-    width: 550px;
-    max-width: fit-content;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto
 }
 .modal-content {
     border-radius: 20px;
@@ -22,4 +25,7 @@
       border-radius: inherit; /* !importanté */
       background: linear-gradient(to right, red, orange);
     }
+}
+.modal-body {
+  padding: 0;
 }

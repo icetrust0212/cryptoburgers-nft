@@ -27,8 +27,7 @@ const Home = ({ handleNotification }) => {
             <ItemList>
                 {
                     burgerList && burgerList.map((data, index) => (
-                        <BurgerItem key={index}>
-                            <DIV>
+                        <DIV key={index}>
                                 <Img src={data.image} />
                                 <INFO>
                                     <INFO_ITEM>
@@ -58,8 +57,7 @@ const Home = ({ handleNotification }) => {
                                 </FLEXDIV>
                                 <SPAN>#{formatNo(data.tokenId)}</SPAN>
                                 <CookButton>lets cook!</CookButton>
-                            </DIV>
-                        </BurgerItem>
+                        </DIV>
                     ))
                 }
             </ItemList>
@@ -73,51 +71,59 @@ const Container = styled.div`
     align-items: center;
     flex-direction: column;
 `
-const ItemList = styled.ul`
+const ItemList = styled.div`
     display: flex;
     flex-wrap: wrap;
     padding: 0;
     margin: 0;
-    justify-content: center;
-    align-items: center;
-`;
-const BurgerItem = styled.li`
-    display: flex;
-    width: 40%;
-    min-width: 450px;
+    width: fit-content !important;
+    justify-content: flx-start;
+    align-items: flex-start;
+    @media(max-width: 991px) {
+        justify-content: center;
+    }
+    z-index: 1;
+    max-width: 900px;
 `;
 
 const DIV = styled.div`
-    width: 100%;
-    height: 100%;
+    max-width: 400px;
+    min-height: 500px;
+    @media(max-width: 567px) {
+        min-height: fit-content;
+        width: 300px;
+    }
+    height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    margin: 15px;
     position: relative;
-    background: white;
     border-radius: 20px;
+    background: white;
     position: relative;
     box-sizing: border-box;
-  
-    $border: 5px;
     background-clip: padding-box; /* !importanté */
-    border: solid $border transparent; /* !importanté */
+    border: solid 2px transparent; /* !importanté */
     border-radius: 1em;
   
-    &:before {
+    &:after {
       content: '';
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;
-      z-index: -1;
-      margin: -$border; /* !importanté */
+      margin: -5px; /* !importanté */
       border-radius: inherit; /* !importanté */
       background: linear-gradient(to right, red, orange);
+      z-index: -1;
     }
   `;
 
 const Img = styled.img`
     width: 140px;
+    @media(max-width: 567px) {
+        width: 100px;
+    }
     display: block;
   `;
 
@@ -132,17 +138,20 @@ const INFO = styled.div`
 const INFO_ITEM = styled.div`
     width: fit-content;
     display: flex;
-    h2 {
-        color: #27dc27;
+    align-items: center;
+    h2, h3 {
         margin: 0;
         font-size: 24px;
         font-weight: bold;
+        @media(max-width: 567px) {
+            font-size: 16px;
+        }
+    }
+    h2 {
+        color: #27dc27;
     }
     h3 {
         color: black;
-        margin: 0;
-        font-size: 24px;
-        font-weight: bold;
     }
   `;
 const INFO_BUTTON = styled.button`
@@ -152,6 +161,10 @@ const INFO_BUTTON = styled.button`
     outline: nonoe;
     border-radius: 10px;
     border-color: #27dc27;
+    @media(max-width: 567px) {
+        font-size: 14px;
+        padding: 2px 5px;
+    }
   `;
 
 const FLEXDIV = styled.div`
@@ -162,13 +175,19 @@ const FLEXDIV = styled.div`
     flex-wrap: wrap;
   `;
 const ITEM = styled.div`
-    width: 40%;
+    width: 160px;
+    @media(max-width: 567px) {
+        width: 100px;
+    }
     height: fit-content;
     display: flex;
     img {
         width: auto;
         height: 60px;
         display: block;
+        @media(max-width: 567px) {
+            height: 30px;
+        }
     }
     div {
         display: flex;
@@ -178,6 +197,9 @@ const ITEM = styled.div`
         font-weight: bold;
         label {
             font-size: 16px;
+            @media(max-width: 567px) {
+                font-size: 12px;
+            }
             color: black;
             span.rarity-name {
                 color: #d69718;
@@ -198,16 +220,6 @@ const SPAN = styled.span`
     font-weight: 500;
   `
 
-const CLOSE = styled.span`
-    position: absolute;
-    top: -15px;
-    right: 0px;
-    font-size: 24px;
-    color: black;
-    font-weight: 500;
-    cursor: pointer;
-  `;
-
 const CookButton = styled.button`
     width: 100%;
     height: 36px;
@@ -223,6 +235,10 @@ const CookButton = styled.button`
     align-items: center;
     background: #4e97e9;
     font-weight: 900;
-    margin-top: 15px;
+    margin-top: auto;
+    @media(max-width: 567px) {
+        font-size: 16px;
+        margin-top: 15px;
+    }
   `;
 export default Home;
