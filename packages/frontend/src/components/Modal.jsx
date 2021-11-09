@@ -57,6 +57,7 @@ function CustomModal({show, handleClose, data}) {
         min-height: fit-content;
         width: 300px;
     }
+    font-family: 'American';
     height: fit-content;
     display: flex;
     flex-direction: column;

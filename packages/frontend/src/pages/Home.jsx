@@ -70,6 +70,7 @@ const Container = styled.div`
     padding: 20px;
     align-items: center;
     flex-direction: column;
+    font-family: 'American';
 `
 const ItemList = styled.div`
     display: flex;
