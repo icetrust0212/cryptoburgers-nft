@@ -30,3 +30,11 @@ export function getChainData(chainId?: number ): IChainData|null {
 
   return chainData
 }
+
+export const formatNo = (num: number | string) : string  => {
+  if (!num) return '';
+  let s = num.toString();
+  s = "000000" + s;
+  s = s.slice(-6);
+  return s;
+}

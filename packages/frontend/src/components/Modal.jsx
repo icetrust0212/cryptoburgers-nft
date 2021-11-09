@@ -1,6 +1,7 @@
 import {Button, Modal} from 'react-bootstrap';
 import styled from 'styled-components';
 import "../assets/scss/modal.scss";
+import { formatNo } from '../lib/utilities';
 
 function CustomModal({show, handleClose, data}) {
   
@@ -16,8 +17,8 @@ function CustomModal({show, handleClose, data}) {
                 <Img src={data.image} />
                 <INFO>
                     <INFO_ITEM>
-                        <h2>POWER: </h2>
-                        <h3>16.78</h3>
+                        <h2> {'POWER:  '} </h2>
+                        <h3>{new Intl.NumberFormat().format(data.price)}</h3>
                     </INFO_ITEM>
                     <INFO_BUTTON>
                         MARKETPLACE
@@ -31,7 +32,7 @@ function CustomModal({show, handleClose, data}) {
                                 <div className="rarity-info">
                                     <label htmlFor="">{attr.name}</label>
                                     <label htmlFor="">
-                                        <span className="rarity-name">{attr.rarity}:</span>
+                                        <span className="rarity-name">{attr.rarity}: {' '} </span>
                                         <span className="rarity-value">{attr.value}</span>
                                     </label>
                                 </div>
@@ -40,7 +41,7 @@ function CustomModal({show, handleClose, data}) {
                     }
                     
                 </FLEXDIV>
-                <SPAN>#{data.tokenId}</SPAN>
+                <SPAN>#{formatNo(data.tokenId)}</SPAN>
                 <CLOSE onClick={handleClose}>x</CLOSE>
                 <CookButton>lets cook!</CookButton>
             </DIV>
@@ -105,17 +106,17 @@ function CustomModal({show, handleClose, data}) {
     flex-wrap: wrap;
   `;
   const ITEM = styled.div`
-    width: fit-content;
-    height: 60px;
+    width: 40%;
+    height: fit-content;
     display: flex;
     img {
         width: auto;
-        height: 100%;
+        height: 60px;
         display: block;
     }
     div {
         display: flex;
-        width: 160px;
+        width: fit-content;
         flex-direction: column;
         text-transform: uppercase;
         font-weight: bold;
@@ -166,6 +167,7 @@ function CustomModal({show, handleClose, data}) {
     align-items: center;
     background: #4e97e9;
     font-weight: 900;
+    margin-top: 15px;
   `;
   
   export default CustomModal;

@@ -1,7 +1,7 @@
 import { apiConstants } from "../constants"
 
 const initialState = {
-    metadata: ''
+    metadata: '',
 }
 
 export const apiReducer = (state: any = initialState, {type, payload}: any) => {

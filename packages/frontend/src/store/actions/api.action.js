@@ -1,4 +1,5 @@
 
+import { getBurgers } from '../../lib/nftutils';
 import {apiService} from '../../services';
 import { apiConstants } from '../constants';
 
@@ -30,5 +31,5 @@ const setMetadata = (metadata) => {
 }
 
 export const apiAction = {
-    requestMetadata
+    requestMetadata,
 }

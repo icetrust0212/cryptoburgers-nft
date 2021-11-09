@@ -36,4 +36,11 @@
     src: url(./assets/fonts/CHERI.TTF);
 }
 
+@font-face {
+    font-family: 'American';
+    src: url(./assets/fonts/AMERICAN\ CAPTAIN.OTF);
+}
 
+* {
+    font-family: 'American';
+}

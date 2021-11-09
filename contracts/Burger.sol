@@ -6,9 +6,10 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
-contract Burger is ERC721URIStorage, Ownable {
+contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable {
     uint256 price = 0.000001 ether;
     using Counters for Counters.Counter;
     using ECDSA for bytes32;
@@ -35,8 +36,8 @@ contract Burger is ERC721URIStorage, Ownable {
     function mint(address _to, string memory tokenUri, bytes32 tokenUriHash, bytes memory signature) public payable verified(tokenUriHash, signature) returns(uint){
         return mintNFT(_to, tokenUri);
     }
-    function mintNFT(address recipient, string memory tokenURI)
-        public payable
+    function mintNFT(address recipient, string memory _tokenURI)
+        internal
         returns (uint256)
     {
         require(msg.value >= price, "Ether is not enough to mint NFT");
@@ -44,14 +45,34 @@ contract Burger is ERC721URIStorage, Ownable {
 
         uint256 newItemId = _tokenIds.current();
         _mint(recipient, newItemId);
-        _setTokenURI(newItemId, tokenURI);
+        _setTokenURI(newItemId, _tokenURI);
 
-        emit NFTMintEvent(msg.sender, tokenURI,  newItemId);
+        emit NFTMintEvent(msg.sender, _tokenURI,  newItemId);
 
         return newItemId;
     }
 
-    function _verify(bytes32 messageHash, bytes memory signature) public view returns (bool) {
+    function _verify(bytes32 messageHash, bytes memory signature) internal view returns (bool) {
         return messageHash.recover(signature) == VERIFIED_ADDRESS;
+    }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal override(ERC721Enumerable, ERC721) {
+        ERC721Enumerable._beforeTokenTransfer(from, to, tokenId);
+    }
+
+    function _burn(uint256 tokenId) internal virtual override(ERC721URIStorage, ERC721) {
+        ERC721URIStorage._burn(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721Enumerable, ERC721) returns (bool) {
+        return ERC721Enumerable.supportsInterface(interfaceId);
+    }
+
+    function tokenURI(uint256 tokenId) public view virtual override(ERC721URIStorage, ERC721) returns (string memory) {
+        return ERC721URIStorage.tokenURI(tokenId);
     }
 }
