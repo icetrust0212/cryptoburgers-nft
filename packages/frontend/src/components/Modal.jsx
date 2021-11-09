@@ -2,6 +2,7 @@ import {Button, Modal} from 'react-bootstrap';
 import styled from 'styled-components';
 import "../assets/scss/modal.scss";
 import { formatNo } from '../lib/utilities';
+import cookButton from '../assets/imgs/btn_cook.png';
 
 function CustomModal({show, handleClose, data}) {
   
@@ -43,7 +44,7 @@ function CustomModal({show, handleClose, data}) {
                 </FLEXDIV>
                 <SPAN>#{formatNo(data.tokenId)}</SPAN>
                 <CLOSE onClick={handleClose}>x</CLOSE>
-                <CookButton>lets cook!</CookButton>
+                <CookButton src={cookButton}></CookButton>
             </DIV>
           </Modal.Body>
         </Modal>
@@ -184,10 +185,8 @@ const SPAN = styled.span`
     font-weight: 500;
   `
 
-const CookButton = styled.button`
+const CookButton = styled.img`
     width: 100%;
-    height: 36px;
-    color: #1245c5b5;
     border-radius: 6px;
     outline: none;
     border: none;
@@ -204,6 +203,7 @@ const CookButton = styled.button`
         font-size: 16px;
         margin-top: 15px;
     }
+    cursor: pointer;
   `;
 
   const CLOSE = styled.span`

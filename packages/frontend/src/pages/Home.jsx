@@ -5,6 +5,8 @@ import MintHeader from '../components/MintHeader';
 import { getBurgers } from '../lib/nftutils';
 import { formatNo } from '../lib/utilities';
 import { getAddress, getNFTContractInstance, getProvider, getWeb3Instance } from '../store/reducers';
+import cookButton from '../assets/imgs/btn_cook.png';
+
 const Home = ({ handleNotification }) => {
     const address = useSelector(state => getAddress(state));
     const web3Instance = useSelector(state => getWeb3Instance(state));
@@ -56,7 +58,7 @@ const Home = ({ handleNotification }) => {
 
                                 </FLEXDIV>
                                 <SPAN>#{formatNo(data.tokenId)}</SPAN>
-                                <CookButton>lets cook!</CookButton>
+                                <CookButton src={cookButton}></CookButton>
                         </DIV>
                     ))
                 }
@@ -221,10 +223,8 @@ const SPAN = styled.span`
     font-weight: 500;
   `
 
-const CookButton = styled.button`
+const CookButton = styled.img`
     width: 100%;
-    height: 36px;
-    color: #1245c5b5;
     border-radius: 6px;
     outline: none;
     border: none;
@@ -241,5 +241,6 @@ const CookButton = styled.button`
         font-size: 16px;
         margin-top: 15px;
     }
+    cursor: pointer;
   `;
 export default Home;
