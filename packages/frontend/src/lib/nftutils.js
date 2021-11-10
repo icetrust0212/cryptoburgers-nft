@@ -54,14 +54,10 @@ export async function getRemainCount(nftContractInstance) {
 export async function getBurgers(nftContractInstance, address) {
   let tokenAmount = await nftContractInstance.methods.balanceOf(address).call({from: address});
   console.log(tokenAmount);
-  // let tokenIds = [];
-  // let tokenUris = [];
   let tokenMetadatas = [];
   for (let i = 0; i < tokenAmount ; i ++) {
     let tokenId = await nftContractInstance.methods.tokenOfOwnerByIndex(address, i).call({from: address});
     let tokenUri = await nftContractInstance.methods.tokenURI(tokenId).call({from: address});
-    // tokenIds.push(token);
-    // tokenUris.push(tokenUri);
     let metadata = await getMetadata(tokenUri);
     tokenMetadatas.push({
       ...metadata,

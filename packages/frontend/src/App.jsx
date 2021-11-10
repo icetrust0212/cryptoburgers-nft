@@ -13,6 +13,7 @@ import {
   Link
 } from "react-router-dom";
 import styled from 'styled-components';
+import LoaderOverlary from './components/LoadingOverlay';
 
 const App = () => {
 
@@ -39,18 +40,22 @@ const App = () => {
   return (
 
     <>
-      <div className="App">
-        <Container>
-          <Switch>
-            <Route path="/" exact={true}>
-              <Home handleNotification={handleNotification}/>
-            </Route>
-            <Route path="/mint" exact={true}>
-              <Mint handleNotification={handleNotification}/>
-            </Route>
-          </Switch>
-        </Container>
-      </div>
+      <LoaderOverlary>
+        <div className="App">
+          <Container>
+
+            <Switch>
+              <Route path="/" exact={true}>
+                <Home handleNotification={handleNotification} />
+              </Route>
+              <Route path="/mint" exact={true}>
+                <Mint handleNotification={handleNotification} />
+              </Route>
+            </Switch>
+
+          </Container>
+        </div>
+      </LoaderOverlary>
       <NotificationContainer />
     </>
   );

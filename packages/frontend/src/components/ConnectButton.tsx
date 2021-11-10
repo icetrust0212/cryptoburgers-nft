@@ -38,12 +38,26 @@ const ConnectButton = () => {
   
       const network = await web3Provider.getNetwork();
       console.log('connect');
+
+      if (provider.on) {
+        provider.on('accountsChanged', handleAccountsChanged)
+        provider.on('chainChanged', handleChainChanged)
+        provider.on('disconnect', handleDisconnect)
+      }
+
       dispatch(setWeb3Provider(provider, web3Provider, address, network.chainId))
     };
 
     const disconnect = async function () {
       await web3Modal.clearCachedProvider()
       if (provider) {
+
+        if (provider.removeListener) {
+          provider.removeListener('accountsChanged', handleAccountsChanged)
+          provider.removeListener('chainChanged', handleChainChanged)
+          provider.removeListener('disconnect', handleDisconnect)
+        }
+
         if (provider.disconnect && typeof provider.disconnect === 'function') {
           await provider.disconnect()
         }
@@ -51,45 +65,29 @@ const ConnectButton = () => {
       }
     }
 
-    useEffect(() => {
-      if (!provider && web3Modal.cachedProvider) {
-        connect()
-      }
-    }, [provider])
+    const handleAccountsChanged = (accounts: string[]) => {
+      // eslint-disable-next-line no-console
+      console.log('accountsChanged', accounts)
+      dispatch(setAddress(accounts[0]));
+    }
+
+    const handleChainChanged = (chainIdHex: string) => {
+      // eslint-disable-next-line no-console
+      let chainId = parseInt(chainIdHex)
+      console.log('chainChanged', chainIdHex, chainId);
+      dispatch(setChainId(chainId));
+    }
+
+    const handleDisconnect = (error: { code: number; message: string }) => {
+      // eslint-disable-next-line no-console
+      console.log('disconnect', error)
+      disconnect()
+    }
 
     useEffect(() => {
-      if (provider && provider.on) {
-        const handleAccountsChanged = (accounts: string[]) => {
-          // eslint-disable-next-line no-console
-          console.log('accountsChanged', accounts)
-          dispatch(setAddress(accounts[0]));
-        }
-  
-        const handleChainChanged = (chainIdHex: string) => {
-          // eslint-disable-next-line no-console
-          let chainId = parseInt(chainIdHex)
-          console.log('chainChanged', chainIdHex, chainId);
-          dispatch(setChainId(chainId));
-        }
-  
-        const handleDisconnect = (error: { code: number; message: string }) => {
-          // eslint-disable-next-line no-console
-          console.log('disconnect', error)
-          disconnect()
-        }
-  
-        provider.on('accountsChanged', handleAccountsChanged)
-        provider.on('chainChanged', handleChainChanged)
-        provider.on('disconnect', handleDisconnect)
-  
-        // Subscription Cleanup
-        return () => {
-          if (provider.removeListener) {
-            provider.removeListener('accountsChanged', handleAccountsChanged)
-            provider.removeListener('chainChanged', handleChainChanged)
-            provider.removeListener('disconnect', handleDisconnect)
-          }
-        }
+      if (!provider && web3Modal.cachedProvider) {
+        console.log('useEffect connect: ', provider);
+        connect()
       }
     }, [provider])
 

@@ -19,30 +19,30 @@ const initialState = {
   ...init()
 }
 
-export function web3(state=initialState, action) {
-  switch (action.type) {
+export const web3 = (state=initialState, {type, payload}) => {
+  switch (type) {
     case 'SET_WEB3_PROVIDER':
       return {
         ...state,
-        provider: action.provider,
-        web3Provider: action.web3Provider,
-        address: action.address,
-        chainId: action.chainId,
+        provider: payload.provider,
+        web3Provider: payload.web3Provider,
+        address: payload.address,
+        chainId: payload.chainId,
       }
     case 'SET_ADDRESS':
       return {
         ...state,
-        address: action.address,
+        address: payload,
       }
     case 'SET_CHAIN_ID':
       return {
         ...state,
-        chainId: action.chainId,
+        chainId: payload,
       }
     case 'RESET_WEB3_PROVIDER':
       return initialState
     default:
-      return initialState;
+      return state;
   }
 }
 

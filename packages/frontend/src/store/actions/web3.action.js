@@ -3,10 +3,12 @@ import { web3Constants } from "../constants";
 export const setWeb3Provider = (provider, web3Provider, address, chainId) => {
     return {
         type: web3Constants.SET_WEB3_PROVIDER,
-        provider,
-        web3Provider,
-        address,
-        chainId
+        payload: {
+            provider,
+            web3Provider,
+            address,
+            chainId
+        }
     };
 }
 
@@ -19,25 +21,13 @@ export const resetWeb3Provider = () => {
 export const setAddress = (address) => {
     return {
         type: web3Constants.SET_ADDRESS,
-        address,
+        payload: address,
     }
 }
 
 export const setChainId = (chainId) => {
     return {
         type: web3Constants.SET_CHAIN_ID,
-        chainId
-    }
-}
-
-export const getMintPrice = () => {
-    return {
-        type: web3Constants.GET_MINT_PRICE
-    }
-}
-
-export const setWeb3 = () => {
-    return {
-        
+        payload: chainId
     }
 }
