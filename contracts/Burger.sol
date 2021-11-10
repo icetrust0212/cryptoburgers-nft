@@ -12,6 +12,7 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 
 contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable, Pausable {
     uint256 price = 0.000001 ether;
+    uint256 priceWhitelist = 0.0000001 ether;
     using Counters for Counters.Counter;
     using ECDSA for bytes32;
     Counters.Counter private _tokenIds;
@@ -37,6 +38,22 @@ contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable, Pausable {
         return VERIFIED_ADDRESS;
     }
 
+    function getPrice() public view returns (uint256 actualPrice) {
+        if (whitelistActive) {
+            return priceWhitelist;
+        } else {
+            return price;
+        }
+    }
+
+    function changePrice(uint256 newPrice) external onlyOwner {
+        price = newPrice;
+    }
+
+    function changeWhitelistPrice(uint256 newPrice) external onlyOwner {
+        priceWhitelist = newPrice;
+    }
+
     function mintWhitelist(
         address _to,
         string memory tokenUri,
@@ -44,7 +61,7 @@ contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable, Pausable {
         bytes memory signature,
         bytes32 leaf,
         bytes32[] memory proof
-    ) external payable verified(tokenUriHash, signature) returns (uint256){
+    ) external payable verified(tokenUriHash, signature) returns (uint256) {
         require(whitelistActive, "Whitelist is not active");
 
         bool isWhitelisted = verifyWhitelist(leaf, proof);
@@ -62,6 +79,7 @@ contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable, Pausable {
         bytes32 tokenUriHash,
         bytes memory signature
     ) public payable verified(tokenUriHash, signature) returns (uint256) {
+        require(!whitelistActive, "Whitelist is not active");
         return mintNFT(_to, tokenUri);
     }
 
@@ -69,8 +87,9 @@ contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable, Pausable {
         internal
         returns (uint256)
     {
+        uint256 priceToMint = getPrice();
         require(!paused(), "Minting is paused!");
-        require(msg.value >= price, "Ether is not enough to mint NFT");
+        require(msg.value >= priceToMint, "Ether is not enough to mint NFT");
         _tokenIds.increment();
 
         uint256 newItemId = _tokenIds.current();
@@ -78,6 +97,11 @@ contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable, Pausable {
         _setTokenURI(newItemId, _tokenURI);
 
         emit NFTMintEvent(msg.sender, _tokenURI, newItemId);
+
+        // If pay more than price, return the difference
+        if (msg.value > priceToMint) {
+            payable(msg.sender).transfer(msg.value - priceToMint);
+        }
 
         return newItemId;
     }

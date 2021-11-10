@@ -3,7 +3,6 @@
  * 
  * You receive the address at the endpoint
  * 
- * 
  */
  const { MerkleTree } = require('merkletreejs');
  const keccak256 = require('keccak256');
@@ -19,9 +18,11 @@
  if (verified) {
 
     // Call the mintWhitelist function in the contract like mint with all the parameters.
-    // leaf: address proof: proof
+    // leaf: address of the user
+    // proof: proof
 
  } else {
-     return exits.success({ message: 'NOT_WHITELISTED' });
+     
+    //  Not whitelisted
 
  }
