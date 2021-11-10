@@ -1,9 +1,9 @@
 {
   "name": "testnet",
-  "chainId": "97",
+  "chainId": "4",
   "contracts": {
     "Burger": {
-      "address": "0xE7414c54DBAB6C7aEA117B8ffe0cb31d7F442dD3",
+      "address": "0x27506abD55a1e20A381A4a0052B2189f3997865d",
       "abi": [
         {
           "inputs": [],
@@ -180,25 +180,6 @@
               "internalType": "address",
               "name": "",
               "type": "address"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "_address",
-              "type": "address"
-            }
-          ],
-          "name": "getTokenIdsOf",
-          "outputs": [
-            {
-              "internalType": "bool",
-              "name": "",
-              "type": "bool"
             }
           ],
           "stateMutability": "view",

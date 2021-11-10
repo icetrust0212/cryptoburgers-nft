@@ -11,14 +11,15 @@ const func = async function (hre) {
   const {deployer} = await getNamedAccounts();
   const network = await hre.getChainId();
  
-
   await deploy('Burger', {
     from: deployer,
     args: [
     ],
     log: true
   });
+
 };
 
 module.exports = func;
 func.tags = ['Burger'];
+

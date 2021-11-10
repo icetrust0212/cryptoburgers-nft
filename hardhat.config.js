@@ -7,6 +7,7 @@ require('hardhat-deploy-ethers');
  * @type import('hardhat/config').HardhatUserConfig
  */
 const ACCOUNT_PRIVATE_KEY = process.env.ACCOUNT_PRIVATE_KEY;
+
 module.exports = {
   solidity: {
     compilers: [
@@ -30,7 +31,7 @@ module.exports = {
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
     },
   testnet: {
-      url: process.env.API_URL_TESTNET,
+      url: process.env.API_URL_RINKBY,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
     }
   }
