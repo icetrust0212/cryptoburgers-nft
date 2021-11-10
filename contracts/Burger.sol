@@ -8,8 +8,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 
-contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable {
+contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable, Pausable {
     uint256 price = 0.000001 ether;
     using Counters for Counters.Counter;
     using ECDSA for bytes32;
@@ -43,13 +44,13 @@ contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable {
         bytes memory signature,
         bytes32 leaf,
         bytes32[] memory proof
-    ) external payable {
+    ) external payable verified(tokenUriHash, signature) returns (uint256){
         require(whitelistActive, "Whitelist is not active");
 
         bool isWhitelisted = verifyWhitelist(leaf, proof);
 
         if (isWhitelisted) {
-            mintNFT();
+            return mintNFT(_to, tokenUri);
         } else {
             revert("Not whitelisted");
         }
