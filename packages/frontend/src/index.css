@@ -23,3 +23,6 @@ code {
       transform: translateY(3px);
   } 
 }
+._loading_overlay_content {
+  margin: calc(50vh) auto calc(50vh) auto !important;
+}

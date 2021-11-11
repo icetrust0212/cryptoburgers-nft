@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { getAddress, getNFTContractInstance, getProvider, getTokenList, getWeb3Instance } from '../store/reducers';
 import { apiAction } from '../store/actions';
 import BurgerCard from '../components/BurgerCard';
-
 const Home = ({ handleNotification }) => {
     const address = useSelector(state => getAddress(state));
     const web3Instance = useSelector(state => getWeb3Instance(state));
@@ -14,7 +13,7 @@ const Home = ({ handleNotification }) => {
     const provider = useSelector(state => getProvider(state));
     const burgerList = useSelector(state => getTokenList(state));
     const dispatch = useDispatch();
-
+    
     useEffect( () => {
         if (provider) {
             dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
@@ -44,8 +43,9 @@ const Container = styled.div`
     width: 100%;
     height: fit-contnet;
     min-height: 100vh;
-    background-repeat-x: unset;
-    background-image: url(/images/home_burgers_background_blue.svg);
+    background-repeat-x: no-repeat;
+    background-size: 100%;
+    background-image: url(/images/home_burgers_background.png);
     background-repeat-y: repeat;
 `
 const ContentContainer = styled.div`

@@ -91,21 +91,13 @@ const ConnectButton = () => {
       }
     }, [provider])
 
-    function ellipseAddress(address = '', width = 5): string {
-      if (!address) {
-        return ''
-      }
-      return `${address.slice(0, width)}...${address.slice(-width)}`
-    }
+    
       
     return (
             web3Provider ? (
-            <div style={{display:"flex", alignItems:'center'}}>
               <Button onClick={() => disconnect()} >
-                Disconnect
-                <Span>{ellipseAddress(address)}</Span>
+                My Account
               </Button>
-            </div>
           ) : (
             <Button onClick={() => connect()}>
               Connect
@@ -116,27 +108,16 @@ const ConnectButton = () => {
 
 export default ConnectButton;
 
-const Button = styled.button`
-  padding: 12px 30px;
-  background: #01030d;
-  color: #fff;
+const Button = styled.span`
+  color: red;
   font-size: 1.1rem;
   letter-spacing: 1.1px;
-  font-family: Space Grotesk;
-  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s; 
+  font-family: 'Baloo';
   border: none;
   outline: none;
-  font-family: 'Oliver';
-
+  font-size: 12px;
   &:hover{
     cursor: pointer;
-    background: #4753d6;
     transform: scale(1.1);
 }
-`
-
-const Span = styled.span`
-    padding: 2px 15px;
-    color: white;
-    font-size: 12px;
 `

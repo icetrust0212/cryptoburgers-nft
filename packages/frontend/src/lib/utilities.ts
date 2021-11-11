@@ -38,3 +38,10 @@ export const formatNo = (num: number | string) : string  => {
   s = s.slice(-6);
   return s;
 }
+
+export function ellipseAddress(address = '', width = 5): string {
+  if (!address) {
+    return ''
+  }
+  return `${address.slice(0, width)}...${address.slice(-width)}`
+}
