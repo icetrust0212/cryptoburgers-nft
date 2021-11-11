@@ -39,9 +39,9 @@ const BurgerCard = ({ data }) => {
 }
 
 const DIV = styled.div`
-    max-width: 450px;
+    max-width: 400px;
     min-height: 500px;
-    height: 600px;
+    height: 550px;
     font-family: 'American';
     @media(max-width: 567px) {
         min-height: fit-content;
@@ -129,7 +129,7 @@ const FLEXDIV = styled.div`
     flex-wrap: wrap;
   `;
 const ITEM = styled.div`
-    width: 160px;
+    width: 170px;
     @media(max-width: 567px) {
         width: 100px;
     }

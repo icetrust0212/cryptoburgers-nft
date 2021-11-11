@@ -1,9 +1,9 @@
 {
   "name": "testnet",
-  "chainId": "4",
+  "chainId": "97",
   "contracts": {
     "Burger": {
-      "address": "0x27506abD55a1e20A381A4a0052B2189f3997865d",
+      "address": "0xb02189320358F7194ccE531D27Ca536c59DF9781",
       "abi": [
         {
           "inputs": [],
@@ -108,6 +108,19 @@
           "anonymous": false,
           "inputs": [
             {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
               "indexed": true,
               "internalType": "address",
               "name": "from",
@@ -127,6 +140,19 @@
             }
           ],
           "name": "Transfer",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
           "type": "event"
         },
         {
@@ -169,6 +195,58 @@
         {
           "inputs": [
             {
+              "internalType": "uint256[3]",
+              "name": "newPrice",
+              "type": "uint256[3]"
+            }
+          ],
+          "name": "changePrice",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "newRoot",
+              "type": "bytes32"
+            }
+          ],
+          "name": "changeRoot",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256[3]",
+              "name": "newPrice",
+              "type": "uint256[3]"
+            }
+          ],
+          "name": "changeWhitelistPrice",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bool",
+              "name": "newState",
+              "type": "bool"
+            }
+          ],
+          "name": "changeWhitelistState",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
               "internalType": "uint256",
               "name": "tokenId",
               "type": "uint256"
@@ -180,6 +258,25 @@
               "internalType": "address",
               "name": "",
               "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint8",
+              "name": "boxId",
+              "type": "uint8"
+            }
+          ],
+          "name": "getPrice",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "actualPrice",
+              "type": "uint256"
             }
           ],
           "stateMutability": "view",
@@ -241,8 +338,28 @@
             },
             {
               "internalType": "bytes",
-              "name": "signature",
+              "name": "tokenUriSignature",
               "type": "bytes"
+            },
+            {
+              "internalType": "uint8",
+              "name": "boxId",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "boxIdHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes",
+              "name": "boxIdSignature",
+              "type": "bytes"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "proof",
+              "type": "bytes32[]"
             }
           ],
           "name": "mint",
@@ -296,6 +413,32 @@
               "internalType": "address",
               "name": "",
               "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
             }
           ],
           "stateMutability": "view",
@@ -531,6 +674,56 @@
           "name": "transferOwnership",
           "outputs": [],
           "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "leaf",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "proof",
+              "type": "bytes32[]"
+            }
+          ],
+          "name": "verifyWhitelist",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "whitelistActive",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
           "type": "function"
         }
       ]

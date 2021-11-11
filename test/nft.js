@@ -85,20 +85,18 @@ describe("NFT contract", function () {
       // expect(await hardhatToken.verifyMessage(data, signature.messageHash)).to.equal(true);
     })
   });
-  describe("mint nft: ", function() {
-    it('mint: ', async function() {
-      await hardhatToken.setVerifiedAddress(process.env.ACCOUNT_PUBLIC_KEY);
-      const data = "This is test data";
 
-      let signature =web3.eth.accounts.sign(data, process.env.ACCOUNT_PRIVATE_KEY);
-      let messageHash = web3.eth.accounts.hashMessage(data);
-
-      let tx = await hardhatToken.mint(owner.address, data, messageHash, signature.signature, {from: owner.address, value: web3.utils.toWei('0.5', 'ether')});
-      console.log('tx: ', tx)
-      const {logs} = tx;
-      const log = logs[0];
-      expect(log.event).to.equal('NFTMintEvent');
-      expect(log.args.newItemId).to.equal(1);
+  describe("price", function() {
+    it('get price: ', async function() {
+      let price = await hardhatToken.getPrice(1);
+      console.log('price1: ', price, parseInt(price._hex, 16));
+      price = await hardhatToken.getPrice(2);
+      console.log('price2: ', new web3.utils.BN(price._hex).toString());
+      price = await hardhatToken.getPrice(3);
+      console.log('price3: ', new web3.utils.BN(price._hex).toString());
+      console.log('xxx: ', new web3.utils.BN(10000).toString())
+      const priceWei = web3.utils.toWei(new web3.utils.BN(price._hex).toString(), "ether"); // Convert to wei value;
+      console.log('price wei: ', priceWei)
     })
   })
 

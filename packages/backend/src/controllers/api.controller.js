@@ -2,10 +2,12 @@ var bcrypt = require("bcryptjs");
 const upload_metadata_ipfs = require("../api/upload_metadata");
 const {ingredients, rarityPerBox, rarityInfo, burgerLevels, metadata_standard} = require('../data');
 const {web3Config} = require("../config");
+const { verifyWhitelist } = require("../services/merkleTree.service");
+const { encryptMessage } = require("../services/encrypt");
 
 exports.getMetadata = async (req, res) => {
     let boxId = req.params.id;
-    
+    let address = req.params.address;
     // determine which ingredients will be used to mint burger NFT.
     let ingredientTypeIndexes = getIngredientType(); 
 
@@ -53,13 +55,25 @@ exports.getMetadata = async (req, res) => {
 
     let metadata_url = await upload_metadata_ipfs(metadata);
 
-    let finalResult = signWithWeb3(metadata_url);
+    let metadataSign = signWithWeb3(metadata_url);
+    let boxIdSign = signWithWeb3(boxId);
     console.log('metadata request: ', metadata_url);
+
+    let whitelistInfo = verifyWhitelist(address);
+    let encryptedData = encryptMessage(metadata_url);
 
     res.status(200).send({
         metadata: {
-            message: finalResult.message,
-            signature: finalResult.signature
+            ...encryptedData,
+            signature: metadataSign.signature
+        },
+        box: {
+            message: boxIdSign.message,
+            signature: boxIdSign.signature,
+        },
+        whitelist: {
+            isWhitelist: whitelistInfo.verified,
+            proof: whitelistInfo.proof,
         },
         success: true
     });

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import CustomButton from '../components/CustomButton'
-import MintHeader from '../components/MintHeader'
+import Header from '../components/Header'
 import { apiAction } from '../store/actions'
-import { getAddress, getNFTContractInstance, getWeb3Instance } from '../store/reducers'
+import { getAddress, getNFTContractInstance, getProvider, getWeb3Instance } from '../store/reducers'
 import { getMetadata, mintNFT } from '../lib/nftutils';
 import CustomModal from '../components/Modal'
-import { apiConstants } from '../store/constants'
+import { apiConstants } from '../store/constants';
+
+
 function Mint({handleNotification}) {
     const dispatch = useDispatch();
     const [isModalShow, setModalShow] = useState(false);
@@ -22,30 +24,31 @@ function Mint({handleNotification}) {
         metadata.tokenId = event.returnValues.id;
         setNftData(metadata);
         setModalShow(true);
-        dispatch({
-            type: apiConstants.SET_LOADING,
-            payload: false
-        })
+        dispatch(apiAction.setLoading(false))
     }
     const onMintFail = (error) => {
         console.error("Mint Failed", error);
         handleNotification("error", 'NFT Mint is failed');
-        dispatch({
-            type: apiConstants.SET_LOADING,
-            payload: false
-        })
+        dispatch(apiAction.setLoading(false))
     }
 
     const mintNFT = (boxId) => {
         dispatch(apiAction.mintNFT(boxId, web3Instance, nftContractInstance, address, onMintSuccess, onMintFail));
     }
+
+    const setWhitelistMode = () => {
+        dispatch(apiAction.setWhitelistMode(nftContractInstance, address, true));
+    }
     return (
         <Container>
-            <MintHeader handleNotification={handleNotification}/>
+            <Header handleNotification={handleNotification}/>
             <Row>
                 <CustomButton text={'Box1'} isLoading={false} onClick={() => {mintNFT(1)}} disabled={false} />
                 <CustomButton text={'Box2'} isLoading={false} onClick={() => {mintNFT(2)}} disabled={false} />
                 <CustomButton text={'Box3'} isLoading={false} onClick={() => {mintNFT(3)}} disabled={false} />
+
+                {/* admin */}
+                <CustomButton text={'whitelist'} onClick={() => {setWhitelistMode()}} disabled={false} />
             </Row>
             <CustomModal show={isModalShow} data={nftData} handleClose={() => {
                 setModalShow(false);

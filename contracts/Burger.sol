@@ -11,15 +11,18 @@ import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 
 contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable, Pausable {
-    uint256 price = 0.000001 ether;
-    uint256 priceWhitelist = 0.0000001 ether;
     using Counters for Counters.Counter;
     using ECDSA for bytes32;
+
+    uint256[3] price = [0.000001 ether, 0.000002 ether, 0.000003 ether];
+    uint256[3] priceWhitelist = [0.0000001 ether, 0.0000002 ether, 0.0000003 ether];
+
     Counters.Counter private _tokenIds;
     address VERIFIED_ADDRESS = 0xc09eAC15f9Ba6462e8E4612af7C431E1cfe08b87;
-    bool public whitelistActive = true;
+    bool public whitelistActive = false;
+    
     bytes32 private root =
-        0x786cc6a5c4201b7672450409f6a717d0e33e88369e82ed52b453ec0cfcc4b23d;
+        0xa2fc709bf2f4b9cb44b8a9114485d12d4877bb1beedd81f62f4f85a8056480ee;
 
     event NFTMintEvent(address indexed _to, string tokenURI, uint256 id);
 
@@ -38,36 +41,42 @@ contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable, Pausable {
         return VERIFIED_ADDRESS;
     }
 
-    function getPrice() public view returns (uint256 actualPrice) {
+    function getPrice(uint8 boxId) public view returns (uint256 actualPrice) {
+        require(boxId >=1 && boxId <= 3, "BoxId is not correct");
+
         if (whitelistActive) {
-            return priceWhitelist;
+            return priceWhitelist[boxId - 1];
         } else {
-            return price;
+            return price[boxId - 1];
         }
     }
 
-    function changePrice(uint256 newPrice) external onlyOwner {
+    function changePrice(uint256[3] memory newPrice) external onlyOwner {
         price = newPrice;
     }
 
-    function changeWhitelistPrice(uint256 newPrice) external onlyOwner {
+    function changeWhitelistPrice(uint256[3] memory newPrice) external onlyOwner {
         priceWhitelist = newPrice;
+    }
+
+    function _leaf(address account)
+    internal pure returns (bytes32)
+    {
+        return keccak256(abi.encodePacked(account));
     }
 
     function mintWhitelist(
         address _to,
         string memory tokenUri,
-        bytes32 tokenUriHash,
-        bytes memory signature,
-        bytes32 leaf,
+        uint8 boxId,
         bytes32[] memory proof
-    ) external payable verified(tokenUriHash, signature) returns (uint256) {
+    ) internal returns (uint256) {
         require(whitelistActive, "Whitelist is not active");
 
-        bool isWhitelisted = verifyWhitelist(leaf, proof);
+        bool isWhitelisted = verifyWhitelist(_leaf(_to), proof);
 
         if (isWhitelisted) {
-            return mintNFT(_to, tokenUri);
+            return mintNFT(_to, tokenUri, boxId);
         } else {
             revert("Not whitelisted");
         }
@@ -77,19 +86,28 @@ contract Burger is ERC721URIStorage, ERC721Enumerable, Ownable, Pausable {
         address _to,
         string memory tokenUri,
         bytes32 tokenUriHash,
-        bytes memory signature
-    ) public payable verified(tokenUriHash, signature) returns (uint256) {
-        require(!whitelistActive, "Whitelist is not active");
-        return mintNFT(_to, tokenUri);
+        bytes memory tokenUriSignature,
+        uint8 boxId,
+        bytes32 boxIdHash,
+        bytes memory boxIdSignature,
+        bytes32[] memory proof
+    ) external payable verified(tokenUriHash, tokenUriSignature) verified(boxIdHash, boxIdSignature) returns (uint256) {
+        require(!paused(), "Minting is paused!");
+
+        if (whitelistActive) {
+            return mintWhitelist(_to, tokenUri, boxId, proof);
+        } else {
+            return mintNFT(_to, tokenUri, boxId);
+        }
     }
 
-    function mintNFT(address recipient, string memory _tokenURI)
+    function mintNFT(address recipient, string memory _tokenURI, uint8 boxId)
         internal
         returns (uint256)
     {
-        uint256 priceToMint = getPrice();
-        require(!paused(), "Minting is paused!");
+        uint256 priceToMint = getPrice(boxId);
         require(msg.value >= priceToMint, "Ether is not enough to mint NFT");
+
         _tokenIds.increment();
 
         uint256 newItemId = _tokenIds.current();

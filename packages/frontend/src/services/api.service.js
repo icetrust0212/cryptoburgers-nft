@@ -1,8 +1,9 @@
 import axios from './axios';
+const crypto = require("crypto");
 
-const getMetadata = async (boxId) => {
+const getMetadata = async (boxId, address) => {
     try {
-        let response = axios.get(`/getMetadata/${boxId}`)
+        let response = axios.get(`/getMetadata/${boxId}/${address}`)
             .then(res => {
                 console.log('data: ', res)
                 return res.data;
@@ -16,6 +17,21 @@ const getMetadata = async (boxId) => {
     };
 }
 
+const decryptMessage = (encryptedData, securitykey, initVector) => {
+    const algorithm = "aes-256-cbc"; 
+    // the decipher function
+    const initVectorBuffer = Buffer.from(initVector, 'hex');
+    const securityKeyBuffer = Buffer.from(securitykey, 'hex');
+    const decipher = crypto.createDecipheriv(algorithm, securityKeyBuffer, initVectorBuffer);
+
+    let decryptedData = decipher.update(encryptedData, "hex", "utf-8");
+
+    decryptedData += decipher.final("utf-8");
+
+    return decryptedData;
+}
+
 export const apiService = {
     getMetadata,
+    decryptMessage
 };

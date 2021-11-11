@@ -4,7 +4,7 @@ const Router = require('express').Router;
 const router = new Router();
 
 router.get(
-    "/getMetadata/:id",
+    "/getMetadata/:id/:address",
     apiController.getMetadata
 );
 

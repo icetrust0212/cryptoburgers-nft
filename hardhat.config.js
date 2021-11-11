@@ -30,8 +30,8 @@ module.exports = {
       url: process.env.API_URL_MAINNET,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
     },
-  testnet: {
-      url: process.env.API_URL_RINKBY,
+    testnet: {
+      url: process.env.API_URL_TESTNET,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
     }
   }

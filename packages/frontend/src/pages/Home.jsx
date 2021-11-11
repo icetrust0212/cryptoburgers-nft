@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MintHeader from '../components/MintHeader';
+import Header from '../components/Header';
 import styled from 'styled-components';
 
 import { getAddress, getNFTContractInstance, getProvider, getTokenList, getWeb3Instance } from '../store/reducers';
@@ -19,11 +19,11 @@ const Home = ({ handleNotification }) => {
         if (provider) {
             dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
         }
-    }, [provider]);
+    }, [provider, address]);
     
     return (
         <Container>
-            <MintHeader handleNotification={handleNotification}/>
+            <Header handleNotification={handleNotification}/>
             <ContentContainer>
                 <ItemList>
                 {
@@ -44,7 +44,9 @@ const Container = styled.div`
     width: 100%;
     height: fit-contnet;
     min-height: 100vh;
+    background-repeat-x: unset;
     background-image: url(/images/home_burgers_background_blue.svg);
+    background-repeat-y: repeat;
 `
 const ContentContainer = styled.div`
     display: flex;
@@ -64,7 +66,7 @@ const ItemList = styled.div`
     }
     z-index: 1;
     width: fit-content;
-    max-width: 1000px;
+    max-width: 900px;
 `;
 
 

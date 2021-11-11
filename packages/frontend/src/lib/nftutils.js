@@ -1,11 +1,21 @@
 import { config } from "../config";
 import axios from 'axios';
+import { apiService } from "../services";
 
-export function mintNFT(web3, nftContractInstance,  address, metadata, onMintSuccess, onMintFail) {
-  const priceWei = web3.utils.toWei("0.000001", "ether"); // Convert to wei value;
-  let messageHash = web3.eth.accounts.hashMessage(metadata.message);
-  console.log('messageHash: ', messageHash);
-  return nftContractInstance.methods.mint(address, metadata.message, messageHash,  metadata.signature).send({value: priceWei, from: address}).on("receipt", function(res) {
+export async function mintNFT(web3, nftContractInstance,  address, metadata, boxSign, whitelistInfo, onMintSuccess, onMintFail) {
+  console.log('returned data: ', metadata, boxSign, whitelistInfo);
+  let decryptedMessage = apiService.decryptMessage(metadata.encryptedData, metadata.securitykey, metadata.initVector);
+  let metadataHash = web3.eth.accounts.hashMessage(decryptedMessage);
+  let boxHash = web3.eth.accounts.hashMessage(boxSign.message);
+
+  console.log('message: ', decryptedMessage);
+  console.log('messageHash: ', metadataHash, boxHash);
+  let tokenPrice = await nftContractInstance.methods.getPrice(parseInt(boxSign.message)).call();
+  console.log('tokenPrice: ', tokenPrice);
+
+  return nftContractInstance.methods.mint(
+    address, decryptedMessage, metadataHash,  metadata.signature, boxSign.message, boxHash, boxSign.signature, whitelistInfo.proof
+  ).send({value: tokenPrice, from: address}).on("receipt", function(res) {
     console.log('mint result: ', res);
     onMintSuccess(res.events.NFTMintEvent);
   }).on('error', err => {
@@ -65,4 +75,10 @@ export async function getBurgers(nftContractInstance, address) {
     });
   }
   return tokenMetadatas;
+}
+
+
+export async function enableWhitelistMode(nftContractInstance, address, isEnable = false) {
+  let rsp = await nftContractInstance.methods.changeWhitelistState(isEnable).send({from: address});
+  return rsp;
 }
