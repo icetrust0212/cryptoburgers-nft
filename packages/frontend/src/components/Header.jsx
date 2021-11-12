@@ -70,6 +70,7 @@ const HeaderWrapper = styled.div`
     padding: 0 50px;
     display: flex;
     align-items: center;
+    justify-content: center;
     --marginTop: 50px;
     box-sizing: border-box;
     position: sticky;
@@ -84,8 +85,11 @@ const LogoImg = styled.img`
 `;
 const Menu = styled.div`
     width: 0;
+    max-width: 1000px;
+    min-width: 420px;
+    min-height: 50px;
     flex: 1;
-    height: 80px;
+    height: 5vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -113,7 +117,7 @@ const AccountInfo = styled.div`
         height: 25px;
         justify-content: center;
         align-items: center;
-        font-size: 14px;
+        font-size: 18px;
         padding-top: 3px;
     }
     .account-info {
@@ -123,6 +127,7 @@ const AccountInfo = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        text-transform: uppercase;
     }
 `;
 
@@ -137,10 +142,11 @@ const AccountPlaceHolder = styled.img`
 
 const MenuItem = styled.div`
     height: 100%;
-    width: 150px;
+    width: 20%;
+    max-width: 200px;
     display: flex;
     z-index: 1;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     align-items: flex-bottom;
     justify-content: center;
     cursor: pointer;
@@ -153,6 +159,26 @@ const MenuItem = styled.div`
     }
     &.staking {
         padding-top: 10px;
+        width: 25%;
+        max-width: 250px;
+    }
+    a {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    @media(min-width: 1300px) {
+        margin-bottom: 45px;
+    }
+    @media(min-width: 1399px) {
+        margin-bottom: 80px;
+    }
+    @media(min-width: 1400px) and (max-width: 1700px) {
+        margin-bottom: 60px;
+    }
+    @media(max-width: 991px) {
+        width: 83px;
+        margin-bottom: 30px;
     }
 `;
 
