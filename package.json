@@ -31,6 +31,8 @@
     "@alch/alchemy-web3": "^1.1.7",
     "@chainlink/contracts": "^0.2.2",
     "@openzeppelin/contracts": "^4.3.2",
+    "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "abort-controller": "^3.0.0",
     "abstract-leveldown": "^6.2.3",
     "adm-zip": "^0.4.16",
