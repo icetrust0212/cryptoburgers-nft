@@ -1,5 +1,7 @@
 /*
 CRYPTOBURGERS
+Web: https://cryptoburgers.io
+Telegram: https://t.me/cryptoburgersnft
 */
 
 // SPDX-License-Identifier: MIT
@@ -11,21 +13,33 @@ import "openzeppelin-solidity/contracts/security/Pausable.sol";
 import "openzeppelin-solidity/contracts/access/Ownable.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "openzeppelin-solidity/contracts/security/ReentrancyGuard.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol";
+
+import "./BurgToken.sol";
 
 contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
     using SafeMath for uint256;
+    using SafeERC20 for IERC20;
+    using Address for address;
 
     mapping(uint256 => uint8) private boxTypeById;
 
     uint256[] public boxPriceBNB = [1e16, 2 * 1e16, 3 * 1e16];
+    uint256[] public boxPriceBURG = [1e16, 2 * 1e16, 3 * 1e16];
+
     uint256 public whitelistPrice = 2 * 1e16;
     string public strBaseTokenURI =
         "https://backend.cryptoburgers.io/metadata/";
+
+    bool public saleBNBEnabled = false;
+    bool public saleBURGEnabled = true;
 
     // Change to true in the mainnet deploy.
     bool public whitelistActive = false;
     bytes32 private root =
         0x786cc6a5c4201b7672450409f6a717d0e33e88369e82ed52b453ec0cfcc4b23d;
+
+    address BURG;
 
     event MintNFT(
         address indexed _to,
@@ -74,9 +88,35 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         returns (uint256)
     {
         require(!whitelistActive, "Whitelist is active");
+        require(saleBNBEnabled, "Sales in BNB are not permitted");
         require(msg.value >= boxPriceBNB[boxType], "Not enought BNB");
         uint256 idMinted = mint(msg.sender, boxType);
         payable(msg.sender).transfer(msg.value - boxPriceBNB[boxType]);
+        return idMinted;
+    }
+
+    function mintNormalBURG(uint8 boxType)
+        external
+        whenNotPaused
+        nonReentrant
+        returns (uint256)
+    {
+        require(!whitelistActive, "Whitelist is active");
+        require(saleBURGEnabled, "Sales in BNB are not permitted");
+        require(
+            IERC20(BURG).allowance(msg.sender, address(this)) >=
+                boxPriceBURG[boxType],
+            "Not enought allowance"
+        );
+
+        BurgToken(BURG).transferFrom(
+            msg.sender,
+            owner(),
+            boxPriceBURG[boxType].mul(8).div(100)
+        );
+        BurgToken(BURG).burn(msg.sender, boxPriceBURG[boxType].mul(92).div(100));
+
+        uint256 idMinted = mint(msg.sender, boxType);
         return idMinted;
     }
 
@@ -158,6 +198,15 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         return true;
     }
 
+    function updateBoxPricesBURG(uint256[] memory _newBoxPricesBURG)
+        external
+        onlyOwner
+        returns (bool)
+    {
+        boxPriceBURG = _newBoxPricesBURG;
+        return true;
+    }
+
     function _baseURI() internal view override returns (string memory) {
         return strBaseTokenURI;
     }
@@ -184,6 +233,15 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
 
     function unpause() external onlyOwner returns (bool) {
         _unpause();
+        return true;
+    }
+
+    function setBURGAddress(address _newAddress)
+        external
+        onlyOwner
+        returns (bool)
+    {
+        BURG = _newAddress;
         return true;
     }
 }
