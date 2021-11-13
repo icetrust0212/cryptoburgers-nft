@@ -31,8 +31,8 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
     string public strBaseTokenURI =
         "https://backend.cryptoburgers.io/metadata/";
 
-    bool public saleBNBEnabled = false;
-    bool public saleBURGEnabled = true;
+    bool public saleBNBEnabled = true;
+    bool public saleBURGEnabled = false;
 
     // Change to true in the mainnet deploy.
     bool public whitelistActive = false;
