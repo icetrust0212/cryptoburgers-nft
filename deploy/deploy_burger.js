@@ -11,12 +11,15 @@ const func = async function (hre) {
   const {deployer} = await getNamedAccounts();
   const network = await hre.getChainId();
  
-  await deploy('Burger', {
+  const contractDeployed = await deploy('Burger', {
     from: deployer,
     args: [
     ],
     log: true
   });
+
+  console.log('Verify:');
+  console.log('npx hardhat verify --network '+ hre.network.name +  ' ' + contractDeployed.address);
 
 };
 

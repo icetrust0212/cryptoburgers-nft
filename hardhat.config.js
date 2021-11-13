@@ -3,6 +3,8 @@ require("@nomiclabs/hardhat-waffle");
 require('dotenv').config();
 require('hardhat-deploy');
 require('hardhat-deploy-ethers');
+require("@nomiclabs/hardhat-etherscan");
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -12,7 +14,7 @@ module.exports = {
   solidity: {
     compilers: [
       {
-        version: "0.8.4",
+        version: "0.8.9",
       },
       { version: "0.5.12", settings: {} },
       { version: "0.6.8", settings: {} },
@@ -34,5 +36,8 @@ module.exports = {
       url: process.env.API_URL_TESTNET,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
     }
+  },
+  etherscan: {
+    apiKey: "X2WHYR6AHQNZAUN9HX9J65CGVNN15JPZD2"
   }
 };

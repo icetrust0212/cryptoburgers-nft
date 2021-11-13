@@ -1,9 +1,9 @@
 {
   "name": "testnet",
-  "chainId": "97",
+  "chainId": "4",
   "contracts": {
     "Burger": {
-      "address": "0xb02189320358F7194ccE531D27Ca536c59DF9781",
+      "address": "0xe71dCd25b31276ad9605c5bC65ae284AAd547fed",
       "abi": [
         {
           "inputs": [],
@@ -70,19 +70,19 @@
               "type": "address"
             },
             {
-              "indexed": false,
-              "internalType": "string",
-              "name": "tokenURI",
-              "type": "string"
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
             },
             {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
+              "indexed": true,
+              "internalType": "uint8",
+              "name": "_boxType",
+              "type": "uint8"
             }
           ],
-          "name": "NFTMintEvent",
+          "name": "MintNFT",
           "type": "event"
         },
         {
@@ -195,12 +195,31 @@
         {
           "inputs": [
             {
-              "internalType": "uint256[3]",
-              "name": "newPrice",
-              "type": "uint256[3]"
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
             }
           ],
-          "name": "changePrice",
+          "name": "boxPriceBNB",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "newBaseTokenURI",
+              "type": "string"
+            }
+          ],
+          "name": "changeBaseTokenURI",
           "outputs": [],
           "stateMutability": "nonpayable",
           "type": "function"
@@ -214,19 +233,6 @@
             }
           ],
           "name": "changeRoot",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "uint256[3]",
-              "name": "newPrice",
-              "type": "uint256[3]"
-            }
-          ],
-          "name": "changeWhitelistPrice",
           "outputs": [],
           "stateMutability": "nonpayable",
           "type": "function"
@@ -266,30 +272,17 @@
         {
           "inputs": [
             {
-              "internalType": "uint8",
-              "name": "boxId",
-              "type": "uint8"
-            }
-          ],
-          "name": "getPrice",
-          "outputs": [
-            {
               "internalType": "uint256",
-              "name": "actualPrice",
+              "name": "_tokenId",
               "type": "uint256"
             }
           ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [],
-          "name": "getVerfiedAddress",
+          "name": "getboxTypeById",
           "outputs": [
             {
-              "internalType": "address",
+              "internalType": "uint8",
               "name": "",
-              "type": "address"
+              "type": "uint8"
             }
           ],
           "stateMutability": "view",
@@ -322,47 +315,12 @@
         {
           "inputs": [
             {
-              "internalType": "address",
-              "name": "_to",
-              "type": "address"
-            },
-            {
-              "internalType": "string",
-              "name": "tokenUri",
-              "type": "string"
-            },
-            {
-              "internalType": "bytes32",
-              "name": "tokenUriHash",
-              "type": "bytes32"
-            },
-            {
-              "internalType": "bytes",
-              "name": "tokenUriSignature",
-              "type": "bytes"
-            },
-            {
               "internalType": "uint8",
-              "name": "boxId",
+              "name": "boxType",
               "type": "uint8"
-            },
-            {
-              "internalType": "bytes32",
-              "name": "boxIdHash",
-              "type": "bytes32"
-            },
-            {
-              "internalType": "bytes",
-              "name": "boxIdSignature",
-              "type": "bytes"
-            },
-            {
-              "internalType": "bytes32[]",
-              "name": "proof",
-              "type": "bytes32[]"
             }
           ],
-          "name": "mint",
+          "name": "mintNormal",
           "outputs": [
             {
               "internalType": "uint256",
@@ -370,6 +328,48 @@
               "type": "uint256"
             }
           ],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint8",
+              "name": "boxType",
+              "type": "uint8"
+            }
+          ],
+          "name": "mintOwner",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "leaf",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "proof",
+              "type": "bytes32[]"
+            }
+          ],
+          "name": "mintWhitelist",
+          "outputs": [],
           "stateMutability": "payable",
           "type": "function"
         },
@@ -521,16 +521,16 @@
           "type": "function"
         },
         {
-          "inputs": [
+          "inputs": [],
+          "name": "strBaseTokenURI",
+          "outputs": [
             {
-              "internalType": "address",
-              "name": "_verifiedAddress",
-              "type": "address"
+              "internalType": "string",
+              "name": "",
+              "type": "string"
             }
           ],
-          "name": "setVerifiedAddress",
-          "outputs": [],
-          "stateMutability": "nonpayable",
+          "stateMutability": "view",
           "type": "function"
         },
         {
@@ -612,7 +612,7 @@
           "inputs": [
             {
               "internalType": "uint256",
-              "name": "tokenId",
+              "name": "_tokenId",
               "type": "uint256"
             }
           ],
@@ -692,6 +692,25 @@
         {
           "inputs": [
             {
+              "internalType": "uint256[]",
+              "name": "_newBoxPricesBNB",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "updateBoxPricesBNB",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
               "internalType": "bytes32",
               "name": "leaf",
               "type": "bytes32"
@@ -714,6 +733,25 @@
           "type": "function"
         },
         {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_owner",
+              "type": "address"
+            }
+          ],
+          "name": "walletOfOwner",
+          "outputs": [
+            {
+              "internalType": "uint256[]",
+              "name": "",
+              "type": "uint256[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
           "inputs": [],
           "name": "whitelistActive",
           "outputs": [
@@ -724,6 +762,26 @@
             }
           ],
           "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "whitelistPrice",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "withdraw",
+          "outputs": [],
+          "stateMutability": "nonpayable",
           "type": "function"
         }
       ]
