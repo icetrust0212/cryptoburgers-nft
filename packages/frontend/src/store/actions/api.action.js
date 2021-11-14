@@ -3,35 +3,14 @@ import {apiService} from '../../services';
 import { apiConstants } from '../constants';
 import {mintNFT as mint} from '../../lib/nftutils';
 
-function mintNFT(boxId, web3Instance, nftContractInstance, address, onMintSuccess, onMintFail) {
+function mintNFT(boxId, web3Instance, nftContractInstance, address, onMintFail) {
     return dispatch => {
         dispatch({
             type: apiConstants.SET_LOADING,
             payload: true
         })
-        apiService.getMetadata(boxId, address)
-            .then(
-                async (data) => {
-                    console.log('metadta: ', data);
-                    let metadata = data.metadata;
-                    let boxSign = data.box;
-                    let whitelistInfo = data.whitelist;
-                    await mint(web3Instance, nftContractInstance,  address, metadata, boxSign, whitelistInfo, onMintSuccess, onMintFail);
-                    dispatch({
-                        type: apiConstants.SET_LOADING,
-                        payload: false
-                    })
-                },
-                error => {
-                    if (onMintFail) {
-                        onMintFail(error);
-                        dispatch({
-                            type: apiConstants.SET_LOADING,
-                            payload: false
-                        })
-                    }
-                }
-            );
+       
+        mint(web3Instance, nftContractInstance,  address, boxId, onMintFail);
     };
 }
 

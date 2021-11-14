@@ -1,19 +1,18 @@
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import WalletLink from 'walletlink'
-const REACT_APP_API_URL_MAINNET = "https://bsc-dataseed1.ninicoin.io"
-const REACT_APP_API_URL_TESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"
+// const REACT_APP_API_URL_MAINNET = "https://bsc-dataseed1.ninicoin.io"
+// const REACT_APP_API_URL_TESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"
 
-const REACT_APP_WSS_URL_MAINNET = "wss://bsc-ws-node.nariox.org:443"
-const REACT_APP_WSS_URL_TESTNET = "wss://bsc-ws-node.nariox.org:443"
+// const REACT_APP_WSS_URL_MAINNET = "wss://bsc-ws-node.nariox.org:443"
+// const REACT_APP_WSS_URL_TESTNET = "wss://bsc-ws-node.nariox.org:443"
 
-// const REACT_APP_API_URL_MAINNET = "https://eth-mainnet.alchemyapi.io/v2/OFNLvE3zh5eHRiBh30_DNaiPDVdyhXO0"
-// const REACT_APP_API_URL_TESTNET = "https://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3"
+const REACT_APP_API_URL_MAINNET = "https://eth-mainnet.alchemyapi.io/v2/OFNLvE3zh5eHRiBh30_DNaiPDVdyhXO0"
+const REACT_APP_API_URL_TESTNET = "https://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3"
 
-// const REACT_APP_WSS_URL_MAINNET = "wss://eth-mainnet.alchemyapi.io/v2/OFNLvE3zh5eHRiBh30_DNaiPDVdyhXO0"
-// const REACT_APP_WSS_URL_TESTNET = "wss://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3"
+const REACT_APP_WSS_URL_MAINNET = "wss://eth-mainnet.alchemyapi.io/v2/OFNLvE3zh5eHRiBh30_DNaiPDVdyhXO0"
+const REACT_APP_WSS_URL_TESTNET = "wss://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3"
 
 const REACT_APP_ACCOUNT_PUBLIC_KEY = "0xc09eAC15f9Ba6462e8E4612af7C431E1cfe08b87";
-const INFURA_ID = "9aa3d95b3bc440fa88ea12eaa4456161";
 
 export const web3ProviderOptions = {
   'custom-walletlink': {

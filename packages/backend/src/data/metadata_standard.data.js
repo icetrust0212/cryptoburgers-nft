@@ -1,4 +1,5 @@
 const metadata_standard = {
+    tokenId: undefined,
     image: '',
     external_url: '',
     description: '',

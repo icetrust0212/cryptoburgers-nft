@@ -1,8 +1,10 @@
+const env = process.env.NODE_ENV || 'development'
+const dotenv = require('dotenv-flow').config().parsed
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
-let API_URL = "https://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3";
-const web3 = createAlchemyWeb3(API_URL);
-const privateKey = "6e22bd008464f3c6a045b711fdc696d5afab7e95594ef299013a930a1a916f68"
+const web3 = createAlchemyWeb3(process.env.TESTNET_HTTP_URL);
+const wssWeb3 = createAlchemyWeb3(process.env.TESTNET_WSS_URL);
+
 module.exports = {
     web3,
-    privateKey
+    wssWeb3
 };

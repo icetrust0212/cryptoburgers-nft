@@ -1,12 +1,14 @@
 import Web3 from 'web3';
-
+import {createAlchemyWeb3} from '@alch/alchemy-web3';
+import {config} from '../../config';
 const init = () => {
   const CONTRACT_INFO = require('../../contracts.json');
 
   const CONTRACT_ABI = CONTRACT_INFO.contracts.Burger.abi;
   const CONTRACT_ADDRESS = CONTRACT_INFO.contracts.Burger.address;
   
-  const web3Instance = new Web3(window.ethereum);
+  // const web3Instance = new Web3(window.ethereum);
+  const web3Instance = createAlchemyWeb3(config.TESTNET_API_URL);
   const nftContractInstance =  new web3Instance.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
   return {web3Instance, nftContractInstance}
 }

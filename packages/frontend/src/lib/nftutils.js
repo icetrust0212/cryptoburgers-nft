@@ -2,22 +2,14 @@ import { config } from "../config";
 import axios from 'axios';
 import { apiService } from "../services";
 
-export async function mintNFT(web3, nftContractInstance,  address, metadata, boxSign, whitelistInfo, onMintSuccess, onMintFail) {
-  console.log('returned data: ', metadata, boxSign, whitelistInfo);
-  let decryptedMessage = apiService.decryptMessage(metadata.encryptedData, metadata.securitykey, metadata.initVector);
-  let metadataHash = web3.eth.accounts.hashMessage(decryptedMessage);
-  let boxHash = web3.eth.accounts.hashMessage(boxSign.message);
-
-  console.log('message: ', decryptedMessage);
-  console.log('messageHash: ', metadataHash, boxHash);
-  let tokenPrice = await nftContractInstance.methods.getPrice(parseInt(boxSign.message)).call();
+export async function mintNFT(web3, nftContractInstance,  address, boxId,  onMintFail) {
+  
+  let tokenPrice = await nftContractInstance.methods.boxPriceBNB(boxId).call();
   console.log('tokenPrice: ', tokenPrice);
 
-  return nftContractInstance.methods.mint(
-    address, decryptedMessage, metadataHash,  metadata.signature, boxSign.message, boxHash, boxSign.signature, whitelistInfo.proof
-  ).send({value: tokenPrice, from: address}).on("receipt", function(res) {
+  return nftContractInstance.methods.mintNormal(boxId).send({value: tokenPrice, from: address}).on("receipt", function(res) {
     console.log('mint result: ', res);
-    onMintSuccess(res.events.NFTMintEvent);
+    // onMintSuccess(res.events.NFTMintEvent);
   }).on('error', err => {
     console.log('mint error: ', err);
     onMintFail(err);
