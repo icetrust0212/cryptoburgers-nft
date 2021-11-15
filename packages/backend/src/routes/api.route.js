@@ -12,4 +12,9 @@ router.get(
     apiController.getBurgers
 )
 
+router.get(
+    '/whitelist/:address', 
+    apiController.getWhitelist
+)
+
 module.exports = router;

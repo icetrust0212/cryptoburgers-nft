@@ -35,7 +35,11 @@ function Mint({ handleNotification }) {
     }
 
     const mintNFT = (boxId) => {
-        dispatch(apiAction.mintNFT(boxId, web3Instance, nftContractInstance, address, onMintFail));
+        dispatch(apiAction.mintNFT(boxId, nftContractInstance, address, onMintFail));
+    }
+
+    const mintWhiteList = () => {
+        dispatch(apiAction.mintWhiteList(nftContractInstance, address, onMintFail));
     }
 
     const setWhitelistMode = () => {
@@ -78,7 +82,8 @@ function Mint({ handleNotification }) {
                 <CustomButton text={'Box3'} isLoading={false} onClick={() => { mintNFT(2) }} disabled={false} />
 
                 {/* admin */}
-                <CustomButton text={'whitelist'} onClick={() => { setWhitelistMode() }} disabled={false} />
+                <CustomButton text={'switch whitelist mode'} onClick={() => { setWhitelistMode() }} disabled={false} />
+                <CustomButton text={'WhiteList mint'} onClick={() => mintWhiteList()} disabled={false} />
             </Row>
             <CustomModal show={isModalShow} data={nftData} handleClose={() => {
                 setModalShow(false);

@@ -17,12 +17,12 @@ const Button = styled.button `
     padding: 15px;
     border-radius: 5px;
     border: none;
-    font-size: 18px;
     font-family: 'Festive', cursive;
     font-family: 'Space Mono', monospace;
     letter-spacing: 1.4px;
     background-color: var(--primary-color);
-    color: #fff;
+    color: black;
+    font-weight: 28px;
     
     transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s; 
 

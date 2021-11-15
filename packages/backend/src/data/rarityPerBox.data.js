@@ -1,5 +1,5 @@
 const rarityPerBox = [{
-    boxId: 1,
+    boxId: 0,
     rarityProbabilities: [
         67.5,
         22.5,
@@ -7,7 +7,7 @@ const rarityPerBox = [{
         2.5
     ]
 },{
-    boxId: 2,
+    boxId: 1,
     rarityProbabilities: [
         35,
         35,
@@ -15,7 +15,7 @@ const rarityPerBox = [{
         10
     ]
 },{
-    boxId: 3,
+    boxId: 2,
     rarityProbabilities: [
         1,
         9,

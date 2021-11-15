@@ -54,7 +54,12 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         // _pause();
     }
 
-    function mintWhitelist(bytes32 leaf, bytes32[] memory proof)
+    function _leaf(address account) internal pure returns (bytes32)
+    {
+        return keccak256(abi.encodePacked(account));
+    }
+
+    function mintWhitelist(bytes32[] memory proof)
         external
         payable
         whenNotPaused
@@ -62,8 +67,7 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
     {
         require(whitelistActive, "Whitelist is not active");
         require(msg.value >= boxPriceBNB[1], "Not enought BNB");
-
-        bool isWhitelisted = verifyWhitelist(leaf, proof);
+        bool isWhitelisted = verifyWhitelist(_leaf(msg.sender), proof);
 
         if (isWhitelisted) {
             mint(msg.sender, 2);

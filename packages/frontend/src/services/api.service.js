@@ -49,8 +49,25 @@ const getTokenMetadataList = async (tokenIds) => {
     };
 }
 
+const getWhiteListInfo = (address) => {
+    try {
+        let response = axios.get(`/whitelist/${address}`)
+            .then(res => {
+                console.log('data: ', res)
+                return res.data;
+            }, err => {
+                return Promise.reject(JSON.stringify(err.response.data.message));
+            });
+        return response;
+    } catch (error) {
+        console.log('loginerror: ', error)
+        return Promise.reject(error.response.data.message);
+    };
+}
+
 export const apiService = {
     getMetadata,
     decryptMessage,
-    getTokenMetadataList
+    getTokenMetadataList,
+    getWhiteListInfo
 };

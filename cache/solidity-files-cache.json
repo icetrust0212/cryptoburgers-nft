@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\contracts\\Burger.sol": {
-      "lastModificationDate": 1636908741728,
-      "contentHash": "58eb5406747c690d7ffcb5b3e9afb6c1",
+      "lastModificationDate": 1636952509305,
+      "contentHash": "0a85daf0817f555a228d6d98bbc5a014",
       "sourceName": "contracts/Burger.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -41,7 +41,9 @@
         "openzeppelin-solidity/contracts/security/Pausable.sol",
         "openzeppelin-solidity/contracts/access/Ownable.sol",
         "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
-        "openzeppelin-solidity/contracts/security/ReentrancyGuard.sol"
+        "openzeppelin-solidity/contracts/security/ReentrancyGuard.sol",
+        "openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol",
+        "./BurgToken.sol"
       ],
       "versionPragmas": [
         ">=0.8.0 <0.9.0"
@@ -307,6 +309,102 @@
       ],
       "artifacts": [
         "ReentrancyGuard"
+      ]
+    },
+    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\openzeppelin-solidity\\contracts\\token\\ERC20\\utils\\SafeERC20.sol": {
+      "lastModificationDate": 1635822067760,
+      "contentHash": "d37406082a74a9b6b114de522fcb6349",
+      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol",
+        "../../../utils/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeERC20"
+      ]
+    },
+    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\contracts\\BurgToken.sol": {
+      "lastModificationDate": 1636946611400,
+      "contentHash": "dd3efc1a41a02b954b203bf8442d6cff",
+      "sourceName": "contracts/BurgToken.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "openzeppelin-solidity/contracts/utils/math/SafeMath.sol",
+        "openzeppelin-solidity/contracts/access/Ownable.sol",
+        "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
+        "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
+        "openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol",
+        "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Capped.sol",
+        "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Pausable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.0 <0.9.0"
+      ],
+      "artifacts": [
+        "BurgToken"
       ]
     },
     "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\openzeppelin-solidity\\contracts\\token\\ERC721\\ERC721.sol": {
@@ -745,17 +843,10 @@
         "IERC165"
       ]
     },
-<<<<<<< HEAD
-    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\contracts\\BurgerOld.sol": {
-      "lastModificationDate": 1636821624045,
-      "contentHash": "92edf611b448c96d3c9c99acf09008b3",
-      "sourceName": "contracts/BurgerOld.sol",
-=======
-    "/node/cryptoburgers-nft/contracts/BurgToken.sol": {
-      "lastModificationDate": 1636838011938,
-      "contentHash": "0ae327512963e218de5260cf203a3e50",
-      "sourceName": "contracts/BurgToken.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
+    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\openzeppelin-solidity\\contracts\\token\\ERC20\\ERC20.sol": {
+      "lastModificationDate": 1635822067732,
+      "contentHash": "2cd550cedf51b8d294607dad5023d717",
+      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -787,7 +878,230 @@
         }
       },
       "imports": [
-<<<<<<< HEAD
+        "./IERC20.sol",
+        "./extensions/IERC20Metadata.sol",
+        "../../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20"
+      ]
+    },
+    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\openzeppelin-solidity\\contracts\\token\\ERC20\\extensions\\ERC20Burnable.sol": {
+      "lastModificationDate": 1635822067738,
+      "contentHash": "e888f903b629e3ced11f5d1f85cda823",
+      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../ERC20.sol",
+        "../../../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20Burnable"
+      ]
+    },
+    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\openzeppelin-solidity\\contracts\\token\\ERC20\\extensions\\ERC20Capped.sol": {
+      "lastModificationDate": 1635822067740,
+      "contentHash": "1ef9bb98be133f0008af98b4700b9e95",
+      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Capped.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../ERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20Capped"
+      ]
+    },
+    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\openzeppelin-solidity\\contracts\\token\\ERC20\\extensions\\ERC20Pausable.sol": {
+      "lastModificationDate": 1635822067743,
+      "contentHash": "805c4c7b9aeebbdd5dbca2f3a8acc6af",
+      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Pausable.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../ERC20.sol",
+        "../../../security/Pausable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20Pausable"
+      ]
+    },
+    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\openzeppelin-solidity\\contracts\\token\\ERC20\\extensions\\IERC20Metadata.sol": {
+      "lastModificationDate": 1635822067750,
+      "contentHash": "aa1be06992a99bb7393b26a6af3c4dfb",
+      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20Metadata"
+      ]
+    },
+    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\contracts\\BurgerOld.sol": {
+      "lastModificationDate": 1636821624045,
+      "contentHash": "92edf611b448c96d3c9c99acf09008b3",
+      "sourceName": "contracts/BurgerOld.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
         "@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "@openzeppelin/contracts/utils/Counters.sol",
         "@openzeppelin/contracts/access/Ownable.sol",
@@ -795,26 +1109,12 @@
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
         "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
         "@openzeppelin/contracts/security/Pausable.sol"
-=======
-        "openzeppelin-solidity/contracts/utils/math/SafeMath.sol",
-        "openzeppelin-solidity/contracts/access/Ownable.sol",
-        "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
-        "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
-        "openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol",
-        "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Burnable.sol",
-        "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Capped.sol",
-        "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Pausable.sol"
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "BurgerOld"
-=======
-        "BurgToken"
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       ]
     },
     "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol": {
@@ -867,17 +1167,10 @@
         "ERC721"
       ]
     },
-<<<<<<< HEAD
     "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
       "lastModificationDate": 1635821962775,
       "contentHash": "b7811964d33f23b2d45ed3ebb76a4548",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
-=======
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1636486102789,
-      "contentHash": "4fe56b59ced59d87df6b796758f62895",
-      "sourceName": "openzeppelin-solidity/contracts/access/Ownable.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -908,18 +1201,11 @@
           }
         }
       },
-<<<<<<< HEAD
       "imports": [],
-=======
-      "imports": [
-        "../utils/Context.sol"
-      ],
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "Counters"
       ]
     },
@@ -927,57 +1213,6 @@
       "lastModificationDate": 1635821962274,
       "contentHash": "4fe56b59ced59d87df6b796758f62895",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
-=======
-        "Ownable"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol": {
-      "lastModificationDate": 1636486102093,
-      "contentHash": "0eac3e1a83ee62326ca007811285b274",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC20"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20.sol": {
-      "lastModificationDate": 1636486100201,
-      "contentHash": "2cd550cedf51b8d294607dad5023d717",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1009,15 +1244,12 @@
         }
       },
       "imports": [
-        "./IERC20.sol",
-        "./extensions/IERC20Metadata.sol",
-        "../../utils/Context.sol"
+        "../utils/Context.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "Ownable"
       ]
     },
@@ -1025,15 +1257,6 @@
       "lastModificationDate": 1635821962733,
       "contentHash": "94da923c22e9773af388607307182c80",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
-=======
-        "ERC20"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol": {
-      "lastModificationDate": 1636486103625,
-      "contentHash": "d37406082a74a9b6b114de522fcb6349",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1065,18 +1288,12 @@
         }
       },
       "imports": [
-<<<<<<< HEAD
         "../ERC721.sol"
-=======
-        "../IERC20.sol",
-        "../../../utils/Address.sol"
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "ERC721URIStorage"
       ]
     },
@@ -1084,15 +1301,6 @@
       "lastModificationDate": 1635821962728,
       "contentHash": "55752434e41be58192ecbaa3beb4b7cc",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
-=======
-        "SafeERC20"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Burnable.sol": {
-      "lastModificationDate": 1636486100221,
-      "contentHash": "e888f903b629e3ced11f5d1f85cda823",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Burnable.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1124,19 +1332,13 @@
         }
       },
       "imports": [
-<<<<<<< HEAD
         "../ERC721.sol",
         "./IERC721Enumerable.sol"
-=======
-        "../ERC20.sol",
-        "../../../utils/Context.sol"
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "ERC721Enumerable"
       ]
     },
@@ -1144,104 +1346,6 @@
       "lastModificationDate": 1635821962782,
       "contentHash": "197dbfaf7146845fa76331a4c9980e9f",
       "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
-=======
-        "ERC20Burnable"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Capped.sol": {
-      "lastModificationDate": 1636486100225,
-      "contentHash": "1ef9bb98be133f0008af98b4700b9e95",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Capped.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../ERC20.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC20Capped"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Pausable.sol": {
-      "lastModificationDate": 1636486100245,
-      "contentHash": "805c4c7b9aeebbdd5dbca2f3a8acc6af",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Pausable.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../ERC20.sol",
-        "../../../security/Pausable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC20Pausable"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/utils/Context.sol": {
-      "lastModificationDate": 1636486099133,
-      "contentHash": "851485d5b925529b1a2f34a0be077891",
-      "sourceName": "openzeppelin-solidity/contracts/utils/Context.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1277,7 +1381,6 @@
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "ECDSA"
       ]
     },
@@ -1285,15 +1388,6 @@
       "lastModificationDate": 1635821962545,
       "contentHash": "662437c05ba6f3706097c8d5ca68a52a",
       "sourceName": "@openzeppelin/contracts/security/Pausable.sol",
-=======
-        "Context"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
-      "lastModificationDate": 1636486102121,
-      "contentHash": "aa1be06992a99bb7393b26a6af3c4dfb",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC20/extensions/IERC20Metadata.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1325,17 +1419,12 @@
         }
       },
       "imports": [
-<<<<<<< HEAD
         "../utils/Context.sol"
-=======
-        "../IERC20.sol"
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "Pausable"
       ]
     },
@@ -1343,57 +1432,6 @@
       "lastModificationDate": 1635821962741,
       "contentHash": "53919d6975f2c0f3dffee5e3a1064116",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
-=======
-        "IERC20Metadata"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/utils/Address.sol": {
-      "lastModificationDate": 1636486098761,
-      "contentHash": "c5f6c4e4df069c789e7d84b4c3011913",
-      "sourceName": "openzeppelin-solidity/contracts/utils/Address.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Address"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/security/Pausable.sol": {
-      "lastModificationDate": 1636486102893,
-      "contentHash": "662437c05ba6f3706097c8d5ca68a52a",
-      "sourceName": "openzeppelin-solidity/contracts/security/Pausable.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1425,17 +1463,12 @@
         }
       },
       "imports": [
-<<<<<<< HEAD
         "../../utils/introspection/IERC165.sol"
-=======
-        "../utils/Context.sol"
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "IERC721"
       ]
     },
@@ -1443,15 +1476,6 @@
       "lastModificationDate": 1635821962743,
       "contentHash": "9a367cecca6fed80a3e975b7e6b3bd5c",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
-=======
-        "Pausable"
-      ]
-    },
-    "/node/cryptoburgers-nft/contracts/Burguer.sol": {
-      "lastModificationDate": 1636838146687,
-      "contentHash": "69b6b16ae26f666d5049d587d4a5e037",
-      "sourceName": "contracts/Burguer.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1482,70 +1506,11 @@
           }
         }
       },
-<<<<<<< HEAD
       "imports": [],
-=======
-      "imports": [
-        "openzeppelin-solidity/contracts/utils/math/SafeMath.sol",
-        "openzeppelin-solidity/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
-        "openzeppelin-solidity/contracts/security/Pausable.sol",
-        "openzeppelin-solidity/contracts/access/Ownable.sol",
-        "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
-        "openzeppelin-solidity/contracts/security/ReentrancyGuard.sol",
-        "openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol",
-        "./BurgToken.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.0 <0.9.0"
-      ],
-      "artifacts": [
-        "Burger"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC721/extensions/ERC721Enumerable.sol": {
-      "lastModificationDate": 1636486100845,
-      "contentHash": "55752434e41be58192ecbaa3beb4b7cc",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../ERC721.sol",
-        "./IERC721Enumerable.sol"
-      ],
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "IERC721Receiver"
       ]
     },
@@ -1553,15 +1518,6 @@
       "lastModificationDate": 1635821962739,
       "contentHash": "8aa69ca8424167555baaaa9f607801db",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
-=======
-        "ERC721Enumerable"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/security/ReentrancyGuard.sol": {
-      "lastModificationDate": 1636486103397,
-      "contentHash": "53fbff678f378956efcb207fa748eaa6",
-      "sourceName": "openzeppelin-solidity/contracts/security/ReentrancyGuard.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1599,7 +1555,6 @@
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "IERC721Metadata"
       ]
     },
@@ -1607,65 +1562,6 @@
       "lastModificationDate": 1635821962768,
       "contentHash": "c5f6c4e4df069c789e7d84b4c3011913",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
-=======
-        "ReentrancyGuard"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol": {
-      "lastModificationDate": 1636486100689,
-      "contentHash": "a4f6dccf3f15b6844e357f737a572388",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./IERC721.sol",
-        "./IERC721Receiver.sol",
-        "./extensions/IERC721Metadata.sol",
-        "../../utils/Address.sol",
-        "../../utils/Context.sol",
-        "../../utils/Strings.sol",
-        "../../utils/introspection/ERC165.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC721"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC721/extensions/IERC721Enumerable.sol": {
-      "lastModificationDate": 1636486102309,
-      "contentHash": "e57b2ff1645fb57408d6f87ee861dcb6",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1701,7 +1597,6 @@
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
         "Address"
       ]
     },
@@ -1709,69 +1604,6 @@
       "lastModificationDate": 1635821962770,
       "contentHash": "851485d5b925529b1a2f34a0be077891",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
-=======
-        "IERC721Enumerable"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721.sol": {
-      "lastModificationDate": 1636486102237,
-      "contentHash": "53919d6975f2c0f3dffee5e3a1064116",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../utils/introspection/IERC165.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-<<<<<<< HEAD
-        "Context"
-      ]
-    },
-    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
-      "lastModificationDate": 1635821962815,
-      "contentHash": "62142442bed149f965c5ed971fae4182",
-      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
-=======
-        "IERC721"
-      ]
-    },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol": {
-      "lastModificationDate": 1636486102373,
-      "contentHash": "9a367cecca6fed80a3e975b7e6b3bd5c",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol",
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1807,16 +1639,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-<<<<<<< HEAD
-        "Strings"
-=======
-        "IERC721Receiver"
+        "Context"
       ]
     },
-    "/node/cryptoburgers-nft/node_modules/openzeppelin-solidity/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
-      "lastModificationDate": 1636486102337,
-      "contentHash": "8aa69ca8424167555baaaa9f607801db",
-      "sourceName": "openzeppelin-solidity/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+    "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
+      "lastModificationDate": 1635821962815,
+      "contentHash": "62142442bed149f965c5ed971fae4182",
+      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -1847,15 +1676,12 @@
           }
         }
       },
-      "imports": [
-        "../IERC721.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC721Metadata"
->>>>>>> 27470beba0b425e4312be47dd5af57d3eb42ba9d
+        "Strings"
       ]
     },
     "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol": {

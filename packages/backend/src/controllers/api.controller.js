@@ -1,4 +1,5 @@
 const Burger = require("../model").burger;
+const {verifyWhitelist} = require('../services/merkleTree.service');
 
 exports.getMetadata = (req, res) => {
     let tokenId = req.params.id;
@@ -52,4 +53,13 @@ exports.getBurgers = (req, res) => {
             success: true,
         });
     })
+}
+
+exports.getWhitelist = (req, res) => {
+    const address = req.params.address;
+    const whitelist = verifyWhitelist(address);
+    res.status(200).send({
+        ...whitelist,
+        success: true
+    });
 }

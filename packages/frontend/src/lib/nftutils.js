@@ -2,12 +2,25 @@ import { config } from "../config";
 import axios from 'axios';
 import { apiService } from "../services";
 
-export async function mintNFT(web3, nftContractInstance,  address, boxId,  onMintFail) {
+export async function mintNFT(nftContractInstance,  address, boxId,  onMintFail) {
   
   let tokenPrice = await nftContractInstance.methods.boxPriceBNB(boxId).call();
   console.log('tokenPrice: ', tokenPrice);
 
   return nftContractInstance.methods.mintNormal(boxId).send({value: tokenPrice, from: address}).on("receipt", function(res) {
+    console.log('mint result: ', res);
+    // onMintSuccess(res.events.NFTMintEvent);
+  }).on('error', err => {
+    console.log('mint error: ', err);
+    onMintFail(err);
+  });
+}
+
+export async function mintWhiteListMode(nftContractInstance,  address, proof, onMintFail) {
+  let tokenPrice = await nftContractInstance.methods.whitelistPrice().call();
+  console.log('tokenPrice: ', tokenPrice);
+
+  return nftContractInstance.methods.mintWhitelist(proof).send({value: tokenPrice, from: address}).on("receipt", function(res) {
     console.log('mint result: ', res);
     // onMintSuccess(res.events.NFTMintEvent);
   }).on('error', err => {
