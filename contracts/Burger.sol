@@ -86,9 +86,9 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         _safeMint(_to, totalSupply());
         boxTypeById[totalSupply()] = boxType;
 
-        emit MintNFT(_to, totalSupply(), boxType);
+        emit MintNFT(_to, totalSupply() - 1, boxType);
 
-        return totalSupply();
+        return totalSupply() - 1;
     }
 
     function walletOfOwner(address _owner)

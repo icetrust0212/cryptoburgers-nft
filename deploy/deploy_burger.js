@@ -10,7 +10,8 @@ const func = async function (hre) {
   
   const {deployer} = await getNamedAccounts();
   const network = await hre.getChainId();
- 
+  const execSync = require('child_process').execSync;
+
   const contractDeployed = await deploy('Burger', {
     from: deployer,
     args: [
@@ -18,9 +19,11 @@ const func = async function (hre) {
     log: true
   });
 
-  console.log('Verify:');
+  console.log('Verifying...');
   console.log('npx hardhat verify --network '+ hre.network.name +  ' ' + contractDeployed.address);
 
+  // execSync(`npx hardhat verify --network ${hre.network.name} ${contractDeployed.address}`,  { encoding: 'utf-8' });
+  // console.log('Verify Success: ', hre.network.name, contractDeployed.address);
 };
 
 module.exports = func;

@@ -1,7 +1,7 @@
 const WebSocket = require('ws')
 const {v4: uuid4} = require('uuid');
 const {socketConfig} = require('../config');
-const wss = new WebSocket.Server({ port: config.SOCKET_PORT })
+const wss = new WebSocket.Server({ port: socketConfig.SOCKET_PORT })
 var clients = [];
 
 console.log(
@@ -14,13 +14,12 @@ wss.on('connection', (ws) => {
   ws.on('message', (msg) => {
     let msgObj = JSON.parse(msg); 
     if (msgObj.init) {
-      let id = uuid4();
-      ws.id = id;
+      ws.id = msgObj.socketID;
       console.log('connected socket id - onmessage: ', ws.id);
-      sendMessage(ws, {id, type: 'SET_SOCKETID'});
+      sendMessage(ws, {id: ws.id, type: 'SET_SOCKETID'});
       clients.push(ws);
     }
-  })
+  });
 
   ws.on('close', function() {
     clients = clients.filter(client => client !== ws);

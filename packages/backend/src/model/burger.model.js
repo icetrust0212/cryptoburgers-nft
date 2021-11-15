@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const BurgerSchema = new Schema({
   tokenId: {
-    type: Number,
+    type: String,
     unique: true,
     required: true
   },

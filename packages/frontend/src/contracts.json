@@ -3,7 +3,7 @@
   "chainId": "4",
   "contracts": {
     "Burger": {
-      "address": "0x01070a0A9BAafE0a3B7271F6f2bc94C3e51B76e6",
+      "address": "0xD104C0BC2aBDd5Bd019e6e3235F5A1F28172AcDF",
       "abi": [
         {
           "inputs": [],

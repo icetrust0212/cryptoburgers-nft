@@ -1,3 +1,4 @@
+
 const burgerLevels = [{
     level: 1,
     name: 'Tier1',
@@ -5,7 +6,7 @@ const burgerLevels = [{
         min: 0,
         max: 849
     },
-    imageUrl: 'https://gateway.pinata.cloud/ipfs/QmVZ1FiRWFq2kqPWLBWAbc7yXqQekm9z6rCespQ7anrNia/1.png'
+    imageUrl: 'http://localhost:8080/assets/burgers/1.png'
 },
 {
     level: 2,
@@ -14,7 +15,8 @@ const burgerLevels = [{
         min: 850,
         max: 1299
     },
-    imageUrl: 'https://gateway.pinata.cloud/ipfs/QmVZ1FiRWFq2kqPWLBWAbc7yXqQekm9z6rCespQ7anrNia/2.png'
+    imageUrl: 'http://localhost:8080/assets/burgers/2.png'
+
 },
 {
     level: 3,
@@ -23,7 +25,9 @@ const burgerLevels = [{
         min: 1300,
         max: 1799
     },
-    imageUrl: 'https://gateway.pinata.cloud/ipfs/QmVZ1FiRWFq2kqPWLBWAbc7yXqQekm9z6rCespQ7anrNia/3.png'
+    imageUrl: 'http://localhost:8080/assets/burgers/3.png'
+
+
 },
 {
     level: 4,
@@ -32,7 +36,8 @@ const burgerLevels = [{
         min: 1800,
         max: 2399
     },
-    imageUrl: 'https://gateway.pinata.cloud/ipfs/QmVZ1FiRWFq2kqPWLBWAbc7yXqQekm9z6rCespQ7anrNia/4.png'
+    imageUrl: 'http://localhost:8080/assets/burgers/4.png'
+
 },
 {
     level: 5,
@@ -41,7 +46,8 @@ const burgerLevels = [{
         min: 2400,
         max: 2999
     },
-    imageUrl: 'https://gateway.pinata.cloud/ipfs/QmVZ1FiRWFq2kqPWLBWAbc7yXqQekm9z6rCespQ7anrNia/5.png'
+    imageUrl: 'http://localhost:8080/assets/burgers/5.png'
+
 },
 {
     level: 6,
@@ -50,7 +56,8 @@ const burgerLevels = [{
         min: 3000,
         max: 4499
     },
-    imageUrl: 'https://gateway.pinata.cloud/ipfs/QmVZ1FiRWFq2kqPWLBWAbc7yXqQekm9z6rCespQ7anrNia/6.png'
+    imageUrl: 'http://localhost:8080/assets/burgers/6.png'
+
 },
 {
     level: 7,
@@ -59,7 +66,8 @@ const burgerLevels = [{
         min: 4500,
         max: 8999
     },
-    imageUrl: 'https://gateway.pinata.cloud/ipfs/QmVZ1FiRWFq2kqPWLBWAbc7yXqQekm9z6rCespQ7anrNia/7.png'
+    imageUrl: 'http://localhost:8080/assets/burgers/7.png'
+
 },
 {
     level: 8,
@@ -68,7 +76,8 @@ const burgerLevels = [{
         min: 9000,
         max: 14999
     },
-    imageUrl: 'https://gateway.pinata.cloud/ipfs/QmVZ1FiRWFq2kqPWLBWAbc7yXqQekm9z6rCespQ7anrNia/8.png'
+    imageUrl: 'http://localhost:8080/assets/burgers/8.png'
+
 },
 {
     level: 9,
@@ -77,7 +86,8 @@ const burgerLevels = [{
         min: 15000,
         max: 21999
     },
-    imageUrl: 'https://gateway.pinata.cloud/ipfs/QmVZ1FiRWFq2kqPWLBWAbc7yXqQekm9z6rCespQ7anrNia/9.png'
+    imageUrl: 'http://localhost:8080/assets/burgers/9.png'
+
 },
 {
     level: 10,
@@ -86,7 +96,8 @@ const burgerLevels = [{
         min: 22000,
         max: 30000
     },
-    imageUrl: 'https://gateway.pinata.cloud/ipfs/QmVZ1FiRWFq2kqPWLBWAbc7yXqQekm9z6rCespQ7anrNia/10.png'
+    imageUrl: 'http://localhost:8080/assets/burgers/10.png'
+
 }];
 
 module.exports =  burgerLevels;

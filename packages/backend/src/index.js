@@ -2,7 +2,7 @@ const express = require('./services/express')
 const routes = require('./routes')
 const {appConfig} = require('./config')
 const app = express(routes)
-// const wss = require('./services/socketServer');
+const wss = require('./services/socketServer');
 const mongoose = require('./services/mongoose');
 require('./services/web3.service');
 

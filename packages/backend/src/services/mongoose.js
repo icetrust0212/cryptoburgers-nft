@@ -19,18 +19,35 @@ db.mongoose
     process.exit();
   });
 
-function saveTokenMetadataToDB(burgerData) {
-  Burger.estimatedDocumentCount((err, count) => {
-    new Burger(burgerData).save(err => {
-      if (err) {
-        console.log("error", err);
-        return;
+async function saveTokenMetadataToDB(burgerData) {
+  // Burger.estimatedDocumentCount((err, count) => {
+    const burger = await Burger.find({tokenId: burgerData.tokenId}).exec();
+    if (!burger || burger.length === 0) {
+      try {
+        await new Burger(burgerData).save();
+        console.log('new burger: ', burgerData);
+        return burgerData;
+      } catch(err) {
+        console.log('new burger err: ', err)
+        return null;
       }
-
-      console.log("Create new metadata admin");
-    });
-  });
+    } else {
+      console.log('exist burger: ', burger[0]);
+      return burger;
+    }
+  // });
 }
+
+function clearTable() {
+  Burger.remove({}, (err, burgers) => {
+    if (!err) {
+      console.log('delete all records:');
+    }
+  })
+}
+
+// clearTable();
+
 
 module.exports = {
   db,

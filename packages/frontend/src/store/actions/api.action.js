@@ -19,7 +19,7 @@ function getTokensPerAddress(nftContractInstance, address) {
         dispatch({
             type: apiConstants.SET_LOADING,
             payload: true
-        })
+        });
         getBurgers(nftContractInstance, address).then(data => {
             dispatch({
                 type: apiConstants.SET_TOKENLIST,

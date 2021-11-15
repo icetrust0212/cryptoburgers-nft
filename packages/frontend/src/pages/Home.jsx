@@ -16,6 +16,7 @@ const Home = ({ handleNotification }) => {
     
     useEffect( () => {
         if (provider) {
+            console.log('provider: ', provider);
             dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
         }
     }, [provider, address]);

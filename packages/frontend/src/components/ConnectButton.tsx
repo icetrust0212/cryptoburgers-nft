@@ -26,7 +26,7 @@ const ConnectButton = () => {
     const connect = async function () {
       // This is the initial `provider` that is returned when
       // using web3Modal to connect. Can be MetaMask or WalletConnect.
-      const provider = await web3Modal.connect()
+      const provider = await web3Modal.connect();
   
       // We plug the initial `provider` into ethers.js and get back
       // a Web3Provider. This will add on methods from ethers.js and

@@ -1,28 +1,20 @@
-var socket_server = process.env.REACT_APP_SOCKET_SERVER_URL
-var smsSocket = null;
+import {appConfig} from '../config';
+var web3Socket = null;
 
-function getSocket() {
-  if (smsSocket) {
-    return smsSocket
+function getSocket(socketID) {
+  if (web3Socket) {
+    return web3Socket
   }
-  smsSocket = new WebSocket(socket_server);
-  smsSocket.onopen = (e) => {
-    smsSocket.send(JSON.stringify({
+  web3Socket = new WebSocket(appConfig.SOCKET_URL);
+  web3Socket.onopen = (e) => {
+    web3Socket.send(JSON.stringify({
       msg: 'request connect',
-      init: true
+      init: true,
+      socketID
     }));
   }
 
-  return smsSocket;
+  return web3Socket;
 };
 
 export default getSocket;
-
-export const getSocketID = () => {
-  console.log('socketID: ', smsSocket.id);
-  if (smsSocket) {
-    return smsSocket.id;
-  } else {
-    return null;
-  }
-}

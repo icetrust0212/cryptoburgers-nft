@@ -31,7 +31,26 @@ const decryptMessage = (encryptedData, securitykey, initVector) => {
     return decryptedData;
 }
 
+const getTokenMetadataList = async (tokenIds) => {
+    try {
+        let response = axios.get(`/tokens/`, {params: {
+            tokenIds
+        }})
+            .then(res => {
+                console.log('data: ', res)
+                return res.data;
+            }, err => {
+                return Promise.reject(JSON.stringify(err.response.data.message));
+            });
+        return response;
+    } catch (error) {
+        console.log('loginerror: ', error)
+        return Promise.reject(error.response.data.message);
+    };
+}
+
 export const apiService = {
     getMetadata,
-    decryptMessage
+    decryptMessage,
+    getTokenMetadataList
 };

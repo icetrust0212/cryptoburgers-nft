@@ -4,8 +4,12 @@ const Router = require('express').Router;
 const router = new Router();
 
 router.get(
-    "/getMetadata/:id/:address",
+    "/metadata/:id",
     apiController.getMetadata
 );
+router.get(
+    "/tokens",
+    apiController.getBurgers
+)
 
 module.exports = router;
