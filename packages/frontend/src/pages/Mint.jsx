@@ -5,7 +5,7 @@ import CustomButton from '../components/CustomButton'
 import Header from '../components/Header'
 import { apiAction } from '../store/actions'
 import { getAddress, getChainId, getNFTContractInstance, getProvider, getWeb3Instance } from '../store/reducers'
-import { getMetadata, mintNFT } from '../lib/nftutils';
+import { getLatestBNBPrice, getMetadata, mintNFT } from '../lib/nftutils';
 import CustomModal from '../components/Modal'
 import { apiConstants } from '../store/constants';
 import getSocket from '../services/socket'
@@ -20,6 +20,7 @@ function Mint({ handleNotification }) {
     const nftContractInstance = useSelector(state => getNFTContractInstance(state));
     const provider = useSelector(state => getProvider(state));
     const chainId = useSelector(state => getChainId(state));
+    const [bnbPrice, setBNBPrice] = useState(0);
 
     const onMintSuccess = async (metadata) => {
         handleNotification('success', `NFT #${metadata.tokenId} is minted successfully `);
@@ -72,6 +73,13 @@ function Mint({ handleNotification }) {
         } else {
             handleNotification("warning", 'You are not connected mainnet');
         }
+        const timerID = setInterval(async () => {
+            const price = await getLatestBNBPrice();
+            setBNBPrice(price);
+        }, 1000);
+        return () => {
+            clearInterval(timerID);
+        };
     }, [provider, address, chainId]);
     return (
         <Container>
@@ -84,6 +92,7 @@ function Mint({ handleNotification }) {
                 {/* admin */}
                 <CustomButton text={'switch whitelist mode'} onClick={() => { setWhitelistMode() }} disabled={false} />
                 <CustomButton text={'WhiteList mint'} onClick={() => mintWhiteList()} disabled={false} />
+                <span style={{color:"red", fontSize: '32px'}}>{(Math.round(bnbPrice * 100) / 100).toFixed(2)}BUSD</span>
             </Row>
             <CustomModal show={isModalShow} data={nftData} handleClose={() => {
                 setModalShow(false);
