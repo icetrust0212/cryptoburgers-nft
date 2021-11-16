@@ -26,3 +26,7 @@ code {
 ._loading_overlay_content {
   margin: calc(50vh) auto calc(50vh) auto !important;
 }
+
+:root {
+  --button-text-color: #ff3c1e;
+}

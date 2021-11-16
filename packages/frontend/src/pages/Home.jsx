@@ -1,25 +1,12 @@
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header';
 import styled from 'styled-components';
-
-import { getAddress, getNFTContractInstance, getProvider, getTokenList, getWeb3Instance } from '../store/reducers';
-import { apiAction } from '../store/actions';
+import { getTokenList } from '../store/reducers';
 import BurgerCard from '../components/BurgerCard';
 const Home = ({ handleNotification }) => {
-    const address = useSelector(state => getAddress(state));
-    const web3Instance = useSelector(state => getWeb3Instance(state));
-    const nftContractInstance = useSelector(state => getNFTContractInstance(state));
-    const provider = useSelector(state => getProvider(state));
+    
     const burgerList = useSelector(state => getTokenList(state));
     const dispatch = useDispatch();
-    
-    useEffect( () => {
-        if (provider) {
-            console.log('provider: ', provider);
-            dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
-        }
-    }, [provider, address]);
     
     return (
         <Container>

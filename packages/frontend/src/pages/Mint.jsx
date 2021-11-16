@@ -9,6 +9,7 @@ import { getLatestBNBPrice, getMetadata, mintNFT } from '../lib/nftutils';
 import CustomModal from '../components/Modal'
 import { apiConstants } from '../store/constants';
 import getSocket from '../services/socket'
+import Box from '../components/Box'
 
 
 function Mint({ handleNotification }) {
@@ -76,7 +77,7 @@ function Mint({ handleNotification }) {
         const timerID = setInterval(async () => {
             const price = await getLatestBNBPrice();
             setBNBPrice(price);
-        }, 1000);
+        }, 5000);
         return () => {
             clearInterval(timerID);
         };
@@ -85,14 +86,17 @@ function Mint({ handleNotification }) {
         <Container>
             <Header handleNotification={handleNotification} />
             <Row>
-                <CustomButton text={'Box1'} isLoading={false} onClick={() => { mintNFT(0) }} disabled={false} />
+                <Box boxId={0} title="Happy Box" onPurchase={() => mintNFT(0)} price={0.25}/>
+                <Box boxId={1} title="Power Box" onPurchase={() => mintNFT(1)} price={0.25}/>
+                <Box boxId={2} title="Glorious Box" onPurchase={() => mintNFT(2)} price={0.25}/>
+                {/* <CustomButton text={'Box1'} isLoading={false} onClick={() => { mintNFT(0) }} disabled={false} />
                 <CustomButton text={'Box2'} isLoading={false} onClick={() => { mintNFT(1) }} disabled={false} />
                 <CustomButton text={'Box3'} isLoading={false} onClick={() => { mintNFT(2) }} disabled={false} />
 
-                {/* admin */}
+                
                 <CustomButton text={'switch whitelist mode'} onClick={() => { setWhitelistMode() }} disabled={false} />
                 <CustomButton text={'WhiteList mint'} onClick={() => mintWhiteList()} disabled={false} />
-                <span style={{color:"red", fontSize: '32px'}}>{(Math.round(bnbPrice * 100) / 100).toFixed(2)}BUSD</span>
+                <span style={{color:"red", fontSize: '32px'}}>{(Math.round(bnbPrice * 100) / 100).toFixed(2)}BUSD</span> */}
             </Row>
             <CustomModal show={isModalShow} data={nftData} handleClose={() => {
                 setModalShow(false);
@@ -110,8 +114,12 @@ const Container = styled.div`
 `
 const Row = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     height: fit-content;
-    width: 500px;
+    flex-wrap: wrap;
+    padding: 0 50px;
+    max-width: 1000px;
+    min-width: fit-content;
+    margin: 50px auto;
 `
 

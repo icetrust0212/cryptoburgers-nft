@@ -8,14 +8,25 @@ import menuStaking from '../assets/imgs/menu_staking.png';
 import menuMarket from '../assets/imgs/menu_marketplace.png';
 import menuAccount from '../assets/imgs/menu_account.png';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getAddress, getProvider, getTokenList } from '../store/reducers';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAddress, getNFTContractInstance, getProvider, getTokenList } from '../store/reducers';
 import { ellipseAddress } from '../lib/utilities';
+import { apiAction } from '../store/actions';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
     const tokenList = useSelector(state => getTokenList(state));
     const address = useSelector(state => getAddress(state));
     const provider = useSelector(state => getProvider(state));
+    const nftContractInstance = useSelector(state => getNFTContractInstance(state));
+    const dispatch = useDispatch();
+    useEffect( () => {
+        if (provider) {
+            console.log('provider: ', provider);
+            dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
+        }
+    }, [provider, address]);
+
     return (
         // <ConnectButton />
         <HeaderWrapper className="header-wrapper">
@@ -24,17 +35,17 @@ const Header = () => {
             </Link>
             <Menu>
                 <TableImg src={tableImg} alt="table" className="table-img" />
-                <MenuItem>
+                <MenuItem className="home">
                     <Link to={'/'}>
                         <img src={menuHome} alt="home" className="menu-item-img" />
                     </Link>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem className="mint">
                     <Link to={`/mint`}>
                         <img src={menuMint} alt="mint" className="menu-item-img" />
                     </Link>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem className="marketplace">
                     <Link to={`/marketplace`}>
                         <img src={menuMarket} alt="marketplace" className="menu-item-img" />
                     </Link>
@@ -66,12 +77,11 @@ const Header = () => {
 
 const HeaderWrapper = styled.div`
     width: 100%;
-    height: 150px;
+    height: 185px;
     padding: 0 50px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    --marginTop: 50px;
     box-sizing: border-box;
     position: sticky;
     top: 0;
@@ -80,8 +90,8 @@ const HeaderWrapper = styled.div`
 `;
 
 const LogoImg = styled.img`
-    width: 150px;
-    margin-top: var(--marginTop);
+    width: 230px;
+    margin-top: 35px;
 `;
 const Menu = styled.div`
     width: 0;
@@ -94,7 +104,7 @@ const Menu = styled.div`
     align-items: center;
     justify-content: space-around;
     position: relative;
-    margin: calc(var(--marginTop) - 10px) 60px 0 60px;
+    margin: 70px auto 0 auto;
 `;
 const TableImg = styled.img`
     width: 100%;
@@ -104,8 +114,8 @@ const TableImg = styled.img`
     top: 20px;
 `;
 const AccountInfo = styled.div`
-    height: 100%;
-    width: 200px;
+    height: 230px;
+    width: 300px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -117,13 +127,13 @@ const AccountInfo = styled.div`
         height: 25px;
         justify-content: center;
         align-items: center;
-        font-size: 18px;
-        padding-top: 3px;
+        font-size: 22px;
+        padding-top: 5px;
     }
     .account-info {
-        padding-top: 25px;
+        padding-top: 41px;
         width: 100%;
-        height: 100px;
+        height: 157px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -146,6 +156,22 @@ const MenuItem = styled.div`
     max-width: 200px;
     display: flex;
     z-index: 1;
+    position: absolute;
+    &.home {
+        left: 4%;
+    }
+    &.mint {
+        left: 27%;
+    }
+    &.marketplace {
+        left: 48%;
+    }
+    &.staking {
+        left: 69%;
+        width: 25%;
+        max-width: 300px;   
+        margin-top: 1%;
+    }
     margin-bottom: 30px;
     align-items: flex-bottom;
     justify-content: center;
@@ -156,11 +182,6 @@ const MenuItem = styled.div`
     img {
         width: 100%;
         display: flex;
-    }
-    &.staking {
-        padding-top: 10px;
-        width: 25%;
-        max-width: 250px;
     }
     a {
         display: flex;
