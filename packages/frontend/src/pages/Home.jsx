@@ -40,7 +40,10 @@ const ContentContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;    
+    padding: 20px;
+    @media(max-width: 767px) {
+        margin-top: 20px;
+    }
 `;
 const ItemList = styled.div`
     display: flex;

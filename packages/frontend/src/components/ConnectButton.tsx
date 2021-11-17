@@ -17,7 +17,7 @@ if (typeof window !== 'undefined') {
   })
 }
 
-const ConnectButton = () => {
+const ConnectButton = (props:any) => {
     const dispatch = useDispatch();
     const provider = useSelector(state => getProvider(state));
     const web3Provider = useSelector(state => getWeb3Provider(state));
@@ -95,11 +95,11 @@ const ConnectButton = () => {
       
     return (
             web3Provider ? (
-              <Button onClick={() => disconnect()} >
+              <Button onClick={() => disconnect()} style={{color: props.color || 'red'}}>
                 My Account
               </Button>
           ) : (
-            <Button onClick={() => connect()}>
+            <Button onClick={() => connect()} style={{color: props.color || 'black'}}>
               Connect
             </Button>
           )
@@ -109,7 +109,6 @@ const ConnectButton = () => {
 export default ConnectButton;
 
 const Button = styled.span`
-  color: red;
   font-size: 1.1rem;
   letter-spacing: 1.1px;
   font-family: 'Baloo';
@@ -119,5 +118,9 @@ const Button = styled.span`
   &:hover{
     cursor: pointer;
     transform: scale(1.1);
-}
+  }
+  @media(max-width: 767px) {
+    font-size: 25px;
+    text-transform: uppercase;
+  }
 `

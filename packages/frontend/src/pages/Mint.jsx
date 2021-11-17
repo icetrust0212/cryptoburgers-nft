@@ -117,9 +117,13 @@ const Row = styled.div`
     justify-content: space-around;
     height: fit-content;
     flex-wrap: wrap;
-    padding: 0 50px;
     max-width: 1000px;
     min-width: fit-content;
     margin: 50px auto;
+    @media(max-width: 767px) {
+        margin: 0 auto;
+        padding: 0;
+        max-width: 320px !important;
+    }
 `
 

@@ -43,7 +43,7 @@ const DIV = styled.div`
     min-height: 500px;
     height: 550px;
     font-family: 'American';
-    @media(max-width: 567px) {
+    @media(max-width: 767px) {
         min-height: fit-content;
         width: 260px;
         height: fit-content;
@@ -74,9 +74,9 @@ const DIV = styled.div`
   `;
 
 const Img = styled.img`
-    width: 140px;
-    @media(max-width: 567px) {
-        width: 100px;
+    width: 153px;
+    @media(max-width: 767px) {
+        width: 120px;
     }
     display: block;
   `;
@@ -95,10 +95,10 @@ const INFO_ITEM = styled.div`
     align-items: center;
     h2, h3 {
         margin: 0;
-        font-size: 24px;
+        font-size: 26px;
         font-weight: bold;
-        @media(max-width: 567px) {
-            font-size: 16px;
+        @media(max-width: 767px) {
+            font-size: 18px;
         }
     }
     h2 {
@@ -115,7 +115,7 @@ const INFO_BUTTON = styled.button`
     outline: nonoe;
     border-radius: 10px;
     border-color: #27dc27;
-    @media(max-width: 567px) {
+    @media(max-width: 767px) {
         font-size: 14px;
         padding: 2px 5px;
     }
@@ -129,8 +129,8 @@ const FLEXDIV = styled.div`
     flex-wrap: wrap;
   `;
 const ITEM = styled.div`
-    width: 170px;
-    @media(max-width: 567px) {
+    width: 50%;
+    @media(max-width: 767px) {
         width: 100px;
     }
     height: fit-content;
@@ -139,7 +139,7 @@ const ITEM = styled.div`
         width: auto;
         height: 60px;
         display: block;
-        @media(max-width: 567px) {
+        @media(max-width: 767px) {
             height: 30px;
         }
     }
@@ -150,8 +150,8 @@ const ITEM = styled.div`
         text-transform: uppercase;
         font-weight: bold;
         label {
-            font-size: 16px;
-            @media(max-width: 567px) {
+            font-size: 18px;
+            @media(max-width: 767px) {
                 font-size: 12px;
             }
             color: black;
@@ -169,7 +169,7 @@ const SPAN = styled.span`
     position: absolute;
     top: 5px;
     left: 20px;
-    font-size: 16px;
+    font-size: 18px;
     color: black;
     font-weight: 500;
   `
@@ -188,7 +188,7 @@ const CookButton = styled.img`
     background: #4e97e9;
     font-weight: 900;
     margin-top: auto;
-    @media(max-width: 567px) {
+    @media(max-width: 767px) {
         font-size: 16px;
         margin-top: 15px;
     }
