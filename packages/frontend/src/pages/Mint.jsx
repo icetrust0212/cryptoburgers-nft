@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import CustomButton from '../components/CustomButton'
 import Header from '../components/Header'
 import { apiAction } from '../store/actions'
-import { getAddress, getChainId, getNFTContractInstance, getProvider, getWeb3Instance } from '../store/reducers'
-import { getLatestBNBPrice, getMetadata, mintNFT } from '../lib/nftutils';
+import { getAddress, getChainId, getNFTContractInstance, getProvider, getWeb3Instance, getWssNFTContractInstance, isWhitelistMode } from '../store/reducers'
+import { getCurrentTokenAmount, getLatestBNBPrice, getMetadata, getTokenAmountLimitation, mintNFT } from '../lib/nftutils';
 import CustomModal from '../components/Modal'
 import { apiConstants } from '../store/constants';
 import getSocket from '../services/socket'
@@ -19,15 +19,28 @@ function Mint({ handleNotification }) {
     const address = useSelector(state => getAddress(state));
     const web3Instance = useSelector(state => getWeb3Instance(state));
     const nftContractInstance = useSelector(state => getNFTContractInstance(state));
+    const wssNFTContractInstance = useSelector(state => getWssNFTContractInstance(state));
     const provider = useSelector(state => getProvider(state));
     const chainId = useSelector(state => getChainId(state));
     const [bnbPrice, setBNBPrice] = useState(0);
-
-    const onMintSuccess = async (metadata) => {
-        handleNotification('success', `NFT #${metadata.tokenId} is minted successfully `);
-        setNftData(metadata);
-        setModalShow(true);
-        dispatch(apiAction.setLoading(false))
+    const whitelistState = useSelector(state => isWhitelistMode(state));
+    const [currentTokenAmount, setCurrentTokenAmount] = useState([0, 0, 0]);
+    const [limitationTokenAmount, setLimitationTokenAmount] = useState([0, 0, 0]);
+    
+    const onMintSuccess = async (data) => {
+        const {to, metadata} = data;
+        if (to === address) {
+            handleNotification('success', `NFT #${metadata.tokenId} is minted successfully `);
+            setNftData(metadata);
+            setModalShow(true);
+            dispatch(apiAction.setLoading(false))
+            dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
+        }
+        
+        let currentTokenAmounts = await getCurrentTokenAmount(nftContractInstance);
+        if (currentTokenAmounts && currentTokenAmounts.length === 3) {
+            setCurrentTokenAmount(currentTokenAmounts);
+        }
     }
 
     const onMintFail = (error) => {
@@ -37,15 +50,19 @@ function Mint({ handleNotification }) {
     }
 
     const mintNFT = (boxId) => {
+        if (whitelistState) {
+            mintWhiteList(boxId)
+        } else {
+            mintNormal(boxId)
+        }
+    }
+
+    const mintNormal = (boxId) => {
         dispatch(apiAction.mintNFT(boxId, nftContractInstance, address, onMintFail));
     }
 
-    const mintWhiteList = () => {
-        dispatch(apiAction.mintWhiteList(nftContractInstance, address, onMintFail));
-    }
-
-    const setWhitelistMode = () => {
-        dispatch(apiAction.setWhitelistMode(nftContractInstance, address, true));
+    const mintWhiteList = (boxId) => {
+        dispatch(apiAction.mintWhiteList(boxId, nftContractInstance, address, onMintFail));
     }
 
     useEffect(() => {
@@ -61,8 +78,8 @@ function Mint({ handleNotification }) {
                 const msg = JSON.parse(event.data);
                 console.log('Received message from server: ', msg);
                 switch (msg.type) {
-                    case 'METADATA':
-                        onMintSuccess(msg.data);
+                    case 'NEW_NFT':
+                        onMintSuccess(msg);
                         break;
                     case 'ERROR':
                         onMintFail(msg.error);
@@ -71,6 +88,30 @@ function Mint({ handleNotification }) {
                         break;
                 }
             }
+            (async () => {
+                let currentTokenAmounts = await getCurrentTokenAmount(nftContractInstance);
+                if (currentTokenAmounts && currentTokenAmounts.length === 3) {
+                    setCurrentTokenAmount(currentTokenAmounts);
+                }
+    
+                let _limitationTokenAmount = await getTokenAmountLimitation(nftContractInstance);
+                if (_limitationTokenAmount && _limitationTokenAmount.length === 3) {
+                    setLimitationTokenAmount(_limitationTokenAmount);
+                }
+            })();
+           
+            dispatch(apiAction.isWhiteListMode(nftContractInstance));
+
+            wssNFTContractInstance.events.whitelistModeChanged({})
+            .on('data', async (event) => {
+                handleNotification('warning', event.returnValues.isWhiteList ? `Whitelist mode has turned on`: 'Whitelist mode has turned off');
+                dispatch({
+                    type: apiConstants.GET_WHITELISTSTATE,
+                    payload: event.returnValues.isWhiteList
+                });
+                console.log('whitelist changed: ', event.returnValues.isWhiteList)
+            })
+
         } else {
             handleNotification("warning", 'You are not connected mainnet');
         }
@@ -89,18 +130,25 @@ function Mint({ handleNotification }) {
                 <Box boxId={0} title="Happy Box" onPurchase={() => mintNFT(0)} price={0.25}/>
                 <Box boxId={1} title="Power Box" onPurchase={() => mintNFT(1)} price={0.25}/>
                 <Box boxId={2} title="Glorious Box" onPurchase={() => mintNFT(2)} price={0.25}/>
-                {/* <CustomButton text={'Box1'} isLoading={false} onClick={() => { mintNFT(0) }} disabled={false} />
-                <CustomButton text={'Box2'} isLoading={false} onClick={() => { mintNFT(1) }} disabled={false} />
-                <CustomButton text={'Box3'} isLoading={false} onClick={() => { mintNFT(2) }} disabled={false} />
-
-                
+                {/*                 
                 <CustomButton text={'switch whitelist mode'} onClick={() => { setWhitelistMode() }} disabled={false} />
                 <CustomButton text={'WhiteList mint'} onClick={() => mintWhiteList()} disabled={false} />
                 <span style={{color:"red", fontSize: '32px'}}>{(Math.round(bnbPrice * 100) / 100).toFixed(2)}BUSD</span> */}
+                <div >
+                    {
+                        currentTokenAmount.map((amount, index) => {
+                            return (
+                                <span style={{display: 'block'}}>{`${amount} /  ${limitationTokenAmount[index]}`}</span>
+                            )
+                        })
+                    }
+                    <span>{ whitelistState ? 'Whitelist: on' : 'Whitelist: off'}</span>
+                </div>
             </Row>
             <CustomModal show={isModalShow} data={nftData} handleClose={() => {
                 setModalShow(false);
             }} />
+
         </Container>
     )
 }

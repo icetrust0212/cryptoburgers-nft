@@ -17,7 +17,12 @@ wss.on('connection', (ws) => {
       ws.id = msgObj.socketID;
       console.log('connected socket id - onmessage: ', ws.id);
       sendMessage(ws, {id: ws.id, type: 'SET_SOCKETID'});
-      clients.push(ws);
+
+      let client = clients.find(client => client.id === ws.id);
+      if (!client) {
+        clients.push(ws);
+      }
+      console.log('clients: ', clients);
     }
   });
 
@@ -33,6 +38,12 @@ wss.sendToRequester = (socketID, msg) => {
  
   let client = clients.find(client => client.id === socketID);
   if (client) {
+    sendMessage(client, msg);
+  }
+}
+
+wss.sendBroadcast = (msg) => {
+  for (client of clients) {
     sendMessage(client, msg);
   }
 }

@@ -1,4 +1,4 @@
-import { enableWhitelistMode, getBurgers, mintWhiteListMode } from '../../lib/nftutils';
+import { enableWhitelistMode, getBurgers, getWhitelistState, mintWhiteListMode } from '../../lib/nftutils';
 import {apiService} from '../../services';
 import { apiConstants } from '../constants';
 import {mintNFT as mint} from '../../lib/nftutils';
@@ -42,28 +42,21 @@ const setLoading = (isLoading) => {
     }
 }
 
-const setWhitelistMode = (nftContractInstance, address, value) => {
+const isWhiteListMode = (nftContractInstance) => {
     return dispatch => {
-        dispatch({
-            type: apiConstants.SET_LOADING,
-            payload: true
-        })
-        enableWhitelistMode(nftContractInstance, address, value).then(data => {
+        getWhitelistState(nftContractInstance).then(data => {
             dispatch({
-                type: apiConstants.SET_LOADING,
-                payload: false
+                type: apiConstants.GET_WHITELISTSTATE,
+                payload: data
             });
         }, err => {
-            dispatch({
-                type: apiConstants.ERROR,
-                payload: err
-            });
+
         })
         
     }; 
 }
 
-const mintWhiteList = (nftContractInstance, address, onMintFail) => {
+const mintWhiteList = (boxId, nftContractInstance, address, onMintFail) => {
     return dispatch => {
         dispatch({
             type: apiConstants.SET_LOADING,
@@ -78,14 +71,17 @@ const mintWhiteList = (nftContractInstance, address, onMintFail) => {
                     type: apiConstants.ERROR,
                     payload: "You are not whitelist member!"
                 });
+                onMintFail('You are not whitelist member');
                 return;
             }
-            mintWhiteListMode(nftContractInstance,  address, proof, onMintFail)
+            mintWhiteListMode(boxId, nftContractInstance,  address, proof, onMintFail)
         }, err => {
+            console.log('err: ', err)
             dispatch({
                 type: apiConstants.ERROR,
                 payload: err
             });
+            onMintFail('Mint is failed');
         })
     };
 }
@@ -94,6 +90,6 @@ export const apiAction = {
     mintNFT,
     setLoading,
     getTokensPerAddress,
-    setWhitelistMode,
+    isWhiteListMode,
     mintWhiteList
 }

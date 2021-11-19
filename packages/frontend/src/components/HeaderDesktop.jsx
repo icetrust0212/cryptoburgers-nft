@@ -83,9 +83,6 @@ const HeaderWrapper = styled.div`
     align-items: flex-start;
     justify-content: center;
     box-sizing: border-box;
-    position: sticky;
-    top: 0;
-    z-index: 10;
     font-family: 'Baloo';
     @media(max-width: 991px) {
         padding: 10px;

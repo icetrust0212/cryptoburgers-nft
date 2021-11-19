@@ -4,4 +4,5 @@ export const apiConstants = {
     SET_LOADING: 'SET_LOADING',
     SET_TOKENLIST: 'SET_TOKENLIST',
     ERROR: 'ERROR',
+    GET_WHITELISTSTATE: 'GET_WHITELISTSTATE'
 }

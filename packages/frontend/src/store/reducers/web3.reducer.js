@@ -9,8 +9,10 @@ const init = () => {
   
   // const web3Instance = new Web3(window.ethereum);
   const web3Instance = createAlchemyWeb3(config.TESTNET_API_URL);
+  const wssWeb3Instance = createAlchemyWeb3(config.TESTNET_WSS_URL);
   const nftContractInstance =  new web3Instance.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-  return {web3Instance, nftContractInstance}
+  const wssNFTContractInstance =  new wssWeb3Instance.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+  return {web3Instance, nftContractInstance, wssWeb3Instance, wssNFTContractInstance}
 }
 
 const initialState = {
@@ -75,4 +77,8 @@ export const getNFTContractInstance = (state) => {
 
 export const getContractABI = (state) => {
   return state.web3.CONTRACT_ABI;
+}
+
+export const getWssNFTContractInstance = (state) => {
+  return state.web3.wssNFTContractInstance;
 }

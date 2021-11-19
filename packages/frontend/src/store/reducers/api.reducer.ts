@@ -4,6 +4,7 @@ const initialState = {
     isLoading: false,
     tokenList: [],
     error: '',
+    isWhitelist: false
 }
 
 export const apiReducer = (state: any = initialState, {type, payload}: any) => {
@@ -26,6 +27,11 @@ export const apiReducer = (state: any = initialState, {type, payload}: any) => {
                 isLoading: false,
                 error: payload
             }
+        case apiConstants.GET_WHITELISTSTATE:
+            return {
+                ...state,
+                isWhitelist: payload
+            }
         default:
             return state;
     }
@@ -41,4 +47,8 @@ export const getTokenList = (state: any) => {
 
 export const getError = (state: any) => {
     return state.apiReducer.error
+}
+
+export const isWhitelistMode = (state: any) => {
+    return state.apiReducer.isWhitelist
 }

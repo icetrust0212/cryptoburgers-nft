@@ -14,9 +14,10 @@ wssNFTContractInsance.events.MintNFT({})
         const metadata = generateMetadataForBoxType(event.returnValues._id, event.returnValues._boxType);
         const savedBurger = await saveTokenMetadataToDB(metadata);
         console.log('saved burger: ', savedBurger);
-        wss.sendToRequester(event.returnValues._to, {
-            type: 'METADATA',
-            data: savedBurger
+        wss.sendBroadcast({
+            type: 'NEW_NFT',
+            metadata: savedBurger,
+            to: event.returnValues._to
         })
     }).on("error", (error) => {
         console.error("Mint Failed", error);

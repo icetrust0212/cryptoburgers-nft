@@ -3,7 +3,7 @@
   "chainId": "4",
   "contracts": {
     "BurgToken": {
-      "address": "0x9fbcA4D9dc0A102256D31DB22899606c57964F33",
+      "address": "0x7bD8faE0CB2630f34dF1B714fbF7Fe0af7c6a7AC",
       "abi": [
         {
           "inputs": [],
@@ -396,7 +396,7 @@
       ]
     },
     "Burger": {
-      "address": "0x987F3d14DC9390a6a507c90d1a26D33C74e8E610",
+      "address": "0xf6F2E420D8fB9d39d58913F5049B1db4EBD75fa0",
       "abi": [
         {
           "inputs": [],
@@ -547,6 +547,57 @@
           ],
           "name": "Unpaused",
           "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "isWhiteList",
+              "type": "bool"
+            }
+          ],
+          "name": "whitelistModeChanged",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "_limitTokenAmountPerBoxtype",
+          "outputs": [
+            {
+              "internalType": "uint64",
+              "name": "",
+              "type": "uint64"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "_tokenSupply",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
         },
         {
           "inputs": [
@@ -727,6 +778,25 @@
         {
           "inputs": [
             {
+              "internalType": "address",
+              "name": "_to",
+              "type": "address"
+            }
+          ],
+          "name": "mintForGoldenTicket",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
               "internalType": "uint8",
               "name": "boxType",
               "type": "uint8"
@@ -792,6 +862,11 @@
               "internalType": "bytes32[]",
               "name": "proof",
               "type": "bytes32[]"
+            },
+            {
+              "internalType": "uint8",
+              "name": "boxType",
+              "type": "uint8"
             }
           ],
           "name": "mintWhitelist",

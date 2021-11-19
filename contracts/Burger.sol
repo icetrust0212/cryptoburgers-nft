@@ -43,10 +43,17 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
 
     address BURG;
 
+    uint256[] public _tokenSupply = [0, 0, 0];
+    uint64[] public _limitTokenAmountPerBoxtype = [4400, 2200, 900];
+
     event MintNFT(
         address indexed _to,
         uint256 indexed _id,
         uint8 indexed _boxType
+    );
+
+    event whitelistModeChanged(
+        bool isWhiteList
     );
 
     constructor() ERC721("Burger", "BURGER") {
@@ -59,23 +66,24 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         return keccak256(abi.encodePacked(account));
     }
 
-    function mintWhitelist(bytes32[] memory proof)
+    function mintWhitelist(bytes32[] memory proof, uint8 boxType)
         external
         payable
         whenNotPaused
         nonReentrant
     {
         require(whitelistActive, "Whitelist is not active");
-        require(msg.value >= boxPriceBNB[1], "Not enought BNB");
+        require(msg.value >= boxPriceBNB[boxType], "Not enought BNB");
+        require(_tokenSupply[boxType] < _limitTokenAmountPerBoxtype[boxType], "Limitation has been reached");
         bool isWhitelisted = verifyWhitelist(_leaf(msg.sender), proof);
 
         if (isWhitelisted) {
-            mint(msg.sender, 2);
+            mint(msg.sender, boxType);
         } else {
             revert("Not whitelisted");
         }
 
-        payable(msg.sender).transfer(msg.value - boxPriceBNB[1]);
+        payable(msg.sender).transfer(msg.value - boxPriceBNB[boxType]);
     }
 
     function mintOwner(address _to, uint8 boxType)
@@ -84,6 +92,13 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         returns (uint256)
     {
         return mint(_to, boxType);
+    }
+
+    function mintForGoldenTicket(address _to)
+    external
+    onlyOwner
+    returns (uint256) {
+        return mint(_to, 1);
     }
 
     function mintNormal(uint8 boxType)
@@ -127,9 +142,10 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
     }
 
     function mint(address _to, uint8 boxType) internal returns (uint256) {
+        //boxType: 0, 1, 2
         _safeMint(_to, totalSupply());
         boxTypeById[totalSupply()] = boxType;
-
+        _tokenSupply[boxType] ++;
         emit MintNFT(_to, totalSupply() - 1, boxType);
 
         return totalSupply() - 1;
@@ -162,6 +178,7 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
 
     function changeWhitelistState(bool newState) external onlyOwner {
         whitelistActive = newState;
+        emit whitelistModeChanged(whitelistActive);
     }
 
     function changeRoot(bytes32 newRoot) external onlyOwner {
