@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import triggerImage from '../assets/imgs/mobile/trigger.png';
 import panelImage from '../assets/imgs/mobile/mobile_panel.png';
 import homeImage from '../assets/imgs/mobile/menu_mobile_home.png';
-import mintImage from '../assets/imgs/mobile/menu_mobile_mint.png';
+import burgersImage from '../assets/imgs/mobile/menu_mobile_mint.png';
 import marketplaceImage from '../assets/imgs/mobile/menu_mobile_marketplace.png';
 import stakingImage from '../assets/imgs/mobile/menu_mobile_staking.png';
 import ConnectButton from './ConnectButton';
@@ -47,10 +47,10 @@ const HeaderMobile = (props) => {
                         <Link to={`/`}>
                             <MenuItem src={homeImage}></MenuItem>
                         </Link>
-                        <Link to={`/mint`}>
-                            <MenuItem src={mintImage}></MenuItem>
+                        <Link to={`/burgers`}>
+                            <MenuItem src={burgersImage}></MenuItem>
                         </Link>
-                        <Link to={`/marketplace`}>
+                        <Link to={`/mint`}>
                             <MenuItem src={marketplaceImage}></MenuItem>
                         </Link>
                         <Link to={`/staking`}>

@@ -3,7 +3,7 @@ import ConnectButton from './ConnectButton';
 import logoImg from '../assets/imgs/logo.svg';
 import tableImg from '../assets/imgs/menu_table.png';
 import menuHome from '../assets/imgs/menu_home.png';
-import menuMint from '../assets/imgs/menu_mint.png';
+import menuBurgers from '../assets/imgs/menu_mint.png';
 import menuStaking from '../assets/imgs/menu_staking.png';
 import menuMarket from '../assets/imgs/menu_marketplace.png';
 import menuAccount from '../assets/imgs/menu_account.png';
@@ -41,12 +41,12 @@ const HeaderDesktop = () => {
                     </Link>
                 </MenuItem>
                 <MenuItem className="mint">
-                    <Link to={`/mint`}>
-                        <img src={menuMint} alt="mint" className="menu-item-img" />
+                    <Link to={`/burgers`}>
+                        <img src={menuBurgers} alt="mint" className="menu-item-img" />
                     </Link>
                 </MenuItem>
                 <MenuItem className="marketplace">
-                    <Link to={`/marketplace`}>
+                    <Link to={`/mint`}>
                         <img src={menuMarket} alt="marketplace" className="menu-item-img" />
                     </Link>
                 </MenuItem>

@@ -5,7 +5,6 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Mint from './pages/Mint';
-import Home from './pages/Home';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,6 +13,8 @@ import {
 } from "react-router-dom";
 import styled from 'styled-components';
 import LoaderOverlary from './components/LoadingOverlay';
+import Burgers from './pages/Burgers';
+import Home from './pages/Home';
 
 const App = () => {
 
@@ -47,6 +48,9 @@ const App = () => {
             <Switch>
               <Route path="/" exact={true}>
                 <Home handleNotification={handleNotification} />
+              </Route>
+              <Route path="/burgers" exact={true}>
+                <Burgers handleNotification={handleNotification} />
               </Route>
               <Route path="/mint" exact={true}>
                 <Mint handleNotification={handleNotification} />

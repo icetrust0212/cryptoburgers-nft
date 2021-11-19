@@ -37,7 +37,7 @@ const Wrapper = styled.div`
     min-height: 100px;
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 2;
     .desktop {
         width: 100%;
         display: flex;
@@ -46,7 +46,7 @@ const Wrapper = styled.div`
         width: 100%;
         display: none;
         position: absolute;
-        z-index: 10;
+        z-index: 1;
     }
     @media(max-width: 767px) {
         .desktop {
