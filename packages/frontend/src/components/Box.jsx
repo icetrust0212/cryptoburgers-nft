@@ -1,7 +1,11 @@
 import styled from 'styled-components';
-import boxPanel1 from '../assets/imgs/boxPanel1.png';
-import boxPanel2 from '../assets/imgs/boxPanel2.png';
-import boxPanel3 from '../assets/imgs/boxPanel3.png';
+import boxPanel1 from '../assets/imgs/boxPanel_temp1.png';
+import boxPanel2 from '../assets/imgs/boxPanel_temp2.png';
+import boxPanel3 from '../assets/imgs/boxPanel_temp3.png';
+
+import memo1 from '../assets/imgs/memo1.png';
+import memo2 from '../assets/imgs/memo2.png';
+import memo3 from '../assets/imgs/memo3.png';
 
 const Box = ({ boxId, onPurchase, price, title, currentTokenAmount, limitTokenAmount }) => {
     
@@ -15,6 +19,19 @@ const Box = ({ boxId, onPurchase, price, title, currentTokenAmount, limitTokenAm
                 return boxPanel3;
         }
     }
+
+    const getMemo = (boxId) => {
+        switch (boxId) {
+            case 0:
+                return memo1;
+            case 1:
+                return memo2;
+            case 2:
+                return memo3;
+        }
+    }
+
+
     const getColor = (boxId) => {
         switch (boxId) {
             case 0:
@@ -40,11 +57,11 @@ const Box = ({ boxId, onPurchase, price, title, currentTokenAmount, limitTokenAm
         } else {
             switch (boxId) {
                 case 0:
-                    return isMobile ? "31px": "1.5vw" ;
+                    return isMobile ? "31px": "1vw" ;
                 case 1:
-                    return isMobile ? "31px": "1.5vw" ;
+                    return isMobile ? "31px": "1vw" ;
                 case 2:
-                    return isMobile ? "34px": "1.9vw" ;
+                    return isMobile ? "34px": "0.7vw" ;
             }
         }
     }
@@ -61,12 +78,12 @@ const Box = ({ boxId, onPurchase, price, title, currentTokenAmount, limitTokenAm
                 <ButtonPurchase
                     className="btn-text" 
                     onClick={onPurchase} 
-                    style={{ 
-                        transform: boxId === 2 ? 'rotate(5deg)' : 'rotate(-5deg)', 
+                    style={{  
                         left: getOffset('left', boxId),
                         bottom: getOffset('bottom', boxId),
                     }}>
-                        buy
+                        <img src={getMemo(boxId)} className="bg_purchase" />
+                        <span style={{transform: boxId === 2 ? 'rotate(5deg)' : 'rotate(-5deg)'}}>buy</span>
                 </ButtonPurchase>
             </Content>
         </Wrapper>
@@ -160,18 +177,31 @@ const Price = styled.span`
 const ButtonPurchase = styled.div`
     cursor: pointer;
     bottom: 1vw;
-    padding: 4%;
+    padding: 8%;
     text-transform: capitalize;
-    font-size: 2.8vw;
+    font-size: 2.4vw;
     font-weight: normal;
+    z-index: 1;
     color: var(--button-text-color);
+    position: relative;
+    .bg_purchase {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+    }
+    span {
+        display: block;
+    }
     :hover {
-        font-size: 3vw;
+        font-size: 2.6vw;
     }
     position: absolute;
     @media(max-width: 767px) {
-        bottom: 20px;
-        padding: 10px;
+        bottom: 20px !important;
+        padding: 25px;
         font-size: 30px;
         :hover {
             font-size: 34px;
