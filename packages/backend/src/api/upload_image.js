@@ -3,8 +3,6 @@ const fs = require('fs');
 const FormData = require('form-data');
 const recursive = require('recursive-fs');
 const basePathConverter = require('base-path-converter');
-const path = require('path');
-const rimraf = require('rimraf');
 
 require('dotenv').config()
 

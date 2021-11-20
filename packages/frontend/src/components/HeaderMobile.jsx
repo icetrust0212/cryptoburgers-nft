@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import triggerImage from '../assets/imgs/mobile/trigger.png';
 import panelImage from '../assets/imgs/mobile/mobile_panel.png';
 import homeImage from '../assets/imgs/mobile/menu_mobile_home.png';

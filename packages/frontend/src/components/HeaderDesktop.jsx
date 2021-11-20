@@ -11,8 +11,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAddress, getNFTContractInstance, getProvider, getTokenList } from '../store/reducers';
 import { ellipseAddress } from '../lib/utilities';
-import { apiAction } from '../store/actions';
-import { useEffect, useState } from 'react';
 
 const HeaderDesktop = () => {
     const tokenList = useSelector(state => getTokenList(state));

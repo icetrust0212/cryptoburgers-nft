@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import boxPanel1 from '../assets/imgs/boxPanel1.png';
 import boxPanel2 from '../assets/imgs/boxPanel2.png';
 import boxPanel3 from '../assets/imgs/boxPanel3.png';
-const imgPath = '../assets/imgs/';
 
 const Box = ({ boxId, onPurchase, price, title, currentTokenAmount, limitTokenAmount }) => {
     

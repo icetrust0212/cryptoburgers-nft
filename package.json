@@ -7,7 +7,6 @@
     "packages/*"
   ],
   "scripts": {
-    "metadata:deploy:ipfs": "node scripts/deploy_to_ipfs.js",
     "test": "npx hardhat test",
     "compile": "npx hardhat compile",
     "deploy": "yarn contract:clean && hardhat deploy --export packages/frontend/src/contracts.json",

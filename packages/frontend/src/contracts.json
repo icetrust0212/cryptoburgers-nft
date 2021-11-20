@@ -3,7 +3,7 @@
   "chainId": "4",
   "contracts": {
     "BurgToken": {
-      "address": "0x7bD8faE0CB2630f34dF1B714fbF7Fe0af7c6a7AC",
+      "address": "0x49f30B9CC0eA99005d6a0eB85f5699A16bF4958b",
       "abi": [
         {
           "inputs": [],
@@ -396,7 +396,7 @@
       ]
     },
     "Burger": {
-      "address": "0xf6F2E420D8fB9d39d58913F5049B1db4EBD75fa0",
+      "address": "0x871b71aC3caf8E819143B7bf7236f946b96109C6",
       "abi": [
         {
           "inputs": [],
