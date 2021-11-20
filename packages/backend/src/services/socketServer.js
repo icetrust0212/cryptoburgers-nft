@@ -22,7 +22,6 @@ wss.on('connection', (ws) => {
       if (!client) {
         clients.push(ws);
       }
-      console.log('clients: ', clients);
     }
   });
 

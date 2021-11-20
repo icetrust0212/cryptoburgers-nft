@@ -31,8 +31,6 @@ exports.getBurgers = (req, res) => {
     const {tokenIds} = req.query;
     Burger.find({tokenId: {$in: tokenIds}}).exec((err, burgers) => {
         console.log('error: ', err);
-        console.log('burgers: ', burgers);
-
         if (err) {
             res.status(500).send({
                 message: err,

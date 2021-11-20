@@ -46,7 +46,6 @@ exports.generateMetadataForBoxType = (tokenId, boxId) => {
 
     metadata.attributes = attributes;
     //
-    console.log('generated metadata: ', metadata);
 
     return metadata;
 };

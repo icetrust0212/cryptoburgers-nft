@@ -4,8 +4,6 @@ const {
 } = require('../config');
 const Burger = db.burger;
 
-var bcrypt = require("bcryptjs");
-
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     useNewUrlParser: true,
@@ -33,7 +31,7 @@ async function saveTokenMetadataToDB(burgerData) {
       }
     } else {
       console.log('exist burger: ', burger[0]);
-      return burger;
+      return null;
     }
   // });
 }

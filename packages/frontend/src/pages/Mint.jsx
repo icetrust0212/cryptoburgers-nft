@@ -29,11 +29,17 @@ function Mint({ handleNotification }) {
     const onMintSuccess = async (data) => {
         const {to, metadata} = data;
         if (to === address) {
-            handleNotification('success', `NFT #${metadata.tokenId} is minted successfully `);
-            setNftData(metadata);
-            setModalShow(true);
-            dispatch(apiAction.setLoading(false))
-            dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
+            console.log('metadata from server: ', metadata);
+            if (metadata) {
+                handleNotification('success', `NFT #${metadata.tokenId} is minted successfully `);
+                setNftData(metadata);
+                setModalShow(true);
+                dispatch(apiAction.setLoading(false))
+                dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
+            } else {
+                dispatch(apiAction.setLoading(false))
+                handleNotification("error", 'NFT Mint is failed');
+            }
         }
         
         let currentTokenAmounts = await getCurrentTokenAmount(nftContractInstance);
