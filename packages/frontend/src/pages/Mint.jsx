@@ -134,6 +134,8 @@ function Mint({ handleNotification }) {
                 <CustomButton text={'switch whitelist mode'} onClick={() => { setWhitelistMode() }} disabled={false} />
                 <CustomButton text={'WhiteList mint'} onClick={() => mintWhiteList()} disabled={false} />
                 <span style={{color:"red", fontSize: '32px'}}>{(Math.round(bnbPrice * 100) / 100).toFixed(2)}BUSD</span> */}
+               
+            </Row>
                 <div >
                     {
                         currentTokenAmount.map((amount, index) => {
@@ -144,7 +146,6 @@ function Mint({ handleNotification }) {
                     }
                     <span>{ whitelistState ? 'Whitelist: on' : 'Whitelist: off'}</span>
                 </div>
-            </Row>
             <CustomModal show={isModalShow} data={nftData} handleClose={() => {
                 setModalShow(false);
             }} />
@@ -162,12 +163,12 @@ const Container = styled.div`
 `
 const Row = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     height: fit-content;
     flex-wrap: wrap;
     max-width: 1000px;
     min-width: fit-content;
-    margin: 50px auto;
+    margin: 20px auto;
     @media(max-width: 767px) {
         margin: 0 auto;
         padding: 0;

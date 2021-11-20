@@ -31,20 +31,20 @@ const Box = ({ boxId, onPurchase, price, title }) => {
         if (direction === 'left') {
             switch (boxId) {
                 case 0:
-                    return isMobile ? "61px": "5vw" ;
+                    return isMobile ? "61px": "3.3vw" ;
                 case 1:
-                    return isMobile ? "140px": "13vw" ;
+                    return isMobile ? "138px": "8.4vw" ;
                 case 2:
-                    return isMobile ? "61px": "5vw" ;
+                    return isMobile ? "61px": "3.4vw" ;
             }
         } else {
             switch (boxId) {
                 case 0:
-                    return isMobile ? "31px": "2.3vw" ;
+                    return isMobile ? "31px": "1.5vw" ;
                 case 1:
-                    return isMobile ? "31px": "2.3vw" ;
+                    return isMobile ? "31px": "1.5vw" ;
                 case 2:
-                    return isMobile ? "34px": "3vw" ;
+                    return isMobile ? "34px": "1.9vw" ;
             }
         }
     }
@@ -70,11 +70,12 @@ const Box = ({ boxId, onPurchase, price, title }) => {
 }
 
 const Wrapper = styled.div`
-    width: 30%;
+    width: 20%;
     position: relative;
     display: flex;
     flex-direction: column;
     font-family: Baloo;
+    margin: 0 3.5vw;
     @media(max-width: 767px) {
         width: 300px;
     }
@@ -90,13 +91,13 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 29%; 
+    padding-top: 27%; 
     @media(max-width: 767px) {
         padding-top: 82px;
     }
 `;
 const Title = styled.label`
-    font-size: 2.3vw;
+    font-size: 2vw;
     color: black;
     font-weight: normal;
     text-align: center;
@@ -106,8 +107,8 @@ const Title = styled.label`
 `;
 
 const Price = styled.span`
-    font-size: 2.3vw;
-    margin-top: 5%;
+    font-size: 2vw;
+    margin-top: 2%;
     margin-right: 2%;
     @media(max-width: 767px) {
         font-size: 27px;
@@ -117,15 +118,14 @@ const Price = styled.span`
 `;
 const ButtonPurchase = styled.div`
     cursor: pointer;
-    bottom: 2vw;
-    padding: 5%;
+    bottom: 1vw;
+    padding: 4%;
     text-transform: capitalize;
-    font-size: 3.4vw;
+    font-size: 2.8vw;
     font-weight: normal;
     color: var(--button-text-color);
     :hover {
-        font-size: 4vw;
-        margin-left: -0.6vw;
+        font-size: 3vw;
     }
     position: absolute;
     @media(max-width: 767px) {
