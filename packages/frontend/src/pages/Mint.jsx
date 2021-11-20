@@ -127,25 +127,15 @@ function Mint({ handleNotification }) {
         <Container>
             <Header handleNotification={handleNotification} />
             <Row>
-                <Box boxId={0} title="Happy Box" onPurchase={() => mintNFT(0)} price={0.25}/>
-                <Box boxId={1} title="Power Box" onPurchase={() => mintNFT(1)} price={0.25}/>
-                <Box boxId={2} title="Glorious Box" onPurchase={() => mintNFT(2)} price={0.25}/>
+                <Box boxId={0} title="Happy Box" onPurchase={() => mintNFT(0)} price={0.25} currentTokenAmount={currentTokenAmount[0]} limitTokenAmount={limitationTokenAmount[0]}/>
+                <Box boxId={1} title="Power Box" onPurchase={() => mintNFT(1)} price={0.25} currentTokenAmount={currentTokenAmount[1]} limitTokenAmount={limitationTokenAmount[1]}/>
+                <Box boxId={2} title="Glorious Box" onPurchase={() => mintNFT(2)} price={0.25} currentTokenAmount={currentTokenAmount[2]} limitTokenAmount={limitationTokenAmount[2]}/>
                 {/*                 
                 <CustomButton text={'switch whitelist mode'} onClick={() => { setWhitelistMode() }} disabled={false} />
                 <CustomButton text={'WhiteList mint'} onClick={() => mintWhiteList()} disabled={false} />
                 <span style={{color:"red", fontSize: '32px'}}>{(Math.round(bnbPrice * 100) / 100).toFixed(2)}BUSD</span> */}
                
             </Row>
-                <div >
-                    {
-                        currentTokenAmount.map((amount, index) => {
-                            return (
-                                <span style={{display: 'block'}}>{`${amount} /  ${limitationTokenAmount[index]}`}</span>
-                            )
-                        })
-                    }
-                    <span>{ whitelistState ? 'Whitelist: on' : 'Whitelist: off'}</span>
-                </div>
             <CustomModal show={isModalShow} data={nftData} handleClose={() => {
                 setModalShow(false);
             }} />
@@ -168,7 +158,7 @@ const Row = styled.div`
     flex-wrap: wrap;
     max-width: 1000px;
     min-width: fit-content;
-    margin: 20px auto;
+    margin: 110px auto;
     @media(max-width: 767px) {
         margin: 0 auto;
         padding: 0;

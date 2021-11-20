@@ -4,7 +4,8 @@ import boxPanel2 from '../assets/imgs/boxPanel2.png';
 import boxPanel3 from '../assets/imgs/boxPanel3.png';
 const imgPath = '../assets/imgs/';
 
-const Box = ({ boxId, onPurchase, price, title }) => {
+const Box = ({ boxId, onPurchase, price, title, currentTokenAmount, limitTokenAmount }) => {
+    
     const getBoxPanel = (boxId) => {
         switch (boxId) {
             case 0:
@@ -51,6 +52,10 @@ const Box = ({ boxId, onPurchase, price, title }) => {
     return (
         <Wrapper className="box-wrapper">
             <Panel src={getBoxPanel(boxId)} alt="panel" className="box-panel" />
+            <Counter className="counter-layout">
+                <img src="/images/bg_counter.png" alt="" className="counter-bg" />
+                <span htmlFor="" className="counter"><span className="number">{currentTokenAmount}</span><span className="slash">/</span><span className="number">{limitTokenAmount}</span></span>
+            </Counter>
             <Content>
                 <Title>{title}</Title>
                 <Price style={{color: getColor(boxId)}}>{price}BNB</Price>
@@ -78,12 +83,49 @@ const Wrapper = styled.div`
     margin: 0 3.5vw;
     @media(max-width: 767px) {
         width: 300px;
+        margin-top: 100px;
     }
 `;
 
 const Panel = styled.img`
     width: 100%;
 `;
+const Counter = styled.div`
+    position: absolute;
+    top: -70px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    img {
+        width: 80%;
+        z-index: -1;
+    }
+    span.counter {
+        
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 2vw;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .number {
+            color: #642f2f;
+        }
+        .slash {
+            color: #ff3c1e;
+        }
+        @media(max-width: 767px) {
+            font-size: 30px;
+        }
+    }
+`
 const Content = styled.div`
     width: 100%;
     height: 100%;
