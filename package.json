@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "metadata:deploy:ipfs": "node scripts/deploy_to_ipfs.js",
+    "contracts:deploy:hardhat": "npx hardhat node --export packages/frontend/src/contracts.json",
     "test": "npx hardhat test",
     "compile": "npx hardhat compile",
     "deploy": "yarn contract:clean && hardhat deploy --export packages/frontend/src/contracts.json",
@@ -15,7 +16,7 @@
     "start": "yarn workspace @nft-minter/frontend start",
     "start:server": "yarn workspace @nft-minter/backend dev",
     "build": "yarn workspace @nft-minter/frontend build",
-    "contract:clean": "hardhat clean && rimraf deployments/ && rimraf packages/client/src/contracts.json && rimraf packages/frontend/src/contracts.json"
+    "contract:clean": "hardhat clean && rimraf deployments/ rimraf packages/frontend/src/contracts.json"
   },
   "author": "",
   "license": "ISC",

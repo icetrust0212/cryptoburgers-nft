@@ -1,9 +1,9 @@
 {
-  "name": "testnet",
-  "chainId": "4",
+  "name": "localhost",
+  "chainId": "31337",
   "contracts": {
     "BurgToken": {
-      "address": "0x7bD8faE0CB2630f34dF1B714fbF7Fe0af7c6a7AC",
+      "address": "0xE043a0255bd6DdD58d5388BC8f677f1b871865Cb",
       "abi": [
         {
           "inputs": [],
@@ -396,7 +396,7 @@
       ]
     },
     "Burger": {
-      "address": "0xf6F2E420D8fB9d39d58913F5049B1db4EBD75fa0",
+      "address": "0xbB7bAcD69E0C1A13dcb8e25387f230753AeedFD2",
       "abi": [
         {
           "inputs": [],

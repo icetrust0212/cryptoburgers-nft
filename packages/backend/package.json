@@ -9,7 +9,7 @@
   "description": "",
   "scripts": {
     "start": "cross-env NODE_ENV=production node src/index.js",
-    "dev": "cross-env NODE_ENV=local nodemon src/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "upload_image": "node src/api/upload_image.js",
     "calculate_root": "node src/api/calculate_root.js"
