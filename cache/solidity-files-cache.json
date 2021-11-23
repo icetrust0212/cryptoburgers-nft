@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\projects\\blockchain\\works\\cryptoburgers-nft\\contracts\\Burger.sol": {
-      "lastModificationDate": 1637429984927,
-      "contentHash": "cb228e399317dfee6cede45fca8163e5",
+      "lastModificationDate": 1637697580330,
+      "contentHash": "e3a8637d115164124a3c0d5114f3388a",
       "sourceName": "contracts/Burger.sol",
       "solcConfig": {
         "version": "0.8.9",

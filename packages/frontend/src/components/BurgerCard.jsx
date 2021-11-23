@@ -179,13 +179,11 @@ const CookButton = styled.img`
     border-radius: 6px;
     outline: none;
     border: none;
-    box-shadow: 0px 0px 3px 0px blue;
     text-transform: uppercase;
     font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #4e97e9;
     font-weight: 900;
     margin-top: auto;
     @media(max-width: 767px) {
@@ -193,7 +191,7 @@ const CookButton = styled.img`
         margin-top: 15px;
     }
     :hover {
-        width: 99%;
+        width: 102%;
     }
     cursor: pointer;
   `;

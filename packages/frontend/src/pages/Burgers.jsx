@@ -1,24 +1,44 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header';
 import styled from 'styled-components';
-import { getTokenList } from '../store/reducers';
+import { getChainId, getTokenList } from '../store/reducers';
 import BurgerCard from '../components/BurgerCard';
+import { useSnackbar } from 'react-simple-snackbar'
+import { useEffect } from 'react';
+
 const Burgers = ({ handleNotification }) => {
     
     const burgerList = useSelector(state => getTokenList(state));
-    const dispatch = useDispatch();
-    
+    const [openSnackbar, closeSnackbar] = useSnackbar()
+    const chainId = useSelector(state => getChainId(state));
+
+    useEffect(() => {
+        if (chainId !== 4) {
+            openSnackbar('Please switch to Rinkeby testnet');
+        } else {
+            closeSnackbar();
+        }
+    }, [chainId])
     return (
         <Container>
             <Header handleNotification={handleNotification}/>
             <ContentContainer>
-                <ItemList>
                 {
-                    burgerList && burgerList.map((data, index) => (
-                        <BurgerCard data={data} key={index}/>
-                    ))
+                    burgerList && burgerList.length > 0 ?  (
+                        <ItemList>
+                        {
+                            burgerList.map((data, index) => (
+                                <BurgerCard data={data} key={index}/>
+                            ))
+                        }
+                        </ItemList>
+                    ) : (
+                        <div>
+                            Are You Hungry? Mint an hanburger!
+                        </div>
+                    )
                 }
-            </ItemList>
+                
             </ContentContainer>
         </Container>
     )

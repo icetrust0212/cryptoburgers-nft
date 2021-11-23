@@ -4,11 +4,12 @@ import styled from 'styled-components'
 import Header from '../components/Header'
 import { apiAction } from '../store/actions'
 import { getAddress, getChainId, getNFTContractInstance, getProvider, getWeb3Instance, getWssNFTContractInstance, isWhitelistMode } from '../store/reducers'
-import { getCurrentTokenAmount, getLatestBNBPrice, getMetadata, getTokenAmountLimitation, mintNFT } from '../lib/nftutils';
+import { getCurrentTokenAmount, getLatestBNBPrice, getMetadata, getPriceType, getTokenAmountLimitation, mintNFT } from '../lib/nftutils';
 import CustomModal from '../components/Modal'
 import { apiConstants } from '../store/constants';
 import getSocket from '../services/socket'
 import Box from '../components/Box'
+import { useSnackbar } from 'react-simple-snackbar'
 
 
 function Mint({ handleNotification }) {
@@ -25,7 +26,10 @@ function Mint({ handleNotification }) {
     const whitelistState = useSelector(state => isWhitelistMode(state));
     const [currentTokenAmount, setCurrentTokenAmount] = useState([0, 0, 0]);
     const [limitationTokenAmount, setLimitationTokenAmount] = useState([0, 0, 0]);
-    
+    const [priceType, setPriceType] = useState('BNB');
+    const [networkEnable, setNetworkEnable] = useState(false);
+    const [openSnackbar, closeSnackbar] = useSnackbar()
+
     const onMintSuccess = async (data) => {
         const {to, metadata} = data;
         if (to === address) {
@@ -71,11 +75,22 @@ function Mint({ handleNotification }) {
     }
 
     useEffect(() => {
+        if (chainId !== 4) {
+            openSnackbar('Please switch to Rinkeby testnet');
+        } else {
+            closeSnackbar();
+        }
+    }, [chainId]);
+
+    useEffect(() => {
         //establish socket connection for notification after nft minting
         //we will use wallet address as socket id
+    
         if (address && provider) {
-            if (chainId !== 4) {
-                handleNotification('Please switch to Rinkeby network');
+            let _networkEnable = chainId === 4 // rinkeby. this should be 56 (BSC mainnet) in production mode
+            setNetworkEnable(_networkEnable);
+            if (!_networkEnable) {
+                handleNotification('warning', 'Please switch to Rinkeby network');
                 return;
             }
             const webSocket = getSocket(address);
@@ -103,6 +118,9 @@ function Mint({ handleNotification }) {
                 if (_limitationTokenAmount && _limitationTokenAmount.length === 3) {
                     setLimitationTokenAmount(_limitationTokenAmount);
                 }
+
+                let _priceType = await getPriceType(nftContractInstance);
+                setPriceType(_priceType);
             })();
            
             dispatch(apiAction.isWhiteListMode(nftContractInstance));
@@ -132,13 +150,11 @@ function Mint({ handleNotification }) {
         <Container>
             <Header handleNotification={handleNotification} />
             <Row>
-                <Box boxId={0} title="Happy Box" onPurchase={() => mintNFT(0)} price={0.25} currentTokenAmount={currentTokenAmount[0]} limitTokenAmount={limitationTokenAmount[0]}/>
-                <Box boxId={1} title="Power Box" onPurchase={() => mintNFT(1)} price={0.25} currentTokenAmount={currentTokenAmount[1]} limitTokenAmount={limitationTokenAmount[1]}/>
-                <Box boxId={2} title="Glorious Box" onPurchase={() => mintNFT(2)} price={0.25} currentTokenAmount={currentTokenAmount[2]} limitTokenAmount={limitationTokenAmount[2]}/>
-                {/*                 
-                <CustomButton text={'switch whitelist mode'} onClick={() => { setWhitelistMode() }} disabled={false} />
-                <CustomButton text={'WhiteList mint'} onClick={() => mintWhiteList()} disabled={false} />
-                <span style={{color:"red", fontSize: '32px'}}>{(Math.round(bnbPrice * 100) / 100).toFixed(2)}BUSD</span> */}
+                <Box networkEnable={networkEnable} boxId={0} title="Happy Box" onPurchase={() => mintNFT(0)} currentTokenAmount={currentTokenAmount[0]} limitTokenAmount={limitationTokenAmount[0]} priceType={priceType}/>
+                <Box networkEnable={networkEnable} boxId={1} title="Power Box" onPurchase={() => mintNFT(1)} currentTokenAmount={currentTokenAmount[1]} limitTokenAmount={limitationTokenAmount[1]} priceType={priceType}/>
+                <Box networkEnable={networkEnable} boxId={2} title="Glorious Box" onPurchase={() => mintNFT(2)} currentTokenAmount={currentTokenAmount[2]} limitTokenAmount={limitationTokenAmount[2]} priceType={priceType}/>
+               
+                {/* <span style={{color:"red", fontSize: '32px'}}>{(Math.round(bnbPrice * 100) / 100).toFixed(2)}BUSD</span> */}
                
             </Row>
             <CustomModal show={isModalShow} data={nftData} handleClose={() => {

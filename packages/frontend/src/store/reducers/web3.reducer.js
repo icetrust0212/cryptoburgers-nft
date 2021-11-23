@@ -8,7 +8,7 @@ const init = () => {
   const CONTRACT_ADDRESS = CONTRACT_INFO.contracts.Burger.address;
   
   // const web3Instance = new Web3(window.ethereum);
-  const web3Instance = createAlchemyWeb3(config.TESTNET_API_URL);
+  const web3Instance = createAlchemyWeb3(config.TESTNET_HTTP_URL);
   const wssWeb3Instance = createAlchemyWeb3(config.TESTNET_WSS_URL);
   const nftContractInstance =  new web3Instance.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
   const wssNFTContractInstance =  new wssWeb3Instance.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);

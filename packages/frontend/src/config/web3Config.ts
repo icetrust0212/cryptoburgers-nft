@@ -1,19 +1,9 @@
+
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import WalletLink from 'walletlink'
-// const REACT_APP_API_URL_MAINNET = "https://bsc-dataseed1.ninicoin.io"
-// const REACT_APP_API_URL_TESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"
+const dotenv = require('dotenv').config({path: __dirname + '../../../../.env'}).parsed;
 
-// const REACT_APP_WSS_URL_MAINNET = "wss://bsc-ws-node.nariox.org:443"
-// const REACT_APP_WSS_URL_TESTNET = "wss://bsc-ws-node.nariox.org:443"
-
-const REACT_APP_API_URL_MAINNET = "https://eth-mainnet.alchemyapi.io/v2/OFNLvE3zh5eHRiBh30_DNaiPDVdyhXO0"
-const REACT_APP_API_URL_TESTNET = "https://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3"
-
-const REACT_APP_WSS_URL_MAINNET = "wss://eth-mainnet.alchemyapi.io/v2/OFNLvE3zh5eHRiBh30_DNaiPDVdyhXO0"
-const REACT_APP_WSS_URL_TESTNET = "wss://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3"
-
-const REACT_APP_ACCOUNT_PUBLIC_KEY = "0xc09eAC15f9Ba6462e8E4612af7C431E1cfe08b87";
-
+console.log('dotenv: ', dotenv, __dirname)
 export const web3ProviderOptions = {
   'custom-walletlink': {
     display: {
@@ -38,14 +28,16 @@ export const web3ProviderOptions = {
   },
 }
 
+const TESTNET_WSS_URL = "wss://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3"
+const TESTNET_HTTP_URL = "https://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3";
 
+const MAINNET_HTTP_URL = "https://eth-mainnet.alchemyapi.io/v2/OFNLvE3zh5eHRiBh30_DNaiPDVdyhXO0"
+const MAINNET_WSS_URL = "wss://bsc-ws-node.nariox.org:443"
 
-  export const config = {
-    MAINNET_API_URL: REACT_APP_API_URL_MAINNET,
-    TESTNET_API_URL: REACT_APP_API_URL_TESTNET,
+export const config = {
+  MAINNET_HTTP_URL: MAINNET_HTTP_URL,
+  TESTNET_HTTP_URL: TESTNET_HTTP_URL,
 
-    MAINNET_WSS_URL: REACT_APP_WSS_URL_MAINNET,
-    TESTNET_WSS_URL: REACT_APP_WSS_URL_TESTNET,
-    
-    PUBLIC_KEY: REACT_APP_ACCOUNT_PUBLIC_KEY,
-  }
+  MAINNET_WSS_URL: MAINNET_WSS_URL,
+  TESTNET_WSS_URL: TESTNET_WSS_URL,
+}

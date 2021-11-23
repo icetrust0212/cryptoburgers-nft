@@ -7,7 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import { ToastProvider } from 'react-toast-notifications';
 import buildStore from './store'
 import { Provider } from 'react-redux'
-
+//@ts-ignore
+import SnackbarProvider from 'react-simple-snackbar'
 // import App from './pages/Home';
 import App from './App';
 
@@ -23,7 +24,9 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <ToastProvider>
+          <SnackbarProvider>
             <App />
+          </SnackbarProvider>
         </ToastProvider>
       </BrowserRouter>
     </Provider>

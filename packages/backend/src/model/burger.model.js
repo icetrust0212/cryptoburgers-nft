@@ -11,7 +11,7 @@ const BurgerSchema = new Schema({
   name: {
     type: String,
   },
-  descrption: {
+  description: {
     type: String,
   },
   image: {

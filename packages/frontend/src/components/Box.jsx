@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import boxPanel1 from '../assets/imgs/boxPanel_temp1.png';
 import boxPanel2 from '../assets/imgs/boxPanel_temp2.png';
@@ -6,9 +8,24 @@ import boxPanel3 from '../assets/imgs/boxPanel_temp3.png';
 import memo1 from '../assets/imgs/memo1.png';
 import memo2 from '../assets/imgs/memo2.png';
 import memo3 from '../assets/imgs/memo3.png';
+import { getBoxPrice } from '../lib/nftutils';
+import { getNFTContractInstance, getProvider } from '../store/reducers';
 
-const Box = ({ boxId, onPurchase, price, title, currentTokenAmount, limitTokenAmount }) => {
-    
+const Box = ({ networkEnable, boxId, onPurchase, title, currentTokenAmount, limitTokenAmount, priceType }) => {
+    const nftContractInstance = useSelector(state => getNFTContractInstance(state));
+    const provider = useSelector(state => getProvider(state));
+    const [price, setPrice] = useState(0);
+    const [mintable, setMintable] = useState(networkEnable && (currentTokenAmount < limitTokenAmount));
+
+    useEffect(() => {
+        if (provider) {
+            (async () => {
+                let _boxPrice = await getBoxPrice(nftContractInstance, boxId, priceType);
+                setPrice(_boxPrice);
+            })();
+        }
+    }, [provider]);
+
     const getBoxPanel = (boxId) => {
         switch (boxId) {
             case 0:
@@ -70,17 +87,35 @@ const Box = ({ boxId, onPurchase, price, title, currentTokenAmount, limitTokenAm
             <Panel src={getBoxPanel(boxId)} alt="panel" className="box-panel" />
             <Counter className="counter-layout">
                 <img src="/images/bg_counter.png" alt="" className="counter-bg" />
-                <span htmlFor="" className="counter"><span className="number">{currentTokenAmount}</span><span className="slash">/</span><span className="number">{limitTokenAmount}</span></span>
+                <span htmlFor="" className="counter">
+                    {
+                        currentTokenAmount < limitTokenAmount ? (
+                            <>
+                                <span className="number">{currentTokenAmount}</span>
+                                <span className="slash">/</span>
+                                <span className="number">{limitTokenAmount}</span>
+                            </>
+                        ) : (
+                            <span className="slash">Sold Out!</span>
+                        )
+                    }
+                    
+                </span>
             </Counter>
             <Content>
                 <Title>{title}</Title>
-                <Price style={{color: getColor(boxId)}}>{price}BNB</Price>
+                <Price style={{color: getColor(boxId)}}>{price / Math.pow(10, 18)}{priceType}</Price>
                 <ButtonPurchase
                     className="btn-text" 
-                    onClick={onPurchase} 
+                    onClick={() => {
+                        if (mintable) {
+                            onPurchase();
+                        }
+                    }} 
                     style={{  
                         left: getOffset('left', boxId),
                         bottom: getOffset('bottom', boxId),
+                        filter: !mintable ? 'grayscale(1)' : ''
                     }}>
                         <img src={getMemo(boxId)} className="bg_purchase" />
                         <span style={{transform: boxId === 2 ? 'rotate(5deg)' : 'rotate(-5deg)'}}>buy</span>

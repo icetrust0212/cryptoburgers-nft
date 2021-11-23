@@ -96,7 +96,7 @@ const ConnectButton = (props:any) => {
     return (
             web3Provider ? (
               <Button onClick={() => disconnect()} style={{color: props.color || 'red'}}>
-                My Account
+                DISCONNECT
               </Button>
           ) : (
             <Button onClick={() => connect()} style={{color: props.color || 'black'}}>

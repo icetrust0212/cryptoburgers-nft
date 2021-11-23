@@ -44,7 +44,6 @@ const App = () => {
       <LoaderOverlary>
         <div className="App">
           <Container>
-
             <Switch>
               <Route path="/" exact={true}>
                 <Home handleNotification={handleNotification} />
@@ -56,7 +55,6 @@ const App = () => {
                 <Mint handleNotification={handleNotification} />
               </Route>
             </Switch>
-
           </Container>
         </div>
       </LoaderOverlary>

@@ -27,7 +27,7 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
     uint256[] public boxPriceBNB = [1e16, 2 * 1e16, 3 * 1e16];
     uint256[] public boxPriceBURG = [1e16, 2 * 1e16, 3 * 1e16];
 
-    uint256 public whitelistPrice = 2 * 1e16;
+
     // string public strBaseTokenURI =
     //     "https://backend.cryptoburgers.io/metadata/";
     string public strBaseTokenURI = 
@@ -267,5 +267,18 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
     {
         BURG = _newAddress;
         return true;
+    }
+
+    function getPriceType() 
+        external 
+        view 
+        returns(string memory)
+    {
+        if (saleBNBEnabled) {
+            return 'BNB';
+        } else if (saleBURGEnabled) {
+            return 'BURG';
+        }
+        return 'BNB';
     }
 }

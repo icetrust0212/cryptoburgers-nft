@@ -9,7 +9,6 @@ require("@nomiclabs/hardhat-etherscan");
  * @type import('hardhat/config').HardhatUserConfig
  */
 const ACCOUNT_PRIVATE_KEY = process.env.ACCOUNT_PRIVATE_KEY;
-
 module.exports = {
   solidity: {
     compilers: [
@@ -29,11 +28,11 @@ module.exports = {
   },
   networks: {
     mainnet: {
-      url: process.env.API_URL_MAINNET,
+      url: process.env.MAINNET_HTTP_URL,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
     },
     testnet: {
-      url: process.env.API_URL_TESTNET,
+      url: process.env.TESTNET_HTTP_URL,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
     }
   },
