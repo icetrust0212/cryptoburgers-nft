@@ -15,6 +15,7 @@ import styled from 'styled-components';
 import LoaderOverlary from './components/LoadingOverlay';
 import Burgers from './pages/Burgers';
 import Home from './pages/Home';
+import Container from './pages/Container';
 
 const App = () => {
 
@@ -64,7 +65,3 @@ const App = () => {
 }
 
 export default App;
-
-const Container = styled.div`
-
-`

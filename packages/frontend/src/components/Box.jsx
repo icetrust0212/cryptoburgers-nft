@@ -8,23 +8,32 @@ import boxPanel3 from '../assets/imgs/boxPanel_temp3.png';
 import memo1 from '../assets/imgs/memo1.png';
 import memo2 from '../assets/imgs/memo2.png';
 import memo3 from '../assets/imgs/memo3.png';
-import { getBoxPrice } from '../lib/nftutils';
-import { getNFTContractInstance, getProvider } from '../store/reducers';
 
-const Box = ({ networkEnable, boxId, onPurchase, title, currentTokenAmount, limitTokenAmount, priceType }) => {
+import box1 from '../assets/imgs/box1.png';
+import box2 from '../assets/imgs/box2.png';
+import box3 from '../assets/imgs/box3.png';
+
+import { getBoxPrice } from '../lib/nftutils';
+import { getChainId, getNFTContractInstance, getProvider } from '../store/reducers';
+
+const Box = ({ boxId, onPurchase, title, currentTokenAmount, limitTokenAmount, priceType }) => {
     const nftContractInstance = useSelector(state => getNFTContractInstance(state));
     const provider = useSelector(state => getProvider(state));
+    const chainId = useSelector(state => getChainId(state));
     const [price, setPrice] = useState(0);
-    const [mintable, setMintable] = useState(networkEnable && (currentTokenAmount < limitTokenAmount));
+    const [mintable, setMintable] = useState(chainId === 4 && (currentTokenAmount < limitTokenAmount));
 
     useEffect(() => {
-        if (provider) {
+        if (provider && chainId === 4) {
             (async () => {
                 let _boxPrice = await getBoxPrice(nftContractInstance, boxId, priceType);
                 setPrice(_boxPrice);
             })();
+            setMintable(currentTokenAmount < limitTokenAmount)
+        } else {
+            setMintable(false);
         }
-    }, [provider]);
+    }, [provider, chainId, currentTokenAmount, limitTokenAmount]);
 
     const getBoxPanel = (boxId) => {
         switch (boxId) {
@@ -52,7 +61,7 @@ const Box = ({ networkEnable, boxId, onPurchase, title, currentTokenAmount, limi
     const getColor = (boxId) => {
         switch (boxId) {
             case 0:
-                return "#1d6516" ;
+                return "#1d6516";
             case 1:
                 return "#164a65";
             case 2:
@@ -60,26 +69,37 @@ const Box = ({ networkEnable, boxId, onPurchase, title, currentTokenAmount, limi
         }
     }
     const getOffset = (direction, boxId) => {
-        const isMobile = window.innerWidth < 768 ;
+        const isMobile = window.innerWidth < 768;
 
         if (direction === 'left') {
             switch (boxId) {
                 case 0:
-                    return isMobile ? "61px": "3.3vw" ;
+                    return isMobile ? "61px" : "3.3vw";
                 case 1:
-                    return isMobile ? "138px": "8.4vw" ;
+                    return isMobile ? "138px" : "8.4vw";
                 case 2:
-                    return isMobile ? "61px": "3.4vw" ;
+                    return isMobile ? "61px" : "3.4vw";
             }
         } else {
             switch (boxId) {
                 case 0:
-                    return isMobile ? "31px": "1vw" ;
+                    return isMobile ? "31px" : "1vw";
                 case 1:
-                    return isMobile ? "31px": "1vw" ;
+                    return isMobile ? "31px" : "1vw";
                 case 2:
-                    return isMobile ? "34px": "0.7vw" ;
+                    return isMobile ? "34px" : "0.7vw";
             }
+        }
+    }
+
+    const getBoxImage = (boxId) => {
+        switch (boxId) {
+            case 0:
+                return box1;
+            case 1:
+                return box2;
+            case 2:
+                return box3;
         }
     }
     return (
@@ -99,26 +119,27 @@ const Box = ({ networkEnable, boxId, onPurchase, title, currentTokenAmount, limi
                             <span className="slash">Sold Out!</span>
                         )
                     }
-                    
+
                 </span>
             </Counter>
             <Content>
                 <Title>{title}</Title>
-                <Price style={{color: getColor(boxId)}}>{price / Math.pow(10, 18)}{priceType}</Price>
+                <Price style={{ color: getColor(boxId) }}>{price / Math.pow(10, 18)}{priceType}</Price>
+                <BoxImg src={getBoxImage(boxId)} />
                 <ButtonPurchase
-                    className="btn-text" 
+                    className="btn-text"
                     onClick={() => {
                         if (mintable) {
                             onPurchase();
                         }
-                    }} 
-                    style={{  
+                    }}
+                    style={{
                         left: getOffset('left', boxId),
                         bottom: getOffset('bottom', boxId),
                         filter: !mintable ? 'grayscale(1)' : ''
                     }}>
-                        <img src={getMemo(boxId)} className="bg_purchase" />
-                        <span style={{transform: boxId === 2 ? 'rotate(5deg)' : 'rotate(-5deg)'}}>buy</span>
+                    <img src={getMemo(boxId)} className="bg_purchase" />
+                    <span style={{ transform: boxId === 2 ? 'rotate(5deg)' : 'rotate(-5deg)' }}>buy</span>
                 </ButtonPurchase>
             </Content>
         </Wrapper>
@@ -245,4 +266,8 @@ const ButtonPurchase = styled.div`
     }
 `;
 
+const BoxImg = styled.img`
+    width: 40%;
+    margin-top: 3%;
+`
 export default Box;

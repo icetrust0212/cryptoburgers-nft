@@ -3,7 +3,7 @@
   "chainId": "4",
   "contracts": {
     "BurgToken": {
-      "address": "0x428c1fC5DE90612f8F4C9d4089668c5E69F9b80d",
+      "address": "0xa2aa054fbed965D5FEc3C7Be3f5fa13dcAfAe235",
       "abi": [
         {
           "inputs": [],
@@ -396,7 +396,7 @@
       ]
     },
     "Burger": {
-      "address": "0x0F44100a7AEc69952d0fA4BAe44f651479071D87",
+      "address": "0x920F28B478E55df416ce11a64dd6C26bBAB7853e",
       "abi": [
         {
           "inputs": [],
@@ -683,6 +683,32 @@
             }
           ],
           "name": "changeBaseTokenURI",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bool",
+              "name": "newValue",
+              "type": "bool"
+            }
+          ],
+          "name": "changeEnableSaleBNB",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bool",
+              "name": "newValue",
+              "type": "bool"
+            }
+          ],
+          "name": "changeEnableSaleBURG",
           "outputs": [],
           "stateMutability": "nonpayable",
           "type": "function"

@@ -12,7 +12,8 @@
     "deploy": "yarn contract:clean && hardhat deploy --export packages/frontend/src/contracts.json",
     "deploy:testnet": "yarn contract:clean && hardhat deploy --network testnet --export packages/frontend/src/contracts.json",
     "start": "yarn workspace @nft-minter/frontend start",
-    "start:server": "yarn workspace @nft-minter/backend dev",
+    "start:server:production": "yarn workspace @nft-minter/backend start",
+    "start:server:dev": "yarn workspace @nft-minter/backend dev",
     "build": "yarn workspace @nft-minter/frontend build",
     "contract:clean": "hardhat clean && rimraf deployments/ && rimraf packages/client/src/contracts.json && rimraf packages/frontend/src/contracts.json"
   },

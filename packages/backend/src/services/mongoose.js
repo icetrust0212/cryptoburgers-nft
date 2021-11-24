@@ -3,7 +3,7 @@ const {
   dbConfig
 } = require('../config');
 const Burger = db.burger;
-
+console.log('dbName: ', dbConfig.DB);
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     useNewUrlParser: true,

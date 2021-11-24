@@ -123,7 +123,7 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         returns (uint256)
     {
         require(!whitelistActive, "Whitelist is active");
-        require(saleBURGEnabled, "Sales in BNB are not permitted");
+        require(saleBURGEnabled, "Sales in BURG are not permitted");
         require(
             IERC20(BURG).allowance(msg.sender, address(this)) >=
                 boxPriceBURG[boxType],
@@ -280,5 +280,13 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
             return 'BURG';
         }
         return 'BNB';
+    }
+
+    function changeEnableSaleBNB(bool newValue) external onlyOwner {
+        saleBNBEnabled = newValue;
+    }
+
+    function changeEnableSaleBURG(bool newValue) external onlyOwner {
+        saleBURGEnabled = newValue;
     }
 }

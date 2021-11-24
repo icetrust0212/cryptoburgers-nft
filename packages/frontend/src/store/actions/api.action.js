@@ -3,14 +3,14 @@ import {apiService} from '../../services';
 import { apiConstants } from '../constants';
 import {mintNFT as mint} from '../../lib/nftutils';
 
-function mintNFT(boxId, nftContractInstance, address, onMintFail) {
+function mintNFT(boxId, nftContractInstance, burgTokenContractInstance, address, onMintFail) {
     return dispatch => {
         dispatch({
             type: apiConstants.SET_LOADING,
             payload: true
         })
        
-        mint(nftContractInstance,  address, boxId, onMintFail);
+        mint(nftContractInstance, burgTokenContractInstance, address, boxId, onMintFail);
     };
 }
 
