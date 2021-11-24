@@ -14,10 +14,31 @@ module.exports = {
     compilers: [
       {
         version: "0.8.9",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200
+          }
+        }
       },
-      { version: "0.5.12", settings: {} },
-      { version: "0.6.8", settings: {} },
-      { version: "0.7.4", settings: {} },
+      { version: "0.5.12", settings: {
+        optimizer: {
+          enabled: true,
+          runs: 200
+        }
+      } },
+      { version: "0.6.8", settings: {
+        optimizer: {
+          enabled: true,
+          runs: 200
+        }
+      } },
+      { version: "0.7.4", settings: {
+        optimizer: {
+          enabled: true,
+          runs: 200
+        }
+      } },
     ],
   },
   paths: {
@@ -37,6 +58,6 @@ module.exports = {
     }
   },
   etherscan: {
-    apiKey: "X2WHYR6AHQNZAUN9HX9J65CGVNN15JPZD2"
+    apiKey: process.env.ETHERSCAN_API_KEY
   }
 };
