@@ -25,7 +25,8 @@ contract BurgToken is ERC20CappedUpgradeable, OwnableUpgradeable {
     constructor() initializer {}
 
     function initialize() public initializer {
-        __ERC20Capped_init("BURG Token", "BURG");
+        __ERC20Capped_init(100 * 1e6 * 1e18);
+        __ERC20_init("BURG Token", "BURG");
         _mint(msg.sender, 10000 * 1e18);
     }
 

@@ -8,9 +8,6 @@ require("@nomiclabs/hardhat-etherscan");
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-const ACCOUNT_PRIVATE_KEY = process.env.ACCOUNT_PRIVATE_KEY;
-
-console.log(process.env);
 
 module.exports = {
   solidity: {
@@ -25,24 +22,14 @@ module.exports = {
           }
         }
       },
-      { version: "0.5.12", settings: {
-        optimizer: {
-          enabled: true,
-          runs: 200
+      {
+        version: "0.7.6", settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200
+          }
         }
-      } },
-      { version: "0.6.8", settings: {
-        optimizer: {
-          enabled: true,
-          runs: 200
-        }
-      } },
-      { version: "0.7.4", settings: {
-        optimizer: {
-          enabled: true,
-          runs: 200
-        }
-      } },
+      }
     ],
 
   },
@@ -55,9 +42,9 @@ module.exports = {
     deployer: 0,
   },
 
-  networks: {
+  defaultNetwork: "hardhat",
 
-    defaultNetwork: "hardhat",
+  networks: {
 
     hardhat: {
       forking: {
@@ -65,25 +52,29 @@ module.exports = {
       },
       accounts: [
         {
-          privateKey: `0x${ACCOUNT_PRIVATE_KEY}`,
+          privateKey: `0x${process.env.ACCOUNT_PRIVATE_KEY}`,
           balance: "1000000000000000000000"
         }
       ],
     },
 
     mainnet: {
-      url: process.env.HTTP_URL,
-      accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
+      url: process.env.MAINNET_HTTP_URL,
+      accounts: [`0x${process.env.ACCOUNT_PRIVATE_KEY}`],
     },
 
-    testnet: {
-      url: process.env.HTTP_URL,
-      accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
+    rinkeby: {
+      url: process.env.TESTNET_HTTP_URL,
+      accounts: [`0x${process.env.ACCOUNT_PRIVATE_KEY}`],
     }
   },
 
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY
+  },
+
+  bscscan: {
+    apiKey: process.env.BSCSCAN_API_KEY
   }
 
 };

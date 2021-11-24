@@ -16,7 +16,10 @@ const func = async function (hre) {
     from: deployer,
     args: [
     ],
-    log: true
+    log: true,
+    proxy: {
+      proxyContract: 'OpenZeppelinTransparentProxy',
+    },
   });
 
   console.log('Verifying...');

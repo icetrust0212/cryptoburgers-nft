@@ -20,6 +20,9 @@ const func = async function (hre) {
     },
   });
 
+    
+
+
   console.log('Verify:');
   console.log('npx hardhat verify --network ' + hre.network.name + ' ' + contractDeployed.address);
 
