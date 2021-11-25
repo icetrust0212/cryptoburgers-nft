@@ -169,7 +169,7 @@ const Row = styled.div`
     flex-wrap: wrap;
     max-width: 1000px;
     min-width: fit-content;
-    padding: 110px 0 50px 0;
+    padding: 130px 0 50px 0;
     @media(max-width: 767px) {
         margin: 0 auto;
         padding: 0;

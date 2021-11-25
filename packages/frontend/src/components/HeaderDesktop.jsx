@@ -86,16 +86,18 @@ const HeaderDesktop = () => {
 
 const HeaderWrapper = styled.div`
     width: 100%;
-    height: 75px;
-    padding: 0 7%;
+    height: 95px;
+    padding: 8px 10%;
     @media(max-width: 991px) {
-        padding: 0 3%;
+        padding: 4px 5%;
+        height: 75px;
     }
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     box-sizing: border-box;
     font-family: 'Baloo';
+    background-size: 100% 100%;
     background-image: url('/images/bg_menu_v2.png');
     .logo-link {
         height: 100%;
@@ -112,15 +114,12 @@ const LogoImg = styled.img`
 `;
 const Menu = styled.div`
     width: 0;
-    padding: 10px 30px;
-    @media(max-width: 1200px) {
-        padding: 15px 30px;
-    }
-    @media(max-width: 991px) {
-        padding: 18px 30px;
-    }
+    padding: 0 40px;
     flex: 1;
-    height: 100%;
+    height: 55px;
+    @media(max-width: 1200px) {
+        height: 40px;
+    }
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -158,7 +157,7 @@ const AccountInfo = styled.div`
 const MenuItem = styled.div`
     height: 100%;
     max-width: 200px;
-    width: 25%;
+    width: 20%;
     display: flex;
     z-index: 1;
     align-items: center;
