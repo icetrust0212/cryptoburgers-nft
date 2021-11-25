@@ -52,10 +52,9 @@ const DIV = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    margin: 15px;
     position: relative;
     border-radius: 20px;
-    background: white;
+    background: #fce043;
     position: relative;
     box-sizing: border-box;
     background-clip: padding-box; /* !importanté */
@@ -68,7 +67,7 @@ const DIV = styled.div`
       top: 0; right: 0; bottom: 0; left: 0;
       margin: -5px; /* !importanté */
       border-radius: inherit; /* !importanté */
-      background: linear-gradient(to right, red, orange);
+      background: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%); 
       z-index: -1;
     }
   `;

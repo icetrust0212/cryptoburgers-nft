@@ -33,7 +33,6 @@ const Header = () => {
 
 const Wrapper = styled.div`
     width: 100%;
-    min-height: 100px;
     position: sticky;
     top: 0;
     z-index: 2;

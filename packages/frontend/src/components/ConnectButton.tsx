@@ -7,6 +7,7 @@ import { resetWeb3Provider, setAddress, setChainId, setWeb3Provider } from '../s
 import { web3ProviderOptions } from '../config'
 //@ts-ignore
 import styled from 'styled-components';
+import { ellipseAddress } from '../lib/utilities';
 
 let web3Modal:any;
 if (typeof window !== 'undefined') {
@@ -95,11 +96,11 @@ const ConnectButton = (props:any) => {
       
     return (
             web3Provider ? (
-              <Button onClick={() => disconnect()} style={{color: props.color || 'red'}}>
-                DISCONNECT
+              <Button onClick={() => disconnect()} style={{color: props.color}}>
+                {ellipseAddress(address)}
               </Button>
           ) : (
-            <Button onClick={() => connect()} style={{color: props.color || 'black'}}>
+            <Button onClick={() => connect()} style={{color: props.color}}>
               Connect
             </Button>
           )
@@ -114,13 +115,14 @@ const Button = styled.span`
   font-family: 'Baloo';
   border: none;
   outline: none;
-  font-size: 12px;
+  color: white;
+  font-size: 14px;
   &:hover{
     cursor: pointer;
     transform: scale(1.1);
   }
   @media(max-width: 767px) {
-    font-size: 25px;
+    font-size: 16px;
     text-transform: uppercase;
   }
 `

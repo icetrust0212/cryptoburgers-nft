@@ -221,8 +221,8 @@ const Title = styled.label`
 `;
 
 const Price = styled.span`
-    font-size: 2vw;
-    margin-top: 2%;
+    font-size: 1.7vw;
+    margin-top: 2.5%;
     margin-right: 2%;
     @media(max-width: 767px) {
         font-size: 27px;

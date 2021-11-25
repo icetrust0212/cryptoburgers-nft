@@ -1,16 +1,16 @@
 import styled from 'styled-components'
 import ConnectButton from './ConnectButton';
-import logoImg from '../assets/imgs/logo.svg';
-import tableImg from '../assets/imgs/menu_table.png';
-import menuHome from '../assets/imgs/menu_home.png';
-import menuBurgers from '../assets/imgs/menu_mint.png';
-import menuStaking from '../assets/imgs/menu_staking.png';
-import menuMarket from '../assets/imgs/menu_marketplace.png';
-import menuAccount from '../assets/imgs/menu_account.png';
+import logoImg from '../assets/imgs/logo.png';
+import menuHome from '../assets/imgs/menu_home_v2.png';
+import menuBurgers from '../assets/imgs/menu_burgers_v2.png';
+import menuStaking from '../assets/imgs/menu_staking_v2.png';
+import menuMarket from '../assets/imgs/menu_marketplace_v2.png';
+
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAddress, getNFTContractInstance, getProvider, getTokenList } from '../store/reducers';
 import { ellipseAddress } from '../lib/utilities';
+import ProgressBar from './ProgressBar';
 
 const HeaderDesktop = () => {
     const tokenList = useSelector(state => getTokenList(state));
@@ -28,11 +28,10 @@ const HeaderDesktop = () => {
     return (
         // <ConnectButton />
         <HeaderWrapper className="header-wrapper">
-            <Link to={'/'}>
+            <Link to={'/'} className="logo-link">
                 <LogoImg src={logoImg} alt="logo" className="logo" />
             </Link>
             <Menu>
-                <TableImg src={tableImg} alt="table" className="table-img" />
                 <MenuItem className="home">
                     <Link to={'/'}>
                         <img src={menuHome} alt="home" className="menu-item-img" />
@@ -55,17 +54,29 @@ const HeaderDesktop = () => {
                 </MenuItem>
             </Menu>
             <AccountInfo>
-                <AccountPlaceHolder src={menuAccount} alt="account-background" className="account-background" />
                 <div className="account-info">
                     {
-                        provider && (
-                            <>
-                                <TokenCount>{tokenList.length}</TokenCount>
-                                <AccountAddress>{ellipseAddress(address)}</AccountAddress>
-                            </>
-                        )
+                        <>
+                            <Account>
+                                {
+                                    provider && address ?
+                                    (
+                                        <>
+                                            <TokenCount>{tokenList.length}</TokenCount>
+                                            <Divider />
+                                        </>
+                                    ) : ''
+                                
+                                }
+                                <div>
+                                    <ConnectButton />
+                                </div>
+                            </Account>
+                            <Level>
+                                <ProgressBar value={70} />
+                            </Level>
+                        </>
                     }
-                    <ConnectButton />
                 </div>
             </AccountInfo>
         </HeaderWrapper>
@@ -75,89 +86,68 @@ const HeaderDesktop = () => {
 
 const HeaderWrapper = styled.div`
     width: 100%;
-    height: 15vw;
-    padding: 0 50px;
+    height: 75px;
+    padding: 0 7%;
+    @media(max-width: 991px) {
+        padding: 0 3%;
+    }
     display: flex;
     align-items: flex-start;
     justify-content: center;
     box-sizing: border-box;
     font-family: 'Baloo';
-    @media(max-width: 991px) {
-        padding: 10px;
+    background-image: url('/images/bg_menu_v2.png');
+    .logo-link {
+        height: 100%;
+        width: 10%;
     }
 `;
 
 const LogoImg = styled.img`
-    width: 15vw;
-    padding: 10px;
+    padding: 5px;
+    height: 100%;
     &:hover {
-        padding: 5px;
-    }
-    @media(max-width: 991px) {
-        width: 130px;
-        padding: 5px;
-        &:hover {
-            padding: 0
-        }
+        padding: 2px;
     }
 `;
 const Menu = styled.div`
     width: 0;
-    min-height: 50px;
+    padding: 10px 30px;
+    @media(max-width: 1200px) {
+        padding: 15px 30px;
+    }
+    @media(max-width: 991px) {
+        padding: 18px 30px;
+    }
     flex: 1;
-    height: 5vw;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
     position: relative;
-    margin: 4vw auto 0 auto;
+    width: 60%;
 `;
-const TableImg = styled.img`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 20px;
-`;
+
 const AccountInfo = styled.div`
-    height: 15vw;
-    min-width: 240px;
-    width: 20vw;
+    height: 100%;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-width: 200px;  
+    width: 15%;
     z-index: 1;
-    @media(max-width: 991px) {
-        height: 140px;
-        min-width: 180px;
-        width: 20vw;
-
-    }
+    color: white;
+    font-size: 14px;
     span {
         display: flex;
-        height: 2vw;
         justify-content: center;
         align-items: center;
-        font-size: 22px;
-        padding-bottom: 5px;
-        @media(max-width: 991px) {
-            font-size: 18px;
-            padding-bottom: 0;
-            padding-top: 5px;
-            height: 25px;
-        }
     }
     .account-info {
-        padding-top: 3vw;
         width: 100%;
         height: 100%;
-        @media(max-width: 991px) {
-            height: 90px;
-            padding-top: 20px;
-        }
-        gap: 0.5vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -165,47 +155,27 @@ const AccountInfo = styled.div`
     }
 `;
 
-const AccountPlaceHolder = styled.img`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-`;
-
 const MenuItem = styled.div`
     height: 100%;
-    width: 20%;
     max-width: 200px;
+    width: 25%;
     display: flex;
     z-index: 1;
-    position: absolute;
-    &.home {
-        left: 3.5%;
-    }
-    &.mint {
-        left: 26.5%;
-    }
-    &.marketplace {
-        left: 47.5%;
-    }
-    &.staking {
-        left: 68.5%;
-        width: 25%;
-        max-width: 300px;   
-        margin-top: 1%;
-    }
-    margin-bottom: 30px;
-    align-items: flex-bottom;
+    align-items: center;
     justify-content: center;
     cursor: pointer;
     padding: 2px;
+    @media(max-width: 991px) {
+        width: auto;
+    }
+    a {
+        height: 100%;
+    }
     &:hover {
         padding: 0;
     }
     img {
-        width: 100%;
+        height: 100%;
         display: flex;
     }
     a {
@@ -213,25 +183,39 @@ const MenuItem = styled.div`
         align-items: flex-end;
         justify-content: center;
     }
-    @media(min-width: 1300px) {
-        margin-bottom: 45px;
-    }
-    @media(min-width: 1399px) {
-        margin-bottom: 80px;
-    }
-    @media(min-width: 1400px) and (max-width: 1700px) {
-        margin-bottom: 60px;
-    }
-    @media(max-width: 767px) {
-        width: 83px;
-        margin-bottom: 30px;
-    }
 `;
 
-const TokenCount = styled.span`
-    color: #444444;
+const Account = styled.div`
+    display: flex;
+    background-image: url('/images/bg_account.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 5px 20px 5px 30px;
+    width: 100%;
+    & > div {
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
 `;
-const AccountAddress = styled.span`
-    color: #555555;
+const TokenCount = styled.span`
+    width: 20%;
+`;
+const Level = styled.div`
+    display: flex;
+    width: 100%;
+    height: 31px;
+    padding: 10px 15px 10px 60px;
+    background-image: url('/images/bg_level.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+`;
+const Divider = styled.span`
+    display: flex;
+    width: 3px;
+    height: 100%;
+    background: white;
+    margin-right: 10px;
 `;
 export default HeaderDesktop;
