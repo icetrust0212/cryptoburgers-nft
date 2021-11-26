@@ -267,7 +267,6 @@ const ButtonPurchase = styled.div`
 `;
 
 const BoxImg = styled.img`
-    width: 40%;
-    margin-top: 3%;
+    width: 55%;
 `
 export default Box;
