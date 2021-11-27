@@ -7,24 +7,35 @@ import menuStaking from '../assets/imgs/menu_staking_v2.png';
 import menuMarket from '../assets/imgs/menu_marketplace_v2.png';
 
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAddress, getNFTContractInstance, getProvider, getTokenList } from '../store/reducers';
-import { ellipseAddress } from '../lib/utilities';
+import { useSelector } from 'react-redux';
+import { getAddress, getProvider, getTokenList } from '../store/reducers';
 import ProgressBar from './ProgressBar';
+import Tooltip from './Tooltip';
+import { useState } from 'react';
 
 const HeaderDesktop = () => {
     const tokenList = useSelector(state => getTokenList(state));
     const address = useSelector(state => getAddress(state));
     const provider = useSelector(state => getProvider(state));
-    const nftContractInstance = useSelector(state => getNFTContractInstance(state));
-    const dispatch = useDispatch();
-    // useEffect( () => {
-    //     if (provider) {
-    //         console.log('provider: ', provider);
-    //         dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
-    //     }
-    // }, [provider, address]);
+    
+    const [showTooltipMarketplace, setShowTooltipMarketplace] = useState(false);
+    const [showTooltipStaking, setShowTooltipStaking] = useState(false);
 
+    const handleTooltip = (e, type) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (type === 'marketplace') {
+            setShowTooltipMarketplace(true);
+            setTimeout(() => {
+                setShowTooltipMarketplace(false)
+            }, 1500);
+        } else {
+            setShowTooltipStaking(true);
+            setTimeout(() => {
+                setShowTooltipStaking(false)
+            }, 1500);
+        }
+    }
     return (
         // <ConnectButton />
         <HeaderWrapper className="header-wrapper">
@@ -33,7 +44,7 @@ const HeaderDesktop = () => {
             </Link>
             <Menu>
                 <MenuItem className="home">
-                    <Link to={'/'}>
+                    <Link to={'/mint'}>
                         <img src={menuHome} alt="home" className="menu-item-img" />
                     </Link>
                 </MenuItem>
@@ -42,15 +53,29 @@ const HeaderDesktop = () => {
                         <img src={menuBurgers} alt="mint" className="menu-item-img" />
                     </Link>
                 </MenuItem>
-                <MenuItem className="marketplace">
-                    <Link to={`/mint`}>
+                <MenuItem className="marketplace" onClick={(e)=> handleTooltip(e, 'marketplace')}>
+                    {/* <Link to={`/marketplace`}> */}
                         <img src={menuMarket} alt="marketplace" className="menu-item-img" />
-                    </Link>
+                    {/* </Link> */}
+                    {
+                        showTooltipMarketplace && (
+                            <TooltipContainer>
+                                <Tooltip />
+                            </TooltipContainer>
+                        )
+                    }
                 </MenuItem>
-                <MenuItem className="staking">
-                    <Link to={`/staking`}>
+                <MenuItem className="staking" onClick={(e)=> handleTooltip(e, 'staking')}>
+                    {/* <Link to={`/staking`}> */}
                         <img src={menuStaking} alt="staking" className="menu-item-img" />
-                    </Link>
+                    {/* </Link> */}
+                    {
+                        showTooltipStaking && (
+                            <TooltipContainer>
+                                <Tooltip />
+                            </TooltipContainer>
+                        )
+                    }
                 </MenuItem>
             </Menu>
             <AccountInfo>
@@ -161,6 +186,7 @@ const MenuItem = styled.div`
     display: flex;
     z-index: 1;
     align-items: center;
+    position: relative;
     justify-content: center;
     cursor: pointer;
     padding: 2px;
@@ -217,4 +243,10 @@ const Divider = styled.span`
     background: white;
     margin-right: 10px;
 `;
+
+const TooltipContainer = styled.div`
+    height: 2.5vw;
+    position: absolute;
+    top: 100%;
+`
 export default HeaderDesktop;

@@ -45,13 +45,13 @@ const HeaderMobile = (props) => {
                 <Panel src={panelImage} onClick={handleCollapse}/>
                 <MenuLayout>
                     <Menu>
-                        <Link to={`/`}>
+                        <Link to={`/mint`}>
                             <MenuItem src={homeImage}></MenuItem>
                         </Link>
                         <Link to={`/burgers`}>
                             <MenuItem src={burgersImage}></MenuItem>
                         </Link>
-                        <Link to={`/mint`}>
+                        <Link to={`/marketplace`}>
                             <MenuItem src={marketplaceImage}></MenuItem>
                         </Link>
                         <Link to={`/staking`}>

@@ -66,6 +66,8 @@ module.exports = {
     rinkeby: {
       url: process.env.TESTNET_HTTP_URL,
       accounts: [`0x${process.env.ACCOUNT_PRIVATE_KEY}`],
+      gas: 2100000, 
+      gasPrice: 8000000000
     }
   },
 

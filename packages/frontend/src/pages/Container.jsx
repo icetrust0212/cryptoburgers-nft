@@ -67,6 +67,7 @@ const CustomSnakeBar = styled.div`
         right: 5px;
         top: 0;
         color: white;
+        cursor: pointer;
     }
 `;
 

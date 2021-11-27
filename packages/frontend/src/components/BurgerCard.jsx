@@ -1,6 +1,7 @@
 import { formatNo } from '../lib/utilities';
 import cookButton from '../assets/imgs/btn_cook.png';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const BurgerCard = ({ data }) => {
     return (
@@ -33,7 +34,7 @@ const BurgerCard = ({ data }) => {
 
             </FLEXDIV>
             <SPAN>#{formatNo(data.tokenId)}</SPAN>
-            <CookButton src={cookButton}></CookButton>
+            <Link to='/burgers' className="link"><CookButton src={cookButton}></CookButton></Link>
         </DIV>
     )
 }
@@ -69,6 +70,9 @@ const DIV = styled.div`
       border-radius: inherit; /* !importanté */
       background: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%); 
       z-index: -1;
+    }
+    .link {
+        margin-top: auto;
     }
   `;
 

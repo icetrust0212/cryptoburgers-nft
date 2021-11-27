@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import styled from 'styled-components';
 import { getTokenList } from '../store/reducers';
 import BurgerCard from '../components/BurgerCard';
+import NotReady from '../components/NotReady';
 
 const Burgers = ({ handleNotification }) => {
     
@@ -22,9 +23,7 @@ const Burgers = ({ handleNotification }) => {
                         }
                         </ItemList>
                     ) : (
-                        <div>
-                            Are You Hungry? Mint an hanburger!
-                        </div>
+                        <NotReady></NotReady>
                     )
                 }
                 
@@ -59,6 +58,7 @@ const ItemList = styled.div`
     flex-wrap: wrap;
     padding: 0;
     margin: 0;
+    gap: 50px;
     justify-content: space-between;
     align-items: flex-start;
     @media(max-width: 991px) {

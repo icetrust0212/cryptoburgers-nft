@@ -128,13 +128,13 @@ function Mint({ handleNotification }) {
         } else {
             handleNotification("warning", 'You are not connected mainnet');
         }
-        const timerID = setInterval(async () => {
-            const price = await getLatestBNBPrice();
-            setBNBPrice(price);
-        }, 5000);
-        return () => {
-            clearInterval(timerID);
-        };
+        // const timerID = setInterval(async () => {
+        //     const price = await getLatestBNBPrice();
+        //     setBNBPrice(price);
+        // }, 5000);
+        // return () => {
+        //     clearInterval(timerID);
+        // };
     }, [provider, address, chainId]);
     return (
         <Container>

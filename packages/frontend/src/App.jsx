@@ -16,6 +16,8 @@ import LoaderOverlary from './components/LoadingOverlay';
 import Burgers from './pages/Burgers';
 import Home from './pages/Home';
 import Container from './pages/Container';
+import Marketplace from './pages/Marketplace';
+import Staking from './pages/Staking';
 
 const App = () => {
 
@@ -54,6 +56,12 @@ const App = () => {
               </Route>
               <Route path="/mint" exact={true}>
                 <Mint handleNotification={handleNotification} />
+              </Route>
+              <Route path="/marketplace" exact={true}>
+                <Marketplace handleNotification={handleNotification} />
+              </Route>
+              <Route path="/staking" exact={true}>
+                <Staking handleNotification={handleNotification} />
               </Route>
             </Switch>
           </Container>

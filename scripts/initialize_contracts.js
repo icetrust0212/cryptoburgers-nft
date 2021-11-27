@@ -9,9 +9,9 @@ async function main() {
     const txBurger = await BurgerDeployed.initialize();
     console.log('txBurger: ', txBurger);
 
-    const BurgerToken = await  hre.deployments.get('BurgerToken');
-    const BurgerTokenDeployed = await ethers.getContractAt('BurgerToken', BurgerToken.address);
-    const tx = await BurgerTokenDeployed.initialize();
+    const BurgerToken = await  hre.deployments.get('BurgToken');
+    const BurgerTokenDeployed = await ethers.getContractAt('BurgToken', BurgerToken.address);
+    const txBurgerToken = await BurgerTokenDeployed.initialize();
     console.log('txBurgerToken: ', txBurgerToken);
 
 }
