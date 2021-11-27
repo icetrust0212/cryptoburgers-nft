@@ -29,8 +29,10 @@ async function saveTokenMetadataToDB(burgerData) {
         console.log('new burger err: ', err)
         return null;
       }
+    } else if (burger && burger.length > 0) {
+        console.log('exist burger: ', burger[0]);
+        return 'exist';
     } else {
-      console.log('exist burger: ', burger[0]);
       return null;
     }
   // });

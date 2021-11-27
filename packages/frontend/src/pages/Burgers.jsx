@@ -41,7 +41,7 @@ const Container = styled.div`
     min-height: 100vh;
     background-repeat-x: no-repeat;
     background-size: 100%;
-    background-image: url(/images/home_burgers_background.svg);
+    background-image: url(/images/home_burgers_background.png);
     background-repeat-y: repeat;
 `
 const ContentContainer = styled.div`

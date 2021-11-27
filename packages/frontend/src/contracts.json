@@ -3,7 +3,7 @@
   "chainId": "4",
   "contracts": {
     "DefaultProxyAdmin": {
-      "address": "0xbcDd388F644a941A68A0FC9Bc4C6a1ac6c48FFad",
+      "address": "0xD7f8386afEe85B00d45F60A242878E46670715df",
       "abi": [
         {
           "inputs": [
@@ -168,7 +168,7 @@
       ]
     },
     "BurgToken_Implementation": {
-      "address": "0xbe279E04c30421777D614101616A48bA9f6E7275",
+      "address": "0x57be608D62DF6B7ae3B7e3c710CCb596F2bA1f97",
       "abi": [
         {
           "inputs": [],
@@ -568,7 +568,7 @@
       ]
     },
     "BurgToken_Proxy": {
-      "address": "0xa18CE058bA2D1E1A8a6727e0249911B78E98f370",
+      "address": "0x6AC8a436CFeA401A602BEa7D90B31D801AFeEAEC",
       "abi": [
         {
           "inputs": [
@@ -704,7 +704,7 @@
       ]
     },
     "BurgToken": {
-      "address": "0xa18CE058bA2D1E1A8a6727e0249911B78E98f370",
+      "address": "0x6AC8a436CFeA401A602BEa7D90B31D801AFeEAEC",
       "abi": [
         {
           "anonymous": false,
@@ -1230,7 +1230,7 @@
       ]
     },
     "Burger_Implementation": {
-      "address": "0xe323e63a455ea0d36a6383ce0503Db06F3028b3A",
+      "address": "0x89b6e0C60a26312307E78F53B6055D5A1E3A16de",
       "abi": [
         {
           "inputs": [],
@@ -2206,7 +2206,7 @@
       ]
     },
     "Burger_Proxy": {
-      "address": "0x42D8277962d1220884BaF6471139bAe9cb2be162",
+      "address": "0x57Bc833798a2E1b60bc92e2396c985764Ed12971",
       "abi": [
         {
           "inputs": [
@@ -2342,7 +2342,7 @@
       ]
     },
     "Burger": {
-      "address": "0x42D8277962d1220884BaF6471139bAe9cb2be162",
+      "address": "0x57Bc833798a2E1b60bc92e2396c985764Ed12971",
       "abi": [
         {
           "anonymous": false,

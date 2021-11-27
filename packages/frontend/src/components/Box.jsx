@@ -9,6 +9,10 @@ import memo1 from '../assets/imgs/memo1.png';
 import memo2 from '../assets/imgs/memo2.png';
 import memo3 from '../assets/imgs/memo3.png';
 
+import memo1_soldout from '../assets/imgs/memo1_soldout.png';
+import memo2_soldout from '../assets/imgs/memo2_soldout.png';
+import memo3_soldout from '../assets/imgs/memo3_soldout.png';
+
 import { getBoxPrice } from '../lib/nftutils';
 import { getChainId, getNFTContractInstance, getProvider } from '../store/reducers';
 
@@ -45,11 +49,11 @@ const Box = ({ boxId, onPurchase, title, currentTokenAmount, limitTokenAmount, p
     const getMemo = (boxId) => {
         switch (boxId) {
             case 0:
-                return memo1;
+                return currentTokenAmount < limitTokenAmount ? memo1 : memo1_soldout;
             case 1:
-                return memo2;
+                return currentTokenAmount < limitTokenAmount ? memo2 : memo2_soldout;;
             case 2:
-                return memo3;
+                return currentTokenAmount < limitTokenAmount ? memo3 : memo3_soldout;;
         }
     }
 
@@ -95,15 +99,11 @@ const Box = ({ boxId, onPurchase, title, currentTokenAmount, limitTokenAmount, p
                 <img src="/images/bg_counter.png" alt="" className="counter-bg" />
                 <span htmlFor="" className="counter">
                     {
-                        currentTokenAmount < limitTokenAmount ? (
-                            <>
-                                <span className="number">{currentTokenAmount}</span>
-                                <span className="slash">/</span>
-                                <span className="number">{limitTokenAmount}</span>
-                            </>
-                        ) : (
-                            <span className="slash">Sold Out!</span>
-                        )
+                        <>
+                            <span className="number">{currentTokenAmount}</span>
+                            <span className="slash">/</span>
+                            <span className="number">{limitTokenAmount}</span>
+                        </>
                     }
 
                 </span>
