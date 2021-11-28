@@ -7,14 +7,18 @@
     "packages/*"
   ],
   "scripts": {
+<<<<<<< HEAD
     "metadata:deploy:ipfs": "node scripts/deploy_to_ipfs.js",
     "contracts:deploy:hardhat": "npx hardhat node --export packages/frontend/src/contracts.json",
+=======
+>>>>>>> proxy
     "test": "npx hardhat test",
     "compile": "npx hardhat compile",
     "deploy": "yarn contract:clean && hardhat deploy --export packages/frontend/src/contracts.json",
     "deploy:testnet": "yarn contract:clean && hardhat deploy --network testnet --export packages/frontend/src/contracts.json",
     "start": "yarn workspace @nft-minter/frontend start",
-    "start:server": "yarn workspace @nft-minter/backend dev",
+    "start:server:production": "yarn workspace @nft-minter/backend start",
+    "start:server:dev": "yarn workspace @nft-minter/backend dev",
     "build": "yarn workspace @nft-minter/frontend build",
     "contract:clean": "hardhat clean && rimraf deployments/ rimraf packages/frontend/src/contracts.json"
   },
@@ -34,6 +38,7 @@
     "@alch/alchemy-web3": "^1.1.7",
     "@chainlink/contracts": "^0.2.2",
     "@openzeppelin/contracts": "^4.3.2",
+    "@openzeppelin/contracts-upgradeable": "^4.3.3",
     "@uniswap/v2-core": "^1.0.1",
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "abort-controller": "^3.0.0",

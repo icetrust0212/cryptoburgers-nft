@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from 'react-redux'
 import LoadingOverlay from 'react-loading-overlay-ts'
 import { getLoadingState } from "../store/reducers";

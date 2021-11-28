@@ -11,8 +11,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAddress, getNFTContractInstance, getProvider, getTokenList } from '../store/reducers';
 import { ellipseAddress } from '../lib/utilities';
-import { apiAction } from '../store/actions';
-import { useEffect, useState } from 'react';
 
 const HeaderDesktop = () => {
     const tokenList = useSelector(state => getTokenList(state));
@@ -77,7 +75,7 @@ const HeaderDesktop = () => {
 
 const HeaderWrapper = styled.div`
     width: 100%;
-    height: 185px;
+    height: 15vw;
     padding: 0 50px;
     display: flex;
     align-items: flex-start;
@@ -90,19 +88,21 @@ const HeaderWrapper = styled.div`
 `;
 
 const LogoImg = styled.img`
-    width: 230px;
+    width: 15vw;
+    padding: 10px;
     &:hover {
-        padding: 10px;
+        padding: 5px;
     }
     @media(max-width: 991px) {
-        width: 100px;
-        margin-top: 50px;
+        width: 130px;
+        padding: 5px;
+        &:hover {
+            padding: 0
+        }
     }
 `;
 const Menu = styled.div`
     width: 0;
-    max-width: 1000px;
-    min-width: 400px;
     min-height: 50px;
     flex: 1;
     height: 5vw;
@@ -110,7 +110,7 @@ const Menu = styled.div`
     align-items: center;
     justify-content: space-around;
     position: relative;
-    margin: 70px auto 0 auto;
+    margin: 4vw auto 0 auto;
 `;
 const TableImg = styled.img`
     width: 100%;
@@ -120,8 +120,9 @@ const TableImg = styled.img`
     top: 20px;
 `;
 const AccountInfo = styled.div`
-    height: 230px;
-    width: 300px;
+    height: 15vw;
+    min-width: 240px;
+    width: 20vw;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -129,31 +130,37 @@ const AccountInfo = styled.div`
     justify-content: center;
     z-index: 1;
     @media(max-width: 991px) {
-        height: 130px;
-        width: 180px;
+        height: 140px;
+        min-width: 180px;
+        width: 20vw;
+
     }
     span {
         display: flex;
-        height: 25px;
+        height: 2vw;
         justify-content: center;
         align-items: center;
         font-size: 22px;
-        padding-top: 5px;
+        padding-bottom: 5px;
         @media(max-width: 991px) {
             font-size: 18px;
+            padding-bottom: 0;
+            padding-top: 5px;
+            height: 25px;
         }
     }
     .account-info {
-        padding-top: 41px;
+        padding-top: 3vw;
         width: 100%;
-        height: 157px;
+        height: 100%;
         @media(max-width: 991px) {
             height: 90px;
             padding-top: 20px;
         }
+        gap: 0.5vw;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: center;
         text-transform: uppercase;
     }
 `;
@@ -175,16 +182,16 @@ const MenuItem = styled.div`
     z-index: 1;
     position: absolute;
     &.home {
-        left: 4%;
+        left: 3.5%;
     }
     &.mint {
-        left: 27%;
+        left: 26.5%;
     }
     &.marketplace {
-        left: 48%;
+        left: 47.5%;
     }
     &.staking {
-        left: 69%;
+        left: 68.5%;
         width: 25%;
         max-width: 300px;   
         margin-top: 1%;
@@ -193,8 +200,9 @@ const MenuItem = styled.div`
     align-items: flex-bottom;
     justify-content: center;
     cursor: pointer;
+    padding: 2px;
     &:hover {
-        padding: 2px;
+        padding: 0;
     }
     img {
         width: 100%;

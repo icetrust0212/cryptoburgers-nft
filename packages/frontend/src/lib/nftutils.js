@@ -2,13 +2,38 @@ import { config } from "../config";
 import axios from 'axios';
 import { apiService } from "../services";
 
-export async function mintNFT(nftContractInstance,  address, boxId,  onMintFail) {
-  
-  let tokenPrice = await nftContractInstance.methods.boxPriceBNB(boxId).call();
-  console.log('normal tokenPrice: ', tokenPrice);
+const CONTRACT_INFO = require('../contracts.json');
 
-  return nftContractInstance.methods.mintNormal(boxId).send({value: tokenPrice, from: address}).on("receipt", function(res) {
-    console.log('mint result: ', res);
+
+export async function mintNFT(nftContractInstance, burgTokenContractInstance,  address, boxId,  onMintFail) {
+  
+  let priceType = await getPriceType(nftContractInstance);
+  let tokenPrice = await getBoxPrice(nftContractInstance, boxId, priceType);
+  if (priceType === 'BNB') {
+    return nftContractInstance.methods.mintNormal(boxId).send({value: tokenPrice, from: address}).on("receipt", function(res) {
+      console.log('mint bnb result: ', res);
+      // onMintSuccess(res.events.NFTMintEvent);
+    }).on('error', err => {
+      console.log('mint bnb error: ', err);
+      onMintFail(err);
+    });
+  } else {
+    await allowBURGTokenAmount(burgTokenContractInstance, tokenPrice, address);
+    return nftContractInstance.methods.mintNormalBURG(boxId).send({from: address}).on("receipt", function(res) {
+      console.log('mint burg result: ', res);
+      // onMintSuccess(res.events.NFTMintEvent);
+    }).on('error', err => {
+      console.log('mint burg error: ', err);
+      onMintFail(err);
+    });
+  }
+}
+
+export async function mintWhiteListMode(boxId, nftContractInstance,  address, proof, onMintFail) {
+  let tokenPrice = await nftContractInstance.methods.boxPriceBNB(boxId).call();
+
+  return nftContractInstance.methods.mintWhitelist(proof, boxId).send({value: tokenPrice, from: address}).on("receipt", function(res) {
+    console.log('mint whitelist result: ', res);
     // onMintSuccess(res.events.NFTMintEvent);
   }).on('error', err => {
     console.log('mint error: ', err);
@@ -16,17 +41,30 @@ export async function mintNFT(nftContractInstance,  address, boxId,  onMintFail)
   });
 }
 
-export async function mintWhiteListMode(boxId, nftContractInstance,  address, proof, onMintFail) {
-  let tokenPrice = await nftContractInstance.methods.boxPriceBNB(boxId).call();
-  console.log('whitelist tokenPrice: ', tokenPrice);
+async function allowBURGTokenAmount(burgTokenContractInstance, amount, address) {
+  console.log('approve:' , burgTokenContractInstance, amount, address);
+  const _spender = CONTRACT_INFO.contracts.Burger.address;
+  return await burgTokenContractInstance.methods.approve(_spender, amount).send({from:address});
+}
 
-  return nftContractInstance.methods.mintWhitelist(proof, boxId).send({value: tokenPrice, from: address}).on("receipt", function(res) {
-    console.log('mint result: ', res);
-    // onMintSuccess(res.events.NFTMintEvent);
-  }).on('error', err => {
-    console.log('mint error: ', err);
-    onMintFail(err);
-  });
+export async function getBoxPrice(nftContractInstance, boxId, priceType) {
+  let boxPrice;
+  if (priceType === 'BNB') {
+    boxPrice = await nftContractInstance.methods.boxPriceBNB(boxId).call();
+    console.log('bnb tokenPrice: ', boxPrice);
+  } else {
+    boxPrice = await nftContractInstance.methods.boxPriceBURG(boxId).call();
+    console.log('burg tokenPrice: ', boxPrice);
+  }
+
+  return boxPrice;
+}
+
+export async function getPriceType(nftContractInstance) {
+  //BNB or $BURG
+  let priceType = await nftContractInstance.methods.getPriceType().call();
+  console.log('priceType: ', priceType);
+  return priceType;
 }
 
 export async function withdrawEth(nftContractInstance) {
@@ -131,6 +169,7 @@ export async function getCurrentTokenAmount(nftContractInstance, boxType) {
 }
 
 export async function getTokenAmountLimitation(nftContractInstance, boxType) {
+  console.log('limitation: ', boxType)
   let rsp;
   if (boxType) {
     rsp = await nftContractInstance.methods._limitTokenAmountPerBoxtype(boxType).call();

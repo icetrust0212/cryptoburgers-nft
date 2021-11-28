@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import CustomButton from '../components/CustomButton'
 import Header from '../components/Header'
 import { apiAction } from '../store/actions'
-import { getAddress, getChainId, getNFTContractInstance, getProvider, getWeb3Instance, getWssNFTContractInstance, isWhitelistMode } from '../store/reducers'
-import { getCurrentTokenAmount, getLatestBNBPrice, getMetadata, getTokenAmountLimitation, mintNFT } from '../lib/nftutils';
+import { getAddress, getBurgTokenContractInstance, getChainId, getNFTContractInstance, getProvider, getWeb3Instance, getWssNFTContractInstance, isWhitelistMode } from '../store/reducers'
+import { getCurrentTokenAmount, getLatestBNBPrice, getMetadata, getPriceType, getTokenAmountLimitation, mintNFT } from '../lib/nftutils';
 import CustomModal from '../components/Modal'
 import { apiConstants } from '../store/constants';
 import getSocket from '../services/socket'
@@ -20,21 +19,30 @@ function Mint({ handleNotification }) {
     const web3Instance = useSelector(state => getWeb3Instance(state));
     const nftContractInstance = useSelector(state => getNFTContractInstance(state));
     const wssNFTContractInstance = useSelector(state => getWssNFTContractInstance(state));
+    const burgTokenContractInstance = useSelector(state => getBurgTokenContractInstance(state));
     const provider = useSelector(state => getProvider(state));
     const chainId = useSelector(state => getChainId(state));
     const [bnbPrice, setBNBPrice] = useState(0);
     const whitelistState = useSelector(state => isWhitelistMode(state));
     const [currentTokenAmount, setCurrentTokenAmount] = useState([0, 0, 0]);
     const [limitationTokenAmount, setLimitationTokenAmount] = useState([0, 0, 0]);
-    
+    const [priceType, setPriceType] = useState('BNB');
+
+
     const onMintSuccess = async (data) => {
         const {to, metadata} = data;
         if (to === address) {
-            handleNotification('success', `NFT #${metadata.tokenId} is minted successfully `);
-            setNftData(metadata);
-            setModalShow(true);
-            dispatch(apiAction.setLoading(false))
-            dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
+            console.log('metadata from server: ', metadata);
+            if (metadata) {
+                handleNotification('success', `NFT #${metadata.tokenId} is minted successfully `);
+                setNftData(metadata);
+                setModalShow(true);
+                dispatch(apiAction.setLoading(false))
+                dispatch(apiAction.getTokensPerAddress(nftContractInstance, address));
+            } else {
+                dispatch(apiAction.setLoading(false))
+                handleNotification("error", 'NFT Mint is failed');
+            }
         }
         
         let currentTokenAmounts = await getCurrentTokenAmount(nftContractInstance);
@@ -58,7 +66,7 @@ function Mint({ handleNotification }) {
     }
 
     const mintNormal = (boxId) => {
-        dispatch(apiAction.mintNFT(boxId, nftContractInstance, address, onMintFail));
+        dispatch(apiAction.mintNFT(boxId, nftContractInstance, burgTokenContractInstance, address, onMintFail));
     }
 
     const mintWhiteList = (boxId) => {
@@ -68,9 +76,11 @@ function Mint({ handleNotification }) {
     useEffect(() => {
         //establish socket connection for notification after nft minting
         //we will use wallet address as socket id
+    
         if (address && provider) {
-            if (chainId !== 4) {
-                handleNotification('Please switch to Rinkeby network');
+            let _networkEnable = chainId === 4 // rinkeby. this should be 56 (BSC mainnet) in production mode
+            if (!_networkEnable) {
+                handleNotification('warning', 'Please switch to BSC mainnet');
                 return;
             }
             const webSocket = getSocket(address);
@@ -98,6 +108,9 @@ function Mint({ handleNotification }) {
                 if (_limitationTokenAmount && _limitationTokenAmount.length === 3) {
                     setLimitationTokenAmount(_limitationTokenAmount);
                 }
+
+                let _priceType = await getPriceType(nftContractInstance);
+                setPriceType(_priceType);
             })();
            
             dispatch(apiAction.isWhiteListMode(nftContractInstance));
@@ -127,23 +140,12 @@ function Mint({ handleNotification }) {
         <Container>
             <Header handleNotification={handleNotification} />
             <Row>
-                <Box boxId={0} title="Happy Box" onPurchase={() => mintNFT(0)} price={0.25}/>
-                <Box boxId={1} title="Power Box" onPurchase={() => mintNFT(1)} price={0.25}/>
-                <Box boxId={2} title="Glorious Box" onPurchase={() => mintNFT(2)} price={0.25}/>
-                {/*                 
-                <CustomButton text={'switch whitelist mode'} onClick={() => { setWhitelistMode() }} disabled={false} />
-                <CustomButton text={'WhiteList mint'} onClick={() => mintWhiteList()} disabled={false} />
-                <span style={{color:"red", fontSize: '32px'}}>{(Math.round(bnbPrice * 100) / 100).toFixed(2)}BUSD</span> */}
-                <div >
-                    {
-                        currentTokenAmount.map((amount, index) => {
-                            return (
-                                <span style={{display: 'block'}}>{`${amount} /  ${limitationTokenAmount[index]}`}</span>
-                            )
-                        })
-                    }
-                    <span>{ whitelistState ? 'Whitelist: on' : 'Whitelist: off'}</span>
-                </div>
+                <Box boxId={0} title="Happy Box" onPurchase={() => mintNFT(0)} currentTokenAmount={currentTokenAmount[0]} limitTokenAmount={limitationTokenAmount[0]} priceType={priceType}/>
+                <Box boxId={1} title="Power Box" onPurchase={() => mintNFT(1)} currentTokenAmount={currentTokenAmount[1]} limitTokenAmount={limitationTokenAmount[1]} priceType={priceType}/>
+                <Box boxId={2} title="Glorious Box" onPurchase={() => mintNFT(2)} currentTokenAmount={currentTokenAmount[2]} limitTokenAmount={limitationTokenAmount[2]} priceType={priceType}/>
+               
+                {/* <span style={{color:"red", fontSize: '32px'}}>{(Math.round(bnbPrice * 100) / 100).toFixed(2)}BUSD</span> */}
+               
             </Row>
             <CustomModal show={isModalShow} data={nftData} handleClose={() => {
                 setModalShow(false);
@@ -162,12 +164,12 @@ const Container = styled.div`
 `
 const Row = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     height: fit-content;
     flex-wrap: wrap;
     max-width: 1000px;
     min-width: fit-content;
-    margin: 50px auto;
+    margin: 110px auto;
     @media(max-width: 767px) {
         margin: 0 auto;
         padding: 0;

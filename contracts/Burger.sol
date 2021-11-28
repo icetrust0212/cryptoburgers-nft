@@ -7,34 +7,39 @@ Telegram: https://t.me/cryptoburgersnft
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-import "openzeppelin-solidity/contracts/utils/math/SafeMath.sol";
-import "openzeppelin-solidity/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "openzeppelin-solidity/contracts/security/Pausable.sol";
-import "openzeppelin-solidity/contracts/access/Ownable.sol";
-import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
-import "openzeppelin-solidity/contracts/security/ReentrancyGuard.sol";
-import "openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721EnumerableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
 
 import "./BurgToken.sol";
 
-contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
-    using SafeMath for uint256;
-    using SafeERC20 for IERC20;
-    using Address for address;
+contract Burger is
+    ERC721EnumerableUpgradeable,
+    PausableUpgradeable,
+    OwnableUpgradeable,
+    ReentrancyGuardUpgradeable
+{
+    using SafeMathUpgradeable for uint256;
+    using SafeERC20Upgradeable for IERC20Upgradeable;
+    using AddressUpgradeable for address;
+    using StringsUpgradeable for uint256;
 
     mapping(uint256 => uint8) private boxTypeById;
 
     uint256[] public boxPriceBNB = [1e16, 2 * 1e16, 3 * 1e16];
     uint256[] public boxPriceBURG = [1e16, 2 * 1e16, 3 * 1e16];
 
-    uint256 public whitelistPrice = 2 * 1e16;
     // string public strBaseTokenURI =
     //     "https://backend.cryptoburgers.io/metadata/";
-    string public strBaseTokenURI = 
-            "http://localhost:8080/api/metadta/";
+    string public strBaseTokenURI = "http://localhost:8080/api/metadta/";
 
+    // true BNB - false BURG
     bool public saleBNBEnabled = true;
-    bool public saleBURGEnabled = true;
 
     // Change to true in the mainnet deploy.
     bool public whitelistActive = false;
@@ -52,17 +57,17 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         uint8 indexed _boxType
     );
 
-    event whitelistModeChanged(
-        bool isWhiteList
-    );
+    event whitelistModeChanged(bool isWhiteList);
 
-    constructor() ERC721("Burger", "BURGER") {
+    constructor() initializer {}
+
+    function initialize() public initializer {
+        __ERC721_init("Burger", "BURGER");
         // Uncomment if we want deploy paused
         // _pause();
     }
 
-    function _leaf(address account) internal pure returns (bytes32)
-    {
+    function _leaf(address account) internal pure returns (bytes32) {
         return keccak256(abi.encodePacked(account));
     }
 
@@ -74,7 +79,10 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
     {
         require(whitelistActive, "Whitelist is not active");
         require(msg.value >= boxPriceBNB[boxType], "Not enought BNB");
-        require(_tokenSupply[boxType] < _limitTokenAmountPerBoxtype[boxType], "Limitation has been reached");
+        require(
+            _tokenSupply[boxType] < _limitTokenAmountPerBoxtype[boxType],
+            "Limitation has been reached"
+        );
         bool isWhitelisted = verifyWhitelist(_leaf(msg.sender), proof);
 
         if (isWhitelisted) {
@@ -95,9 +103,10 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
     }
 
     function mintForGoldenTicket(address _to)
-    external
-    onlyOwner
-    returns (uint256) {
+        external
+        onlyOwner
+        returns (uint256)
+    {
         return mint(_to, 1);
     }
 
@@ -123,9 +132,9 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         returns (uint256)
     {
         require(!whitelistActive, "Whitelist is active");
-        require(saleBURGEnabled, "Sales in BNB are not permitted");
+        require(!saleBNBEnabled, "Sales in BURG are not permitted");
         require(
-            IERC20(BURG).allowance(msg.sender, address(this)) >=
+            IERC20Upgradeable(BURG).allowance(msg.sender, address(this)) >=
                 boxPriceBURG[boxType],
             "Not enought allowance"
         );
@@ -135,7 +144,10 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
             owner(),
             boxPriceBURG[boxType].mul(8).div(100)
         );
-        BurgToken(BURG).burn(msg.sender, boxPriceBURG[boxType].mul(92).div(100));
+        BurgToken(BURG).burn(
+            msg.sender,
+            boxPriceBURG[boxType].mul(92).div(100)
+        );
 
         uint256 idMinted = mint(msg.sender, boxType);
         return idMinted;
@@ -143,12 +155,13 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
 
     function mint(address _to, uint8 boxType) internal returns (uint256) {
         //boxType: 0, 1, 2
-        _safeMint(_to, totalSupply());
-        boxTypeById[totalSupply()] = boxType;
-        _tokenSupply[boxType] ++;
-        emit MintNFT(_to, totalSupply() - 1, boxType);
+        uint256 tokenId = totalSupply();
+        _safeMint(_to, tokenId);
+        boxTypeById[tokenId] = boxType;
+        _tokenSupply[boxType]++;
+        emit MintNFT(_to, tokenId, boxType);
 
-        return totalSupply() - 1;
+        return tokenId;
     }
 
     function walletOfOwner(address _owner)
@@ -241,7 +254,7 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         returns (string memory)
     {
         require(_exists(_tokenId), "Token does not exist");
-        return string(abi.encodePacked(_baseURI(), Strings.toString(_tokenId)));
+        return string(abi.encodePacked(_baseURI(), _tokenId.toString()));
     }
 
     function getboxTypeById(uint256 _tokenId) external view returns (uint8) {
@@ -267,4 +280,17 @@ contract Burger is ERC721Enumerable, Pausable, Ownable, ReentrancyGuard {
         BURG = _newAddress;
         return true;
     }
+
+    function getPriceType() external view returns (string memory) {
+        if (saleBNBEnabled) {
+            return "BNB";
+        } else {
+            return "BURG";
+        }
+    }
+
+    function changeEnableSaleBNB(bool newValue) external onlyOwner {
+        saleBNBEnabled = newValue;
+    }
+
 }

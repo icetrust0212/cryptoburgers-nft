@@ -13,11 +13,22 @@ const func = async function (hre) {
 
   const contractDeployed = await deploy('BurgToken', {
     from: deployer,
+<<<<<<< HEAD
     args: [
     ],
     log: true,
     proxy: true
+=======
+    args: [],
+    log: true,
+    proxy: {
+      proxyContract: 'OpenZeppelinTransparentProxy',
+    },
+>>>>>>> proxy
   });
+
+    
+
 
   console.log('Verify:');
   console.log('npx hardhat verify --network ' + hre.network.name + ' ' + contractDeployed.address);

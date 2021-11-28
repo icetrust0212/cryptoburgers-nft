@@ -7,12 +7,16 @@ const init = () => {
   const CONTRACT_ABI = CONTRACT_INFO.contracts.Burger.abi;
   const CONTRACT_ADDRESS = CONTRACT_INFO.contracts.Burger.address;
   
+  const CONTRACT_BURG_ABI = CONTRACT_INFO.contracts.BurgToken.abi;
+  const CONTRACT_BURG_ADDRESS = CONTRACT_INFO.contracts.BurgToken.address;
   // const web3Instance = new Web3(window.ethereum);
-  const web3Instance = createAlchemyWeb3(config.TESTNET_API_URL);
+  const web3Instance = createAlchemyWeb3(config.TESTNET_HTTP_URL);
   const wssWeb3Instance = createAlchemyWeb3(config.TESTNET_WSS_URL);
   const nftContractInstance =  new web3Instance.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
   const wssNFTContractInstance =  new wssWeb3Instance.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-  return {web3Instance, nftContractInstance, wssWeb3Instance, wssNFTContractInstance}
+  const burgTokenContractInstance = new web3Instance.eth.Contract(CONTRACT_BURG_ABI, CONTRACT_BURG_ADDRESS);
+
+  return {web3Instance, nftContractInstance, wssWeb3Instance, wssNFTContractInstance, burgTokenContractInstance}
 }
 
 const initialState = {
@@ -81,4 +85,8 @@ export const getContractABI = (state) => {
 
 export const getWssNFTContractInstance = (state) => {
   return state.web3.wssNFTContractInstance;
+}
+
+export const getBurgTokenContractInstance = (state) => {
+  return state.web3.burgTokenContractInstance;
 }

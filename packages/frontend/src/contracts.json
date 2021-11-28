@@ -3,7 +3,11 @@
   "chainId": "31337",
   "contracts": {
     "BurgToken": {
+<<<<<<< HEAD
       "address": "0xE043a0255bd6DdD58d5388BC8f677f1b871865Cb",
+=======
+      "address": "0xa2aa054fbed965D5FEc3C7Be3f5fa13dcAfAe235",
+>>>>>>> proxy
       "abi": [
         {
           "inputs": [],
@@ -396,7 +400,11 @@
       ]
     },
     "Burger": {
+<<<<<<< HEAD
       "address": "0xbB7bAcD69E0C1A13dcb8e25387f230753AeedFD2",
+=======
+      "address": "0x920F28B478E55df416ce11a64dd6C26bBAB7853e",
+>>>>>>> proxy
       "abi": [
         {
           "inputs": [],
@@ -690,6 +698,32 @@
         {
           "inputs": [
             {
+              "internalType": "bool",
+              "name": "newValue",
+              "type": "bool"
+            }
+          ],
+          "name": "changeEnableSaleBNB",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bool",
+              "name": "newValue",
+              "type": "bool"
+            }
+          ],
+          "name": "changeEnableSaleBURG",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
               "internalType": "bytes32",
               "name": "newRoot",
               "type": "bytes32"
@@ -727,6 +761,19 @@
               "internalType": "address",
               "name": "",
               "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getPriceType",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
             }
           ],
           "stateMutability": "view",
@@ -1324,19 +1371,6 @@
               "internalType": "bool",
               "name": "",
               "type": "bool"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [],
-          "name": "whitelistPrice",
-          "outputs": [
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
             }
           ],
           "stateMutability": "view",

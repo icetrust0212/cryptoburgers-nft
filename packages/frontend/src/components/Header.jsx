@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom';
 import { getAddress, getNFTContractInstance, getProvider, getTokenList } from '../store/reducers';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

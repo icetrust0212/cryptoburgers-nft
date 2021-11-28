@@ -1,5 +1,5 @@
 import { providers } from 'ethers'
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import Web3Modal from 'web3modal'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAddress, getChainId, getProvider, getWeb3Provider } from '../store/reducers';
@@ -96,7 +96,7 @@ const ConnectButton = (props:any) => {
     return (
             web3Provider ? (
               <Button onClick={() => disconnect()} style={{color: props.color || 'red'}}>
-                My Account
+                DISCONNECT
               </Button>
           ) : (
             <Button onClick={() => connect()} style={{color: props.color || 'black'}}>

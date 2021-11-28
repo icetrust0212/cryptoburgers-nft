@@ -15,6 +15,7 @@ import styled from 'styled-components';
 import LoaderOverlary from './components/LoadingOverlay';
 import Burgers from './pages/Burgers';
 import Home from './pages/Home';
+import Container from './pages/Container';
 
 const App = () => {
 
@@ -44,7 +45,6 @@ const App = () => {
       <LoaderOverlary>
         <div className="App">
           <Container>
-
             <Switch>
               <Route path="/" exact={true}>
                 <Home handleNotification={handleNotification} />
@@ -56,7 +56,6 @@ const App = () => {
                 <Mint handleNotification={handleNotification} />
               </Route>
             </Switch>
-
           </Container>
         </div>
       </LoaderOverlary>
@@ -66,7 +65,3 @@ const App = () => {
 }
 
 export default App;
-
-const Container = styled.div`
-
-`

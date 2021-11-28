@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import triggerImage from '../assets/imgs/mobile/trigger.png';
 import panelImage from '../assets/imgs/mobile/mobile_panel.png';
 import homeImage from '../assets/imgs/mobile/menu_mobile_home.png';
@@ -30,18 +30,18 @@ const HeaderMobile = (props) => {
     }
 
     return (
-        <Container className={isExpand ? 'expand' : ''} onClick={handleCollapse}>
+        <Container className={isExpand ? 'expand' : ''}>
             <Header>
+                <Trigger src={triggerImage} onClick={handleTriggerClick} />
                 <Link to={'/'}>
                     <LogoImg src={logoImg} alt="logo" className="logo" />
                 </Link>
-                <Trigger src={triggerImage} onClick={handleTriggerClick} />
             </Header>
             <Wrapper className="menu-panel" onClick={e => {
                 e.preventDefault();
                 e.stopPropagation();
             }}>
-                <Panel src={panelImage} />
+                <Panel src={panelImage} onClick={handleCollapse}/>
                 <MenuLayout>
                     <Menu>
                         <Link to={`/`}>
@@ -80,7 +80,7 @@ const Container = styled.div`
         height: 100vh;
         background: rgba(255, 255, 255, 0.7);
         .menu-panel {
-            max-width: 80vw;
+            max-width: 100vw;
         }
     }
     
@@ -92,14 +92,14 @@ const Header = styled.div`
     display:flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 20px;
     padding: 0 20px;
 `
 
 const LogoImg = styled.img`
     width: 130px;
+    padding: 5px;
     &:hover {
-        padding: 10px;
+        padding: 0
     }
 `;
 
@@ -108,8 +108,9 @@ const Trigger = styled.img`
     height: 8vw;
     min-width: 70px;
     min-height: 70px;
+    padding: 5px;
     &:hover {
-        padding: 5px;
+        padding: 0;
     }
     cursor: pointer;
 `;
@@ -131,11 +132,12 @@ const Panel = styled.img`
     width: 100%;
     height: 100vh;
     position: absolute;
+    padding-right: 20%;
     z-index: -1;
 `;
 
 const MenuLayout = styled.div`
-    width: 100%;
+    width: 80%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -155,13 +157,13 @@ const Menu = styled.div`
     align-items: flex-end;
     justify-content: space-around;
     margin-right: -10px;
-    
 `;
 
 const MenuItem = styled.img`
     height: 90px;
+    padding: 3px;
     &:hover {
-        padding: 3px;
+        padding: 0;
     }
 `
 const ConnectionInfo = styled.div`

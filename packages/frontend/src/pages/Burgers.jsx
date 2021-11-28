@@ -1,24 +1,33 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import styled from 'styled-components';
 import { getTokenList } from '../store/reducers';
 import BurgerCard from '../components/BurgerCard';
+
 const Burgers = ({ handleNotification }) => {
     
     const burgerList = useSelector(state => getTokenList(state));
-    const dispatch = useDispatch();
-    
+
     return (
         <Container>
             <Header handleNotification={handleNotification}/>
             <ContentContainer>
-                <ItemList>
                 {
-                    burgerList && burgerList.map((data, index) => (
-                        <BurgerCard data={data} key={index}/>
-                    ))
+                    burgerList && burgerList.length > 0 ?  (
+                        <ItemList>
+                        {
+                            burgerList.map((data, index) => (
+                                <BurgerCard data={data} key={index}/>
+                            ))
+                        }
+                        </ItemList>
+                    ) : (
+                        <div>
+                            Are You Hungry? Mint an hanburger!
+                        </div>
+                    )
                 }
-            </ItemList>
+                
             </ContentContainer>
         </Container>
     )
