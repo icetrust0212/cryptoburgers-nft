@@ -2,10 +2,13 @@
 
 require("@nomiclabs/hardhat-waffle");
 require('dotenv').config().parsed;
+require('dotenv').config({path: './.env.private'}).parsed;
 require('hardhat-deploy');
 require('hardhat-deploy-ethers');
 require("@nomiclabs/hardhat-etherscan");
 require('@openzeppelin/hardhat-upgrades');
+
+// console.log('private: ', private);
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
