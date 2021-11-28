@@ -43,7 +43,7 @@ const DIV = styled.div`
     max-width: 400px;
     min-height: 500px;
     height: 550px;
-    font-family: 'American';
+    font-family: 'Baloo';
     @media(max-width: 767px) {
         min-height: fit-content;
         width: 260px;
@@ -55,7 +55,7 @@ const DIV = styled.div`
     padding: 20px;
     position: relative;
     border-radius: 20px;
-    background: #fce043;
+    background: white;
     position: relative;
     box-sizing: border-box;
     background-clip: padding-box; /* !importanté */
@@ -153,7 +153,7 @@ const ITEM = styled.div`
         text-transform: uppercase;
         font-weight: bold;
         label {
-            font-size: 18px;
+            font-size: 15px;
             @media(max-width: 767px) {
                 font-size: 12px;
             }
@@ -172,7 +172,7 @@ const SPAN = styled.span`
     position: absolute;
     top: 5px;
     left: 20px;
-    font-size: 18px;
+    font-size: 15px;
     color: black;
     font-weight: 500;
   `

@@ -25,7 +25,7 @@ function Mint({ handleNotification }) {
     const [bnbPrice, setBNBPrice] = useState(0);
     const whitelistState = useSelector(state => isWhitelistMode(state));
     const [currentTokenAmount, setCurrentTokenAmount] = useState([0, 0, 0]);
-    const [limitationTokenAmount, setLimitationTokenAmount] = useState([0, 0, 0]);
+    const [limitationTokenAmount, setLimitationTokenAmount] = useState([4400, 2200, 900]);
     const [priceType, setPriceType] = useState('BNB');
 
 
