@@ -5,10 +5,10 @@ const init = () => {
   const CONTRACT_INFO = require('../../contracts.json');
 
   const CONTRACT_ABI = CONTRACT_INFO.contracts.Burger.abi;
-  const CONTRACT_ADDRESS = CONTRACT_INFO.contracts.Burger.address;
+  const CONTRACT_ADDRESS = CONTRACT_INFO.contracts.Burger_Proxy.address;
   
   const CONTRACT_BURG_ABI = CONTRACT_INFO.contracts.BurgToken.abi;
-  const CONTRACT_BURG_ADDRESS = CONTRACT_INFO.contracts.BurgToken.address;
+  const CONTRACT_BURG_ADDRESS = CONTRACT_INFO.contracts.BurgToken_Proxy.address;
   // const web3Instance = new Web3(window.ethereum);
   const web3Instance = createAlchemyWeb3(config.TESTNET_HTTP_URL);
   const wssWeb3Instance = createAlchemyWeb3(config.TESTNET_WSS_URL);

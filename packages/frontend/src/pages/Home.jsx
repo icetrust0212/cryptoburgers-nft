@@ -9,7 +9,7 @@ function Home() {
         <Container>
             <GameButtonLayout>
                 <ButtonWrapper>
-                <RouterLink to="/burgers">
+                <RouterLink to="/mint">
                   <GameButton src={`${playButtonImage}`}  />
                 </RouterLink>
                 </ButtonWrapper>

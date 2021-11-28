@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import styled from 'styled-components';
 import { getTokenList } from '../store/reducers';
 import BurgerCard from '../components/BurgerCard';
+import NotReady from '../components/NotReady';
 
 const Burgers = ({ handleNotification }) => {
     
@@ -22,9 +23,7 @@ const Burgers = ({ handleNotification }) => {
                         }
                         </ItemList>
                     ) : (
-                        <div>
-                            Are You Hungry? Mint an hanburger!
-                        </div>
+                        <NotReady></NotReady>
                     )
                 }
                 
@@ -42,14 +41,14 @@ const Container = styled.div`
     min-height: 100vh;
     background-repeat-x: no-repeat;
     background-size: 100%;
-    background-image: url(/images/home_burgers_background.svg);
+    background-image: url(/images/home_burgers_background.png);
     background-repeat-y: repeat;
 `
 const ContentContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 80px 20px;
     @media(max-width: 767px) {
         margin-top: 20px;
     }
@@ -59,6 +58,7 @@ const ItemList = styled.div`
     flex-wrap: wrap;
     padding: 0;
     margin: 0;
+    gap: 50px;
     justify-content: space-between;
     align-items: flex-start;
     @media(max-width: 991px) {

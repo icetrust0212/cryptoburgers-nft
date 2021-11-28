@@ -30,7 +30,7 @@ export async function mintNFT(nftContractInstance, burgTokenContractInstance,  a
 }
 
 export async function mintWhiteListMode(boxId, nftContractInstance,  address, proof, onMintFail) {
-  let tokenPrice = await nftContractInstance.methods.boxPriceBNB(boxId).call();
+  let tokenPrice = await nftContractInstance.methods.getBoxPriceBNB(boxId).call();
 
   return nftContractInstance.methods.mintWhitelist(proof, boxId).send({value: tokenPrice, from: address}).on("receipt", function(res) {
     console.log('mint whitelist result: ', res);
@@ -43,17 +43,18 @@ export async function mintWhiteListMode(boxId, nftContractInstance,  address, pr
 
 async function allowBURGTokenAmount(burgTokenContractInstance, amount, address) {
   console.log('approve:' , burgTokenContractInstance, amount, address);
-  const _spender = CONTRACT_INFO.contracts.Burger.address;
+  const _spender = CONTRACT_INFO.contracts.Burger_Proxy.address;
   return await burgTokenContractInstance.methods.approve(_spender, amount).send({from:address});
 }
 
 export async function getBoxPrice(nftContractInstance, boxId, priceType) {
   let boxPrice;
+  console.log('getBoxPrice: ', nftContractInstance, priceType)
   if (priceType === 'BNB') {
-    boxPrice = await nftContractInstance.methods.boxPriceBNB(boxId).call();
-    console.log('bnb tokenPrice: ', boxPrice);
+        boxPrice = await nftContractInstance.methods.getBoxPriceBNB(boxId).call();
+        console.log('bnb tokenPrice: ', boxPrice);
   } else {
-    boxPrice = await nftContractInstance.methods.boxPriceBURG(boxId).call();
+    boxPrice = await nftContractInstance.methods.getBoxPriceBURG(boxId).call();
     console.log('burg tokenPrice: ', boxPrice);
   }
 
@@ -148,7 +149,7 @@ export async function getLatestBNBPrice() {
 }
 
 export async function getWhitelistState(nftContractInstance) {
-  let rsp = await nftContractInstance.methods.whitelistActive().call();
+  let rsp = await nftContractInstance.methods.isWhitelistActive().call();
   console.log('whitelist: ', rsp)
   return rsp;
 }
@@ -156,11 +157,11 @@ export async function getWhitelistState(nftContractInstance) {
 export async function getCurrentTokenAmount(nftContractInstance, boxType) {
   let rsp;
   if (boxType) {
-    rsp = await nftContractInstance.methods._tokenSupply(boxType).call();
+    rsp = await nftContractInstance.methods.getTokenSupply(boxType).call();
   } else {
-    let rsp1 = await nftContractInstance.methods._tokenSupply(0).call();
-    let rsp2 = await nftContractInstance.methods._tokenSupply(1).call();
-    let rsp3 = await nftContractInstance.methods._tokenSupply(2).call();
+    let rsp1 = await nftContractInstance.methods.getTokenSupply(0).call();
+    let rsp2 = await nftContractInstance.methods.getTokenSupply(1).call();
+    let rsp3 = await nftContractInstance.methods.getTokenSupply(2).call();
     rsp = [].concat(rsp1).concat(rsp2).concat(rsp3);
   }
   
@@ -172,11 +173,11 @@ export async function getTokenAmountLimitation(nftContractInstance, boxType) {
   console.log('limitation: ', boxType)
   let rsp;
   if (boxType) {
-    rsp = await nftContractInstance.methods._limitTokenAmountPerBoxtype(boxType).call();
+    rsp = await nftContractInstance.methods.getLimitTokenAmountPerBoxType(boxType).call();
   } else {
-    let rsp1 = await nftContractInstance.methods._limitTokenAmountPerBoxtype(0).call();
-    let rsp2 = await nftContractInstance.methods._limitTokenAmountPerBoxtype(1).call();
-    let rsp3 = await nftContractInstance.methods._limitTokenAmountPerBoxtype(2).call();
+    let rsp1 = await nftContractInstance.methods.getLimitTokenAmountPerBoxType(0).call();
+    let rsp2 = await nftContractInstance.methods.getLimitTokenAmountPerBoxType(1).call();
+    let rsp3 = await nftContractInstance.methods.getLimitTokenAmountPerBoxType(2).call();
     rsp = [].concat(rsp1).concat(rsp2).concat(rsp3);
   }
   console.log('limitation: ', rsp)

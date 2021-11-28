@@ -31,25 +31,23 @@ contract Burger is
 
     mapping(uint256 => uint8) private boxTypeById;
 
-    uint256[] public boxPriceBNB = [1e16, 2 * 1e16, 3 * 1e16];
-    uint256[] public boxPriceBURG = [1e16, 2 * 1e16, 3 * 1e16];
+    uint256[] private boxPriceBNB;
+    uint256[] private boxPriceBURG;
 
     // string public strBaseTokenURI =
     //     "https://backend.cryptoburgers.io/metadata/";
-    string public strBaseTokenURI = "http://localhost:8080/api/metadta/";
+    string private strBaseTokenURI;
 
     // true BNB - false BURG
-    bool public saleBNBEnabled = true;
+    bool private saleBNBEnabled;
 
     // Change to true in the mainnet deploy.
-    bool public whitelistActive = false;
-    bytes32 private root =
-        0xa2fc709bf2f4b9cb44b8a9114485d12d4877bb1beedd81f62f4f85a8056480ee;
-
+    bool private whitelistActive;
+    bytes32 private root;
     address BURG;
 
-    uint256[] public _tokenSupply = [0, 0, 0];
-    uint64[] public _limitTokenAmountPerBoxtype = [4400, 2200, 900];
+    uint256[] private _tokenSupply;
+    uint64[] private _limitTokenAmountPerBoxtype;
 
     event MintNFT(
         address indexed _to,
@@ -63,6 +61,14 @@ contract Burger is
 
     function initialize() public initializer {
         __ERC721_init("Burger", "BURGER");
+        boxPriceBNB = [1e16, 2 * 1e16, 3 * 1e16];
+        boxPriceBURG = [1e16, 2 * 1e16, 3 * 1e16];
+        strBaseTokenURI = "http://localhost:8080/api/metadta/";
+        saleBNBEnabled = true;
+        whitelistActive = false;
+        root = 0xa2fc709bf2f4b9cb44b8a9114485d12d4877bb1beedd81f62f4f85a8056480ee;
+        _tokenSupply = [0, 0, 0];
+        _limitTokenAmountPerBoxtype = [4400, 2200, 900];
         // Uncomment if we want deploy paused
         // _pause();
     }
@@ -291,6 +297,37 @@ contract Burger is
 
     function changeEnableSaleBNB(bool newValue) external onlyOwner {
         saleBNBEnabled = newValue;
+    }
+
+    function getBoxPriceBNB(uint8 boxID) external view returns(uint256) {
+        return boxPriceBNB[boxID];
+    }
+
+    function getBoxPriceBURG(uint8 boxID) external view returns(uint256) {
+        return boxPriceBURG[boxID];
+    }
+
+    function getBaseTokenURI() external view returns(string memory) {
+        return strBaseTokenURI;
+    }
+
+    function isSaleBNBEnabled() external view returns(bool) {
+        return saleBNBEnabled;
+    }
+
+    function isWhitelistActive() external view returns(bool) {
+        return whitelistActive;
+    }
+
+    function whitelistRoot() external view returns(bytes32) {
+        return root;
+    }
+
+    function getTokenSupply(uint8 boxId) external view returns(uint256) {
+        return _tokenSupply[boxId];
+    }
+    function getLimitTokenAmountPerBoxType(uint8 boxId) external view returns(uint256) {
+        return _limitTokenAmountPerBoxtype[boxId];
     }
 
 }

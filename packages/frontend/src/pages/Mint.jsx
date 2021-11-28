@@ -25,7 +25,7 @@ function Mint({ handleNotification }) {
     const [bnbPrice, setBNBPrice] = useState(0);
     const whitelistState = useSelector(state => isWhitelistMode(state));
     const [currentTokenAmount, setCurrentTokenAmount] = useState([0, 0, 0]);
-    const [limitationTokenAmount, setLimitationTokenAmount] = useState([0, 0, 0]);
+    const [limitationTokenAmount, setLimitationTokenAmount] = useState([4400, 2200, 900]);
     const [priceType, setPriceType] = useState('BNB');
 
 
@@ -128,13 +128,13 @@ function Mint({ handleNotification }) {
         } else {
             handleNotification("warning", 'You are not connected mainnet');
         }
-        const timerID = setInterval(async () => {
-            const price = await getLatestBNBPrice();
-            setBNBPrice(price);
-        }, 5000);
-        return () => {
-            clearInterval(timerID);
-        };
+        // const timerID = setInterval(async () => {
+        //     const price = await getLatestBNBPrice();
+        //     setBNBPrice(price);
+        // }, 5000);
+        // return () => {
+        //     clearInterval(timerID);
+        // };
     }, [provider, address, chainId]);
     return (
         <Container>
@@ -169,7 +169,7 @@ const Row = styled.div`
     flex-wrap: wrap;
     max-width: 1000px;
     min-width: fit-content;
-    margin: 110px auto;
+    padding: 130px 0 50px 0;
     @media(max-width: 767px) {
         margin: 0 auto;
         padding: 0;

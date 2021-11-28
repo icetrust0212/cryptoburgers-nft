@@ -13,6 +13,7 @@ import logoImg from '../assets/imgs/logo.svg';
 
 import styled from 'styled-components';
 import { ellipseAddress } from '../lib/utilities';
+import ProgressBar from './ProgressBar';
 
 const HeaderMobile = (props) => {
     const [isExpand, setExpand] = useState(false);
@@ -44,13 +45,13 @@ const HeaderMobile = (props) => {
                 <Panel src={panelImage} onClick={handleCollapse}/>
                 <MenuLayout>
                     <Menu>
-                        <Link to={`/`}>
+                        <Link to={`/mint`}>
                             <MenuItem src={homeImage}></MenuItem>
                         </Link>
                         <Link to={`/burgers`}>
                             <MenuItem src={burgersImage}></MenuItem>
                         </Link>
-                        <Link to={`/mint`}>
+                        <Link to={`/marketplace`}>
                             <MenuItem src={marketplaceImage}></MenuItem>
                         </Link>
                         <Link to={`/staking`}>
@@ -58,10 +59,15 @@ const HeaderMobile = (props) => {
                         </Link>
                     </Menu>
                     <ConnectionInfo>
-                        <ConnectButton color={'white'} />
                         {
-                            provider && address &&
-                            <span className="address-view">{ellipseAddress(address)}</span>
+                            provider && address && (
+                                <ProgressbarWrapper>
+                                    <ProgressBar value={70} />
+                                </ProgressbarWrapper>
+                            )
+                        }
+                        {
+                            <span className="address-view">{<ConnectButton color={'black'} />}</span>
                         }
                     </ConnectionInfo>
                 </MenuLayout>
@@ -183,5 +189,11 @@ const ConnectionInfo = styled.div`
     color: black;
     font-family: 'Baloo';
     }
+`;
+
+const ProgressbarWrapper = styled.div`
+    width: 100%;
+    height: 30px;
+    padding: 10px 50px;
 `
 export default HeaderMobile;

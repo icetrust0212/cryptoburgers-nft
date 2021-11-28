@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import boxPanel1 from '../assets/imgs/boxPanel_temp1.png';
-import boxPanel2 from '../assets/imgs/boxPanel_temp2.png';
-import boxPanel3 from '../assets/imgs/boxPanel_temp3.png';
+import boxPanel1 from '../assets/imgs/boxPanel1.png';
+import boxPanel2 from '../assets/imgs/boxPanel2.png';
+import boxPanel3 from '../assets/imgs/boxPanel3.png';
 
 import memo1 from '../assets/imgs/memo1.png';
 import memo2 from '../assets/imgs/memo2.png';
 import memo3 from '../assets/imgs/memo3.png';
 
-import box1 from '../assets/imgs/box1.png';
-import box2 from '../assets/imgs/box2.png';
-import box3 from '../assets/imgs/box3.png';
+import memo1_soldout from '../assets/imgs/memo1_soldout.png';
+import memo2_soldout from '../assets/imgs/memo2_soldout.png';
+import memo3_soldout from '../assets/imgs/memo3_soldout.png';
 
 import { getBoxPrice } from '../lib/nftutils';
 import { getChainId, getNFTContractInstance, getProvider } from '../store/reducers';
@@ -49,11 +49,11 @@ const Box = ({ boxId, onPurchase, title, currentTokenAmount, limitTokenAmount, p
     const getMemo = (boxId) => {
         switch (boxId) {
             case 0:
-                return memo1;
+                return currentTokenAmount < limitTokenAmount ? memo1 : memo1_soldout;
             case 1:
-                return memo2;
+                return currentTokenAmount < limitTokenAmount ? memo2 : memo2_soldout;;
             case 2:
-                return memo3;
+                return currentTokenAmount < limitTokenAmount ? memo3 : memo3_soldout;;
         }
     }
 
@@ -74,7 +74,7 @@ const Box = ({ boxId, onPurchase, title, currentTokenAmount, limitTokenAmount, p
         if (direction === 'left') {
             switch (boxId) {
                 case 0:
-                    return isMobile ? "61px" : "3.3vw";
+                    return isMobile ? "50px" : "3.3vw";
                 case 1:
                     return isMobile ? "138px" : "8.4vw";
                 case 2:
@@ -83,25 +83,15 @@ const Box = ({ boxId, onPurchase, title, currentTokenAmount, limitTokenAmount, p
         } else {
             switch (boxId) {
                 case 0:
-                    return isMobile ? "31px" : "1vw";
+                    return isMobile ? "31px" : "-2vw";
                 case 1:
-                    return isMobile ? "31px" : "1vw";
+                    return isMobile ? "31px" : "-2vw";
                 case 2:
-                    return isMobile ? "34px" : "0.7vw";
+                    return isMobile ? "34px" : "-2vw";
             }
         }
     }
 
-    const getBoxImage = (boxId) => {
-        switch (boxId) {
-            case 0:
-                return box1;
-            case 1:
-                return box2;
-            case 2:
-                return box3;
-        }
-    }
     return (
         <Wrapper className="box-wrapper">
             <Panel src={getBoxPanel(boxId)} alt="panel" className="box-panel" />
@@ -109,23 +99,17 @@ const Box = ({ boxId, onPurchase, title, currentTokenAmount, limitTokenAmount, p
                 <img src="/images/bg_counter.png" alt="" className="counter-bg" />
                 <span htmlFor="" className="counter">
                     {
-                        currentTokenAmount < limitTokenAmount ? (
-                            <>
-                                <span className="number">{currentTokenAmount}</span>
-                                <span className="slash">/</span>
-                                <span className="number">{limitTokenAmount}</span>
-                            </>
-                        ) : (
-                            <span className="slash">Sold Out!</span>
-                        )
+                        <>
+                            <span className="number">{currentTokenAmount}</span>
+                            <span className="slash">/</span>
+                            <span className="number">{limitTokenAmount}</span>
+                        </>
                     }
 
                 </span>
             </Counter>
             <Content>
-                <Title>{title}</Title>
                 <Price style={{ color: getColor(boxId) }}>{price / Math.pow(10, 18)}{priceType}</Price>
-                <BoxImg src={getBoxImage(boxId)} />
                 <ButtonPurchase
                     className="btn-text"
                     onClick={() => {
@@ -139,7 +123,6 @@ const Box = ({ boxId, onPurchase, title, currentTokenAmount, limitTokenAmount, p
                         filter: !mintable ? 'grayscale(1)' : ''
                     }}>
                     <img src={getMemo(boxId)} className="bg_purchase" />
-                    <span style={{ transform: boxId === 2 ? 'rotate(5deg)' : 'rotate(-5deg)' }}>buy</span>
                 </ButtonPurchase>
             </Content>
         </Wrapper>
@@ -210,55 +193,34 @@ const Content = styled.div`
         padding-top: 82px;
     }
 `;
-const Title = styled.label`
-    font-size: 2vw;
-    color: black;
-    font-weight: normal;
-    text-align: center;
-    @media(max-width: 767px) {
-        font-size: 27px;
-    }
-`;
 
 const Price = styled.span`
-    font-size: 2vw;
-    margin-top: 2%;
+    font-size: 1.7vw;
+    margin-top: 18%;
     margin-right: 2%;
     @media(max-width: 767px) {
         font-size: 27px;
-        margin-top: 10px;
         margin-right: 5px;
     }
 `;
 const ButtonPurchase = styled.div`
     cursor: pointer;
-    bottom: 1vw;
-    padding: 8%;
     text-transform: capitalize;
-    font-size: 2.4vw;
     font-weight: normal;
     z-index: 1;
+    width: 40%;
     color: var(--button-text-color);
     position: relative;
     .bg_purchase {
         width: 100%;
         height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: -1;
-    }
-    span {
-        display: block;
     }
     :hover {
-        font-size: 2.6vw;
+        width: 42%;
     }
     position: absolute;
     @media(max-width: 767px) {
-        bottom: 20px !important;
-        padding: 25px;
-        font-size: 30px;
+        bottom: -25px !important;
         :hover {
             font-size: 34px;
             margin-left: 0px;
@@ -266,8 +228,4 @@ const ButtonPurchase = styled.div`
     }
 `;
 
-const BoxImg = styled.img`
-    width: 40%;
-    margin-top: 3%;
-`
 export default Box;

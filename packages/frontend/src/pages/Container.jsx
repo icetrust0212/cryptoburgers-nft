@@ -24,6 +24,9 @@ const Container = (props) => {
                 (
                     <CustomSnakeBar>
                         You are not connected BSC mainnet
+                        <span onClick={() => {
+                            setEnableSnakebar(false);
+                        }}>X</span>
                     </CustomSnakeBar>
                 )
             }
@@ -50,7 +53,22 @@ const CustomSnakeBar = styled.div`
     top: 88vh;
     left: calc(50% - 30vw);
     z-index: 1000000;
+    text-align: center;
     border-radius: 8px;
+    padding: 15px;
+    @media(max-width: 767px) {
+        width: 80vw;
+        height: 70px;
+        left: calc(50% - 40vw);
+
+    }
+    span {
+        position: absolute;
+        right: 5px;
+        top: 0;
+        color: white;
+        cursor: pointer;
+    }
 `;
 
 export default Container;

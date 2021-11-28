@@ -1,6 +1,7 @@
 import { formatNo } from '../lib/utilities';
 import cookButton from '../assets/imgs/btn_cook.png';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const BurgerCard = ({ data }) => {
     return (
@@ -33,7 +34,7 @@ const BurgerCard = ({ data }) => {
 
             </FLEXDIV>
             <SPAN>#{formatNo(data.tokenId)}</SPAN>
-            <CookButton src={cookButton}></CookButton>
+            <Link to='/burgers' className="link"><CookButton src={cookButton}></CookButton></Link>
         </DIV>
     )
 }
@@ -42,7 +43,7 @@ const DIV = styled.div`
     max-width: 400px;
     min-height: 500px;
     height: 550px;
-    font-family: 'American';
+    font-family: 'Baloo';
     @media(max-width: 767px) {
         min-height: fit-content;
         width: 260px;
@@ -52,7 +53,6 @@ const DIV = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    margin: 15px;
     position: relative;
     border-radius: 20px;
     background: white;
@@ -68,8 +68,11 @@ const DIV = styled.div`
       top: 0; right: 0; bottom: 0; left: 0;
       margin: -5px; /* !importanté */
       border-radius: inherit; /* !importanté */
-      background: linear-gradient(to right, red, orange);
+      background: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%); 
       z-index: -1;
+    }
+    .link {
+        margin-top: auto;
     }
   `;
 
@@ -150,7 +153,7 @@ const ITEM = styled.div`
         text-transform: uppercase;
         font-weight: bold;
         label {
-            font-size: 18px;
+            font-size: 15px;
             @media(max-width: 767px) {
                 font-size: 12px;
             }
@@ -169,7 +172,7 @@ const SPAN = styled.span`
     position: absolute;
     top: 5px;
     left: 20px;
-    font-size: 18px;
+    font-size: 15px;
     color: black;
     font-weight: 500;
   `
