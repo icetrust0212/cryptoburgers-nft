@@ -3,5 +3,5 @@ packages/frontend/node_modules
 packages/backend/node_modules
 .env
 packages/frontend/.env
-
+.env.private
 .notes.txt

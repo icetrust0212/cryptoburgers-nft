@@ -1,7 +1,14 @@
-const dotenv = require('dotenv').config({path: __dirname + '../../../../../.env'}).parsed;
-console.log('environment: ', dotenv.NODE_ENV);
+// const dotenv = require('dotenv').config({path: '../../.env'}).parsed;
+
+let dbName;
+if (process.env.ENVIRONMENT === 'development') {
+    dbName = 'cryptoburgers-dev';
+} else if (process.env.ENVIRONMENT === 'production') {
+    dbName = 'cryptoburgers';
+}
+
 module.exports = {
     HOST: "localhost",
     PORT: 27017,
-    DB: dotenv.NODE_ENV === 'production' ? "cryptoburgers-dev" : "cryptoburgers"
+    DB: dbName
 };

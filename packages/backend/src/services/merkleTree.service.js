@@ -9,7 +9,7 @@
 
 
 const verifyWhitelist = (address) => {
-    const whiteListArray = require('../model/whitelist.model').whitelist.array;
+    const whiteListArray = require('../whitelist/whitelist').whitelist.array;
     console.log('whitelistarray: ',whiteListArray);
     console.log('address: ', address);
     const leaves = whiteListArray.map(v => keccak256(v));

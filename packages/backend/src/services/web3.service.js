@@ -1,14 +1,8 @@
-const {
-    web3Config
-} = require('../config');
+const { web3Config } = require('../config');
 const wssWeb3 = web3Config.wssWeb3;
-const CONTRACT_INFO = require('../../../frontend/src/contracts.json');
-const {
-    generateMetadataForBoxType
-} = require('./metadata.service');
-const {
-    saveTokenMetadataToDB
-} = require('./mongoose');
+const CONTRACT_INFO = require('../../../../contracts.json');
+const { generateMetadataForBoxType } = require('./metadata.service');
+const { saveTokenMetadataToDB } = require('./mongoose');
 const wssNFTContractInsance = new wssWeb3.eth.Contract(CONTRACT_INFO.contracts.Burger.abi, CONTRACT_INFO.contracts.Burger_Proxy.address);
 const wss = require('./socketServer');
 

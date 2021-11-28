@@ -1,9 +1,7 @@
 
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import WalletLink from 'walletlink'
-const dotenv = require('dotenv').config({path: __dirname + '../../../../.env'}).parsed;
 
-console.log('dotenv: ', dotenv, __dirname)
 export const web3ProviderOptions = {
   'custom-walletlink': {
     display: {
@@ -28,6 +26,27 @@ export const web3ProviderOptions = {
   },
 }
 
+let RPC_HTTP_URL;
+let RPC_WSS_URL;
+
+if (process.env.NODE_ENV === 'development' && process.env.NETWORK === 'rinkeby') {
+    RPC_HTTP_URL = 'https://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3';
+    RPC_WSS_URL = 'wss://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3';
+} else if (process.env.NODE_ENV === 'development' && process.env.NETWORK === 'localhost') {
+    RPC_HTTP_URL = 'wss://5.182.17.19:8545';
+    RPC_WSS_URL = 'https://5.182.17.19:8545';
+} else if (process.env.NODE_ENV === 'production') {
+    RPC_HTTP_URL = 'https://speedy-nodes-nyc.moralis.io/7588301a76eb2417244244c0/bsc/mainnet';
+    RPC_WSS_URL = 'wss://speedy-nodes-nyc.moralis.io/7588301a76eb2417244244c0/bsc/mainnet/ws';
+}
+
+export const config = {
+    RPC_HTTP_URL: RPC_HTTP_URL,
+    RPC_WSS_URL: RPC_WSS_URL
+}
+
+
+/*
 const TESTNET_WSS_URL = "wss://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3"
 const TESTNET_HTTP_URL = "https://eth-rinkeby.alchemyapi.io/v2/vAQGLxQXiYIWXYDEjHX_huSpSxhaAJs3";
 
@@ -41,3 +60,4 @@ export const config = {
   MAINNET_WSS_URL: MAINNET_WSS_URL,
   TESTNET_WSS_URL: TESTNET_WSS_URL,
 }
+*/

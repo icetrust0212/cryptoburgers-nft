@@ -1,20 +1,9 @@
 {
-<<<<<<< HEAD
   "name": "localhost",
   "chainId": "31337",
   "contracts": {
-    "BurgToken": {
-<<<<<<< HEAD
-      "address": "0xE043a0255bd6DdD58d5388BC8f677f1b871865Cb",
-=======
-      "address": "0xa2aa054fbed965D5FEc3C7Be3f5fa13dcAfAe235",
->>>>>>> proxy
-=======
-  "name": "rinkeby",
-  "chainId": "4",
-  "contracts": {
     "DefaultProxyAdmin": {
-      "address": "0xD7f8386afEe85B00d45F60A242878E46670715df",
+      "address": "0x6aFc762263fB2008999b01548DD63FDC3952F3B6",
       "abi": [
         {
           "inputs": [
@@ -179,8 +168,7 @@
       ]
     },
     "BurgToken_Implementation": {
-      "address": "0x57be608D62DF6B7ae3B7e3c710CCb596F2bA1f97",
->>>>>>> features/counter
+      "address": "0x3527C9f7DBD3daAf4EB0B2b5637e253DAca175ae",
       "abi": [
         {
           "inputs": [],
@@ -579,17 +567,8 @@
         }
       ]
     },
-<<<<<<< HEAD
-    "Burger": {
-<<<<<<< HEAD
-      "address": "0xbB7bAcD69E0C1A13dcb8e25387f230753AeedFD2",
-=======
-      "address": "0x920F28B478E55df416ce11a64dd6C26bBAB7853e",
->>>>>>> proxy
-=======
     "BurgToken_Proxy": {
-      "address": "0x6AC8a436CFeA401A602BEa7D90B31D801AFeEAEC",
->>>>>>> features/counter
+      "address": "0x31240D1A98bd51F8cd459D8552ef039F8fEc69e5",
       "abi": [
         {
           "inputs": [
@@ -725,7 +704,7 @@
       ]
     },
     "BurgToken": {
-      "address": "0x6AC8a436CFeA401A602BEa7D90B31D801AFeEAEC",
+      "address": "0x31240D1A98bd51F8cd459D8552ef039F8fEc69e5",
       "abi": [
         {
           "anonymous": false,
@@ -1251,7 +1230,7 @@
       ]
     },
     "Burger_Implementation": {
-      "address": "0x89b6e0C60a26312307E78F53B6055D5A1E3A16de",
+      "address": "0x022B626DaAeb88d8EA26e711971eAF6dCcCEA038",
       "abi": [
         {
           "inputs": [],
@@ -2227,7 +2206,7 @@
       ]
     },
     "Burger_Proxy": {
-      "address": "0x57Bc833798a2E1b60bc92e2396c985764Ed12971",
+      "address": "0x3FF2CDd3f87383D051C7389415eb84Fb7c2ba7a5",
       "abi": [
         {
           "inputs": [
@@ -2363,7 +2342,7 @@
       ]
     },
     "Burger": {
-      "address": "0x57Bc833798a2E1b60bc92e2396c985764Ed12971",
+      "address": "0x3FF2CDd3f87383D051C7389415eb84Fb7c2ba7a5",
       "abi": [
         {
           "anonymous": false,

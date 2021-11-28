@@ -8,7 +8,7 @@
 const chalk = require('chalk');
 const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
-const whitelistArray = require('../model/whitelist.model.js');
+const whitelistArray = require('../whitelist/whitelist.js');
 
 const calculate = () => {
     const leaves = whitelistArray.whitelist.array.map(v => keccak256(v));

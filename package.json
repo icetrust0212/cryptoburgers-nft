@@ -7,21 +7,19 @@
     "packages/*"
   ],
   "scripts": {
-<<<<<<< HEAD
-    "metadata:deploy:ipfs": "node scripts/deploy_to_ipfs.js",
-    "contracts:deploy:hardhat": "npx hardhat node --export packages/frontend/src/contracts.json",
-=======
->>>>>>> proxy
     "test": "npx hardhat test",
     "compile": "npx hardhat compile",
-    "deploy": "yarn contract:clean && hardhat deploy --export packages/frontend/src/contracts.json",
-    "deploy:rinkeby": "yarn contract:clean && hardhat deploy --network rinkeby --export packages/frontend/src/contracts.json",
+    "deploy:mainnet": "npm run contract:clean && hardhat deploy --network mainnet --export packages/frontend/src/contracts.json",
+    "deploy:localhost": "npm run contract:clean && npx hardhat deploy --network localhost --export contracts.json",
+    "deploy:rinkeby": "npm run contract:clean && npx hardhat deploy --network rinkeby --export contracts.json",
     "start": "yarn workspace @nft-minter/frontend start",
+    "initialize:mainnet": "npx hardhat run scripts/initialize_contracts.js --network mainnet",
+    "initialize:localhost": "npx hardhat run scripts/initialize_contracts.js --network localhost",
     "initialize:rinkeby": "npx hardhat run scripts/initialize_contracts.js --network rinkeby",
     "start:server:production": "yarn workspace @nft-minter/backend start",
     "start:server:dev": "yarn workspace @nft-minter/backend dev",
     "build": "yarn workspace @nft-minter/frontend build",
-    "contract:clean": "hardhat clean && rimraf deployments/ rimraf packages/frontend/src/contracts.json"
+    "contract:clean": "npx hardhat clean && npx rimraf deployments/ rimraf contracts.json"
   },
   "author": "",
   "license": "ISC",

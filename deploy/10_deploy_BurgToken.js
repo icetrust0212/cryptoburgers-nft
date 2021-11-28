@@ -13,18 +13,11 @@ const func = async function (hre) {
 
   const contractDeployed = await deploy('BurgToken', {
     from: deployer,
-<<<<<<< HEAD
-    args: [
-    ],
-    log: true,
-    proxy: true
-=======
     args: [],
     log: true,
     proxy: {
       proxyContract: 'OpenZeppelinTransparentProxy',
     },
->>>>>>> proxy
   });
 
     

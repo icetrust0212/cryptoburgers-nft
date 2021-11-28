@@ -1,8 +1,6 @@
 // crypto module
 const crypto = require("crypto");
 
-
-
 const encryptMessage = (message) => {
     const algorithm = "aes-256-cbc"; 
 
